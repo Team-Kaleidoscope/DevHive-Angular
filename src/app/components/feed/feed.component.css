@@ -77,7 +77,7 @@
 
 #top-bar {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 98%;
   margin: 0 auto;
   margin-bottom: .5em;
@@ -98,10 +98,6 @@
 #top-bar-open-chat {
   /* Until implemented */
   display: none;
-}
-
-#main-content {
-  display: flex;
 }
 
 /* Create post */
