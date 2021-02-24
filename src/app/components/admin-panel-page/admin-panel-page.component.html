@@ -1,13 +1,13 @@
 <!-- <app&#45;loading *ngIf="!dataArrived"></app&#45;loading> -->
 
-<div id="content" *ngIf="!dataArrived">
+<main id="content" *ngIf="!dataArrived">
 	<nav id="navigation">
 		<button class="submit-btn" (click)="backToProfile()">ᐊ Back to profile</button>
 		<button class="submit-btn" (click)="backToFeed()">ᐊ Back to feed</button>
 		<button class="submit-btn" (click)="logout()">Logout</button>
 	</nav>
 	<hr>
-	<div class="scroll-standalone">
+	<article class="scroll-standalone">
 		<app-success-bar></app-success-bar>
 		<app-error-bar></app-error-bar>
 
@@ -81,5 +81,5 @@
 			<button class="submit-btn" type="submit">Delete</button>
 			<hr>
 		</form>
-	</div>
-</div>
+	</article>
+</main>
