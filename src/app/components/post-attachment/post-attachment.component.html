@@ -1,13 +1,11 @@
-<div class="attachment">
-	<div class="clickable" (click)="toggleShowFull()">
-		<div class="attachment-name">
-			{{ fileName }}
-		</div>
-		<div class="attachment-type">
-			{{ fileType }}
-		</div>
-	</div>
-</div>
+<figure class="attachment" (click)="toggleShowFull()">
+	<summary class="attachment-name">
+		{{ fileName }}
+	</summary>
+	<summary class="attachment-type">
+		{{ fileType }}
+	</summary>
+</figure>
 
 <div class="show-full-attachment" *ngIf="showFull" (click)="toggleShowFull()">
 	<img class="attachment-img" *ngIf="isImage" src="{{paramURL}}">

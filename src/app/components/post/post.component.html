@@ -1,8 +1,8 @@
 <app-loading *ngIf="!loaded"></app-loading>
 
-<div class="post rounded-border" *ngIf="loaded">
-	<div class="content">
-		<div class="author" (click)="goToAuthorProfile()">
+<section class="post rounded-border" *ngIf="loaded">
+	<section class="content">
+		<summary class="author" (click)="goToAuthorProfile()">
 			<img class="round-image" [src]="user.profilePictureURL">
 			<div class="author-info">
 				<div class="name">
@@ -12,38 +12,37 @@
 					@{{ user.userName }}
 				</div>
 			</div>
-		</div>
-		<div class="message" (click)="goToPostPage()">
+		</summary>
+		<article class="message" (click)="goToPostPage()">
 			{{ post.message }}
-		</div>
+		</article>
 		<div class="bottom-post" (click)="goToPostPage()">
-			<div class="timestamp">
+			<time class="timestamp">
 				{{ timeCreated }}
-			</div>
+			</time>
 			<div class="separator">
 				║
 			</div>
-			<div class="comment-count">
+			<summary class="comment-count">
 				{{ post.comments.length }}
 				<img src="assets/images/comment.png">
-			</div>
+			</summary>
 		</div>
-
-	</div>
-	<div class="rating">
+	</section>
+	<section class="rating">
 		<button class="vote">
 			ᐃ
 		</button>
-		<div class="score">
+		<summary class="score">
 			{{ votesNumber }}
-		</div>
+		</summary>
 		<button class="vote">
 			ᐁ
 		</button>
-	</div>
-</div>
-<div class="attachments">
-	<div *ngFor="let fileURL of post.fileURLs">
+	</section>
+</section>
+<aside class="attachments">
+	<figure *ngFor="let fileURL of post.fileURLs">
 		<app-post-attachment class="no-events" [paramURL]="fileURL"></app-post-attachment>
-	</div>
-</div>
+	</figure>
+</aside>

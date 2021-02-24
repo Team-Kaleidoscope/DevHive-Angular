@@ -1,5 +1,6 @@
 .comment {
   display: flex;
+  flex-direction: column;
   width: 100%;
 
   margin: .5em auto;
@@ -39,10 +40,6 @@
 }
 
 /* Content */
-
-.content {
-  flex: 1;
-}
 
 .message {
   margin: .3em 0;
