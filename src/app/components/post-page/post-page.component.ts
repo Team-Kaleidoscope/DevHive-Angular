@@ -116,12 +116,9 @@ export class PostPageComponent implements OnInit {
     }
 
     if (this.editingPost) {
-      let newMessage = this.editPostFormGroup.get('newPostMessage')?.value;
+      const newMessage = this.editPostFormGroup.get('newPostMessage')?.value;
 
-      if (newMessage !== this.post.message) {
-        if (newMessage === '') {
-          newMessage = this.post.message;
-        }
+      if (newMessage === '' && newMessage !== this.post.message) {
         this._postService.putPostWithSessionStorageRequest(this.postId, newMessage, this.files).subscribe(
           (result: object) => {
             this.reloadPage();
