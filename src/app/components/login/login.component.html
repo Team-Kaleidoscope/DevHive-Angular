@@ -8,9 +8,9 @@
 			<input type="text" placeholder="Username" class="input-field" formControlName="username" required>
 			<label class="input-field-label">Username</label>
 
-			<mark class="input-errors">
+			<div class="input-errors">
 				<label *ngIf="loginUserFormGroup.get('username')?.errors?.required" class="error">*Required</label>
-			</mark>
+			</div>
 		</section>
 
 		<section class="input-selection">

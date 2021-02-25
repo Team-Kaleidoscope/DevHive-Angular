@@ -10,51 +10,51 @@
 			<input type="text" placeholder="Goshko, is that u?" class="input-field" formControlName="firstName" required>
 			<label class="input-field-label">First Name</label>
 
-			<mark class="input-errors">
+			<div class="input-errors">
 				<label *ngIf="registerUserFormGroup.get('firstName')?.errors?.required" class="error">*Required</label>
 				<label *ngIf="registerUserFormGroup.get('firstName')?.errors?.minlength" class="error">*Minimum 3 characters</label>
-			</mark>
+			</div>
 		</section>
 
 		<section class="input-selection">
 			<input type="text" placeholder="Trapov? Really??" class="input-field" formControlName="lastName" required>
 			<label class="input-field-label">Last Name</label>
 
-			<mark class="input-errors">
+			<div class="input-errors">
 				<label *ngIf="registerUserFormGroup.get('lastName')?.errors?.required" class="error">*Required</label>
 				<label *ngIf="registerUserFormGroup.get('lastName')?.errors?.minlength" class="error">*Minimum 3 characters</label>
-			</mark>
+			</div>
 		</section>
 
 		<section class="input-selection">
 			<input type="text" placeholder="Think of something cool to flex on other kids" class="input-field" formControlName="username" required>
 			<label class="input-field-label">Username</label>
 
-			<mark class="input-errors">
+			<div class="input-errors">
 				<label *ngIf="registerUserFormGroup.get('username')?.errors?.required" class="error">*Required</label>
 				<label *ngIf="registerUserFormGroup.get('username')?.errors?.minlength" class="error">*Minimum 3 characters</label>
-			</mark>
+			</div>
 		</section>
 
 		<section class="input-selection">
 			<input type="text" placeholder="You expect an email joke? I have none, mail me one" class="input-field" formControlName="email" required>
 			<label class="input-field-label">Email</label>
 
-			<mark class="input-errors">
+			<div class="input-errors">
 				<label *ngIf="registerUserFormGroup.get('email')?.errors?.required" class="error">*Required</label>
 				<label *ngIf="registerUserFormGroup.get('email')?.errors?.email" class="error">*Invalid email</label>
-			</mark>
+			</div>
 		</section>
 
 		<section class="input-selection">
 			<input type="password" placeholder="Make sure it's long & strong (just like my d***)" class="input-field" formControlName="password" required>
 			<label class="input-field-label">Password</label>
 
-			<mark class="input-errors">
+			<div class="input-errors">
 				<label *ngIf="registerUserFormGroup.get('password')?.errors?.required" class="error">*Required</label>
 				<label *ngIf="registerUserFormGroup.get('password')?.errors?.minlength" class="error">*Minimum 3 characters</label>
 				<label *ngIf="registerUserFormGroup.get('password')?.errors?.pattern" class="error">*At least 1 number</label>
-			</mark>
+			</div>
 		</section>
 
 		<hr>

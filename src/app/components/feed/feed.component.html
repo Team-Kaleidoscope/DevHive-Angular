@@ -36,10 +36,10 @@
 			<img id="top-bar-open-chat" src="assets/images/feed/chat-pic.png" alt=""/>
 		</nav>
 		<section id="posts" class="scroll-standalone" (scroll)="onScroll($event)">
-			<mark id="no-posts-msg" *ngIf="posts.length === 0">
+			<div id="no-posts-msg" *ngIf="posts.length === 0">
 				None of your friends have posted anything yet!<br>
 				Try refreshing your page!
-			</mark>
+			</div>
 			<div *ngFor="let friendPost of posts" class="post">
 				<app-post [paramId]="friendPost.postId.toString()"></app-post>
 			</div>
