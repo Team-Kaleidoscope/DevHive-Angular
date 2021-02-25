@@ -44,6 +44,7 @@ export class PostPageComponent implements OnInit {
         this.post.fileURLs = Object.values(result)[7];
         if (this.loggedIn) {
           this.editable = this.post.creatorUsername === this._tokenService.getUsernameFromSessionStorageToken();
+          this.editPostFormGroup.get('newPostMessage')?.setValue(this.post.message);
         }
         if (this.post.fileURLs.length > 0) {
           this.loadFiles();
@@ -116,15 +117,18 @@ export class PostPageComponent implements OnInit {
 
     if (this.editingPost) {
       let newMessage = this.editPostFormGroup.get('newPostMessage')?.value;
-      if (newMessage === '') {
-        newMessage = this.post.message;
-      }
-      this._postService.putPostWithSessionStorageRequest(this.postId, newMessage, this.files).subscribe(
-        (result: object) => {
-          this.reloadPage();
+
+      if (newMessage !== this.post.message) {
+        if (newMessage === '') {
+          newMessage = this.post.message;
         }
-      );
-      this.dataArrived = false;
+        this._postService.putPostWithSessionStorageRequest(this.postId, newMessage, this.files).subscribe(
+          (result: object) => {
+            this.reloadPage();
+          }
+        );
+        this.dataArrived = false;
+      }
     }
     this.editingPost = !this.editingPost;
   }
