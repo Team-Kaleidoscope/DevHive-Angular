@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { User } from 'src/models/identity/user';
 import { UserService } from '../../services/user.service';
 import { AppConstants } from 'src/app/app-constants.module';
-import { HttpErrorResponse } from '@angular/common/http';
 import { FeedService } from 'src/app/services/feed.service';
 import { Post } from 'src/models/post';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -55,7 +54,7 @@ export class FeedComponent implements OnInit {
         Object.assign(this.user, res);
         this.loadFeed();
       },
-      (err: HttpErrorResponse) => {
+      () => {
         this.logout();
       }
     );
@@ -67,7 +66,7 @@ export class FeedComponent implements OnInit {
         this.posts.push(...Object.values(result)[0]);
         this.finishUserLoading();
       },
-      (err) => {
+      () => {
         this.finishUserLoading();
       }
     );
@@ -104,10 +103,10 @@ export class FeedComponent implements OnInit {
     this.dataArrived = false;
 
     this._postService.createPostWithSessionStorageRequest(postMessage, this.files).subscribe(
-      (result: object) => {
+      () => {
         this.goToProfile();
       },
-      (err: HttpErrorResponse) => {
+      () => {
         this.dataArrived = true;
       }
     );

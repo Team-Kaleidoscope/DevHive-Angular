@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
@@ -53,7 +52,7 @@ export class PostPageComponent implements OnInit {
           this.dataArrived = true;
         }
       },
-      (err: HttpErrorResponse) => {
+      () => {
         this._router.navigate(['/not-found']);
       }
     );
@@ -120,7 +119,7 @@ export class PostPageComponent implements OnInit {
 
       if (newMessage === '' && newMessage !== this.post.message) {
         this._postService.putPostWithSessionStorageRequest(this.postId, newMessage, this.files).subscribe(
-          (result: object) => {
+          () => {
             this.reloadPage();
           }
         );
@@ -139,7 +138,7 @@ export class PostPageComponent implements OnInit {
     const newComment = this.addCommentFormGroup.get('newComment')?.value;
     if (newComment !== '' && newComment !== null) {
       this._commentService.createCommentWithSessionStorageRequest(this.postId, newComment).subscribe(
-        (result: object) => {
+        () => {
           this.editPostFormGroup.reset();
           this.reloadPage();
         }
@@ -149,7 +148,7 @@ export class PostPageComponent implements OnInit {
 
   deletePost(): void {
     this._postService.deletePostWithSessionStorage(this.postId).subscribe(
-      (result: object) => {
+      () => {
         this._router.navigate(['/profile/' + this._tokenService.getUsernameFromSessionStorageToken()]);
       }
     );

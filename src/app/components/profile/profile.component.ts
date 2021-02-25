@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/models/identity/user';
 import { AppConstants } from 'src/app/app-constants.module';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { LanguageService } from 'src/app/services/language.service';
 import { TechnologyService } from 'src/app/services/technology.service';
@@ -38,10 +37,6 @@ export class ProfileComponent implements OnInit {
     this._titleService.setTitle(this._title);
   }
 
-  private setDefaultUser(): void {
-    this.user = this._userService.getDefaultUser();
-  }
-
   ngOnInit(): void {
     this._urlUsername = this._router.url.substring(9);
 
@@ -63,7 +58,7 @@ export class ProfileComponent implements OnInit {
         this.isAdminUser = this.user.roles.map(x => x.name).includes(AppConstants.ADMIN_ROLE_NAME);
         this.loadLanguages();
       },
-      (err: HttpErrorResponse) => {
+      () => {
         this._router.navigate(['/not-found']);
       }
     );
@@ -102,7 +97,7 @@ export class ProfileComponent implements OnInit {
         this.userPosts.push(...resultArr);
         this.finishUserLoading();
       },
-      (err: HttpErrorResponse) => {
+      () => {
         this._currentPage = -1;
         this.finishUserLoading();
       }
@@ -126,7 +121,7 @@ export class ProfileComponent implements OnInit {
           }
           this.dataArrived = true;
         },
-        (err: HttpErrorResponse) => {
+        () => {
           this.logout();
         }
       );
@@ -175,10 +170,10 @@ export class ProfileComponent implements OnInit {
           }
 
           this._userService.putBareUserFromSessionStorageRequest(loggedInUser, this.updateFrienship.get('password')?.value).subscribe(
-            (resultUpdate: object) => {
+            () => {
               this.reloadPage();
             },
-            (err: HttpErrorResponse) => {
+            () => {
               this._router.navigate(['/']);
             }
           );

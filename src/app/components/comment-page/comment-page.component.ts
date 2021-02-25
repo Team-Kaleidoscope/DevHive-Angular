@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
@@ -42,7 +41,7 @@ export class CommentPageComponent implements OnInit {
         }
         this.loaded = true;
       },
-      (err: HttpErrorResponse) => {
+      () => {
         this._router.navigate(['/not-found']);
       }
     );
@@ -68,7 +67,7 @@ export class CommentPageComponent implements OnInit {
       if (newMessage !== '' && newMessage !== this.comment.message) {
         console.log(this.commentId);
         this._commentService.putCommentWithSessionStorageRequest(this.commentId, this.comment.postId, newMessage).subscribe(
-          (result: object) => {
+          () => {
             this.reloadPage();
           }
         );
@@ -79,7 +78,7 @@ export class CommentPageComponent implements OnInit {
 
   deleteComment(): void {
     this._commentService.deleteCommentWithSessionStorage(this.commentId).subscribe(
-      (result: object) => {
+      () => {
         this.toPost();
       }
     );

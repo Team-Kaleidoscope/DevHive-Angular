@@ -53,7 +53,7 @@ export class AdminPanelPageComponent implements OnInit {
           this._router.navigate(['/login']);
         }
       },
-      (err: HttpErrorResponse) => {
+      () => {
         this._router.navigate(['/login']);
       }
     );
@@ -129,7 +129,7 @@ export class AdminPanelPageComponent implements OnInit {
 
     if (languageCreate !== '' && languageCreate !== null) {
       this._languageService.createLanguageWithSessionStorageRequest(languageCreate.trim()).subscribe(
-        (result: object) => {
+        () => {
           this.languageModifiedSuccess('Successfully updated languages!');
         },
         (err: HttpErrorResponse) => {
@@ -147,7 +147,7 @@ export class AdminPanelPageComponent implements OnInit {
       const langId = this.availableLanguages.filter(x => x.name === updateLanguageOldName.trim())[0].id;
 
       this._languageService.putLanguageWithSessionStorageRequest(langId, updateLanguageNewName.trim()).subscribe(
-        (result: object) => {
+        () => {
           this.languageModifiedSuccess('Successfully updated languages!');
         },
         (err: HttpErrorResponse) => {
@@ -164,7 +164,7 @@ export class AdminPanelPageComponent implements OnInit {
       const langId = this.availableLanguages.filter(x => x.name === deleteLanguageName.trim())[0].id;
 
       this._languageService.deleteLanguageWithSessionStorageRequest(langId).subscribe(
-        (result: object) => {
+        () => {
           this.languageModifiedSuccess('Successfully deleted language!');
         },
         (err: HttpErrorResponse) => {
@@ -205,7 +205,7 @@ export class AdminPanelPageComponent implements OnInit {
 
     if (technologyCreate !== '' && technologyCreate !== null) {
       this._technologyService.createTechnologyWithSessionStorageRequest(technologyCreate.trim()).subscribe(
-        (result: object) => {
+        () => {
           this.technologyModifiedSuccess('Successfully updated technologies!');
         },
         (err: HttpErrorResponse) => {
@@ -223,7 +223,7 @@ export class AdminPanelPageComponent implements OnInit {
       const techId = this.availableTechnologies.filter(x => x.name === updateTechnologyOldName.trim())[0].id;
 
       this._technologyService.putTechnologyWithSessionStorageRequest(techId, updateTechnologyNewName.trim()).subscribe(
-        (result: object) => {
+        () => {
           this.technologyModifiedSuccess('Successfully updated technologies!');
         },
         (err: HttpErrorResponse) => {
@@ -240,7 +240,7 @@ export class AdminPanelPageComponent implements OnInit {
       const techId = this.availableTechnologies.filter(x => x.name === deleteTechnologyName.trim())[0].id;
 
       this._technologyService.deleteTechnologyWithSessionStorageRequest(techId).subscribe(
-        (result: object) => {
+        () => {
           this.technologyModifiedSuccess('Successfully deleted technology!');
         },
         (err: HttpErrorResponse) => {
@@ -283,7 +283,7 @@ export class AdminPanelPageComponent implements OnInit {
       const userId: Guid = Guid.parse(deleteUser);
 
       this._userService.deleteUserRequest(userId, this._tokenService.getTokenFromSessionStorage()).subscribe(
-        (result: object) => {
+        () => {
           this.deletionSuccess('Successfully deleted user!');
         },
         (err: HttpErrorResponse) => {
@@ -300,7 +300,7 @@ export class AdminPanelPageComponent implements OnInit {
       const postId: Guid = Guid.parse(deletePost);
 
       this._postService.deletePostRequest(postId, this._tokenService.getTokenFromSessionStorage()).subscribe(
-        (result: object) => {
+        () => {
           this.deletionSuccess('Successfully deleted user!');
         },
         (err: HttpErrorResponse) => {
@@ -317,7 +317,7 @@ export class AdminPanelPageComponent implements OnInit {
       const commentId: Guid = Guid.parse(deleteComment);
 
       this._commentService.deleteCommentWithSessionStorage(commentId).subscribe(
-        (result: object) => {
+        () => {
           this.deletionSuccess('Successfully deleted comment!');
         },
         (err: HttpErrorResponse) => {

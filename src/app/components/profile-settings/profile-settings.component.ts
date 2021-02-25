@@ -56,7 +56,7 @@ export class ProfileSettingsComponent implements OnInit {
         this.isAdminUser = this.user.roles.map(x => x.name).includes(AppConstants.ADMIN_ROLE_NAME);
         this.finishUserLoading();
       },
-      (err: HttpErrorResponse) => {
+      () => {
         this._router.navigate(['/not-found']);
       }
     );
@@ -89,7 +89,7 @@ export class ProfileSettingsComponent implements OnInit {
             this.goToProfile();
           }
         },
-        (err: HttpErrorResponse) => {
+        () => {
           this.logout();
         }
       );
@@ -181,7 +181,7 @@ export class ProfileSettingsComponent implements OnInit {
     }
 
     this._userService.putProfilePictureFromSessionStorageRequest(this.newProfilePicture).subscribe(
-      (result: object) => {
+      () => {
         this.reloadPage();
       }
     );
@@ -196,7 +196,7 @@ export class ProfileSettingsComponent implements OnInit {
     this.patchTechnologiesControl();
 
     this._userService.putUserFromSessionStorageRequest(this.updateUserFormGroup, this.user.roles, this.user.friends).subscribe(
-        (result: object) => {
+        () => {
           this._successBar.showMsg('Profile updated successfully!');
         },
         (err: HttpErrorResponse) => {
@@ -285,7 +285,7 @@ export class ProfileSettingsComponent implements OnInit {
   deleteAccount(): void {
     if (this.deleteAccountConfirm) {
       this._userService.deleteUserFromSessionStorageRequest().subscribe(
-        (res: object) => {
+        () => {
           this.logout();
         },
         (err: HttpErrorResponse) => {
