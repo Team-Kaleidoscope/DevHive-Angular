@@ -38,6 +38,7 @@ export class CommentPageComponent implements OnInit {
         this.comment = result as Comment;
         if (this.loggedIn) {
           this.editable = this.comment.issuerUsername === this._tokenService.getUsernameFromSessionStorageToken();
+          this.editCommentFormGroup.get('newCommentMessage')?.setValue(this.comment.message);
         }
         this.loaded = true;
       },
@@ -63,7 +64,8 @@ export class CommentPageComponent implements OnInit {
 
     if (this.editingComment) {
       const newMessage = this.editCommentFormGroup.get('newCommentMessage')?.value;
-      if (newMessage !== '') {
+
+      if (newMessage !== '' && newMessage !== this.comment.message) {
         console.log(this.commentId);
         this._commentService.putCommentWithSessionStorageRequest(this.commentId, this.comment.postId, newMessage).subscribe(
           (result: object) => {
