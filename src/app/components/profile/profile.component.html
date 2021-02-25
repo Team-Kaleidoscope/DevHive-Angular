@@ -3,25 +3,48 @@
 <div id="content" *ngIf="dataArrived">
 	<nav id="navigation">
 		<button class="submit-btn" (click)="goBack()">ᐊ Back</button>
-		<button class="submit-btn" (click)="navigateToSettings()" *ngIf="isTheLoggedInUser">Settings</button>
-		<button class="submit-btn" (click)="navigateToAdminPanel()" *ngIf="isTheLoggedInUser && isAdminUser">Panel</button>
-		<button class="submit-btn" (click)="logout()" *ngIf="isTheLoggedInUser">Logout</button>
+		<button
+			class="submit-btn"
+			(click)="navigateToSettings()"
+			*ngIf="isTheLoggedInUser"
+		>
+			Settings
+		</button>
+		<button
+			class="submit-btn"
+			(click)="navigateToAdminPanel()"
+			*ngIf="isTheLoggedInUser && isAdminUser"
+		>
+			Panel
+		</button>
+		<button class="submit-btn" (click)="logout()" *ngIf="isTheLoggedInUser">
+			Logout
+		</button>
 	</nav>
-	<hr>
+	<hr />
 	<div class="scroll-standalone" (scroll)="onScroll($event)">
 		<div id="main-info" class="rounded-border">
-			<img class="round-image" [src]="user.profilePictureURL" alt=""/>
+			<img class="round-image" [src]="user.profilePictureURL" alt="" />
 			<div id="other-main-info">
-				<div id="name">
-					{{ user.firstName }} {{ user.lastName }}
-				</div>
-				<div id="username">
-					@{{ user.userName }}
-				</div>
-				<form [formGroup]="updateFrienship" (ngSubmit)="modifyFriend()" *ngIf="!isTheLoggedInUser && isUserLoggedIn">
-					<button id="add-friend" type="submit" class="submit-btn">{{ friendOfUser ? 'Unfriend' : 'Add friend' }}</button>
-					<br>
-					<input id="loggedin-password" type="password" formControlName="password" class="input-field" *ngIf="updatingFriendship" placeholder="Type in password to confirm">
+				<div id="name">{{ user.firstName }} {{ user.lastName }}</div>
+				<div id="username">@{{ user.userName }}</div>
+				<form
+					[formGroup]="updateFrienship"
+					(ngSubmit)="modifyFriend()"
+					*ngIf="!isTheLoggedInUser && isUserLoggedIn"
+				>
+					<button id="add-friend" type="submit" class="submit-btn">
+						{{ friendOfUser ? "Unfriend" : "Add friend" }}
+					</button>
+					<br />
+					<input
+						id="loggedin-password"
+						type="password"
+						formControlName="password"
+						class="input-field"
+						*ngIf="updatingFriendship"
+						placeholder="Type in password to confirm"
+					/>
 				</form>
 			</div>
 		</div>
@@ -32,9 +55,7 @@
 					{{ lang.name }}
 				</div>
 			</div>
-			<div *ngIf="user.languages.length === 0">
-				&nbsp;None
-			</div>
+			<div *ngIf="user.languages.length === 0">&nbsp;None</div>
 		</div>
 		<div class="secondary-info rounded-border">
 			Technologies:
@@ -43,18 +64,18 @@
 					{{ tech.name }}
 				</div>
 			</div>
-			<div *ngIf="user.technologies.length === 0">
-				&nbsp;None
-			</div>
+			<div *ngIf="user.technologies.length === 0">&nbsp;None</div>
 		</div>
-		<hr>
+		<hr />
 		<div id="posts">
 			<div id="no-posts" *ngIf="userPosts.length === 0">
-				{{ user.firstName }} {{ user.lastName }} hasn't posted anything yet!
+				{{ user.firstName }} {{ user.lastName }} hasn't posted anything
+				yet!
 			</div>
 			<div *ngFor="let userPost of userPosts">
 				<app-post [paramId]="userPost.postId.toString()"></app-post>
 			</div>
 		</div>
 	</div>
+	<app-footer></app-footer>
 </div>

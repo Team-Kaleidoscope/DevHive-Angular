@@ -2,15 +2,26 @@
 
 <main id="content" *ngIf="loaded">
 	<nav>
-		<button class="submit-btn" type="submit" (click)="toPost()">ᐊ Back to post</button>
+		<button class="submit-btn" type="submit" (click)="toPost()">
+			ᐊ Back to post
+		</button>
 	</nav>
 	<app-comment [paramId]="commentId.toString()"></app-comment>
 	<nav class="many-buttons" *ngIf="editable">
 		<button class="submit-btn" (click)="editComment()">Edit comment</button>
-		<button class="submit-btn delete-btn" (click)="deleteComment()">Delete comment</button>
+		<button class="submit-btn delete-btn" (click)="deleteComment()">
+			Delete comment
+		</button>
 	</nav>
-	<form  [formGroup]="editCommentFormGroup" (ngSubmit)="editComment()">
-		<input type="text" *ngIf="editingComment" placeholder="New comment message" class="input-field" formControlName="newCommentMessage">
+	<form [formGroup]="editCommentFormGroup" (ngSubmit)="editComment()">
+		<input
+			type="text"
+			*ngIf="editingComment"
+			placeholder="New comment message"
+			class="input-field"
+			formControlName="newCommentMessage"
+		/>
 		<input type="submit" style="display: none" />
 	</form>
+	<app-footer></app-footer>
 </main>
