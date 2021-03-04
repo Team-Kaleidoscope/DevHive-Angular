@@ -136,10 +136,6 @@
   cursor: pointer;
 }
 
-#file-upload::-webkit-file-upload-button {
-  visibility: hidden;
-}
-
 #attachment-img {
   height: 1.5em;
   width: 1.5em;

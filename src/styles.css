@@ -24,6 +24,11 @@ button:focus {
   outline: 0;
 }
 
+input[type=file]::-webkit-file-upload-button,
+input[type=file]::file-selector-button {
+  visibility: hidden;
+}
+
 #content {
   /* Used for the login and register pages */
   height: 100%;
