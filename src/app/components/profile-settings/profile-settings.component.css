@@ -65,7 +65,8 @@ hr {
   cursor: pointer;
 }
 
-#upload-file > input::-webkit-file-upload-button {
+#upload-file > input::-webkit-file-upload-button,
+#upload-file > input::file-selector-button {
   visibility: hidden;
 }
 
