@@ -24,7 +24,13 @@ button:focus {
   outline: 0;
 }
 
-input[type=file]::-webkit-file-upload-button,
+  /* We can't do ...::-webkit-file-upload-button, ...::file-selector-button {...}
+   * for some reason, so they have to be separated (some browsers break)
+   */
+input[type=file]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
 input[type=file]::file-selector-button {
   visibility: hidden;
 }
