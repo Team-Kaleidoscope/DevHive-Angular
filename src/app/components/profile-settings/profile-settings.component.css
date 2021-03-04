@@ -73,19 +73,6 @@ hr {
   margin-top: 1.1em;
 }
 
-.input-field {
-  border-color: var(--focus-color) !important;
-  caret-color: var(--focus-color);
-  border-width: 2px !important;
-  margin-top: -1px !important;
-}
-
-.input-field-label {
-  font-size: .7em;
-  color: var(--focus-color);
-  transform: translate(0, -1.2em);
-}
-
 #all-languages, #all-technologies {
   display: flex;
   flex-wrap: wrap;

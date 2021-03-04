@@ -92,17 +92,6 @@ button:focus {
 
 /* Inputs, the type found in login and register */
 
-.input-selection {
-  position: relative;
-  margin-top: 0.7em;
-}
-
-/* Don't show the placeholder when the label is on top
-   */
-.input-selection .input-field::-webkit-input-placeholder {
-  opacity: 0;
-}
-
 .input-field {
   width: 100%;
   background-color: var(--bg-color);
@@ -126,36 +115,49 @@ button:focus {
 
   margin-top: 0.4em;
   color: grey;
+
+  transition: 0.2s;
+  scale: 1em;
 }
 
-/* When hovering, typing or having typed something in an input,
+.input-selection {
+  position: relative;
+  margin-top: 0.7em;
+}
+
+.input-selection input::placeholder {
+  /* Don't show the placeholder when the label is on top */
+  opacity: 0;
+  color: grey;
+}
+
+.input-selection:hover > input::placeholder,
+.input-selection > input:focus::placeholder {
+  /* When hovering on the input, or when having clicked on it,
+   * show the placeholder
+   */
+  opacity: 1;
+}
+
+.input-selection:hover > label,
+.input-selection > input:not(:placeholder-shown) + label,
+.input-selection > input:focus + label {
+  /* When hovering, typing or having typed something in an input,
    * make the label smaller, color it and then move it up
    */
-.input-selection:hover > .input-field-label,
-.input-selection > input:not(:placeholder-shown) + .input-field-label,
-.input-selection > input:focus + .input-field-label {
   font-size: 0.7em;
   color: var(--focus-color);
   transform: translate(0, -1.2em);
 }
 
-/* Show the placeholder, when you've hovered or
-   * focused (typing in) on the input-field
-   */
-.input-selection:hover > .input-field::-webkit-input-placeholder,
-.input-selection > .input-field:focus::-webkit-input-placeholder {
-  opacity: 1;
-}
-
-/* Make the underline thicker and change it's and the cursors's
-   * color when hovered or focused (typing in) on the input-field
-   */
-.input-selection:hover > .input-field,
-.input-field:focus {
+.input-selection:hover > input,
+.input-selection > input:focus {
+  /* When hovering or clicked on it, make it the focus color */
   border-color: var(--focus-color) !important;
   caret-color: var(--focus-color);
-  border-width: 2px !important;
-  margin-top: -1px !important;
+  /* When hovering or clicked on it, make the bottom border wider (taller) */
+  border-width: 2px;
+  padding-bottom: calc(0.4em - 1px);
 }
 
 /* Input errors */
