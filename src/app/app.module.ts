@@ -25,7 +25,6 @@ import { CommentComponent } from './components/comment/comment.component';
 import { CommentPageComponent } from './components/comment-page/comment-page.component';
 import { PostAttachmentComponent } from './components/post-attachment/post-attachment.component';
 import { RouterModule } from '@angular/router';
-import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -44,8 +43,7 @@ import { FooterComponent } from './components/footer/footer.component';
     AdminPanelPageComponent,
     CommentComponent,
     CommentPageComponent,
-    PostAttachmentComponent,
-    FooterComponent
+    PostAttachmentComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
