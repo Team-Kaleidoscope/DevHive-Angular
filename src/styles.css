@@ -50,11 +50,6 @@ input[type=file]::file-selector-button {
   flex-direction: column;
 }
 
-#content > *:first-child,
-#content > *:last-child {
-  flex: 1;
-}
-
 .rounded-border {
   border: 2px solid black;
   border-radius: 0.6em;
