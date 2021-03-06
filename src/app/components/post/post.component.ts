@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { PostService } from 'src/app/services/post.service';
+import { RatingService } from 'src/app/services/rating.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/models/identity/user';
 import { Post } from 'src/models/post';
@@ -19,7 +20,7 @@ export class PostComponent implements OnInit {
   public timeCreated: string;
   @Input() paramId: string;
 
-  constructor(private _postService: PostService, private _userService: UserService, private _router: Router)
+  constructor(private _postService: PostService, private _ratingServe: RatingService, private _userService: UserService, private _router: Router)
   { }
 
   ngOnInit(): void {
@@ -53,5 +54,9 @@ export class PostComponent implements OnInit {
 
   goToPostPage(): void {
     this._router.navigate(['/post/' + this.post.postId]);
+  }
+
+  upVotePost(): void {
+    
   }
 }
