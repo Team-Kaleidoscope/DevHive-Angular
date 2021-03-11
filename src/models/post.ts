@@ -11,8 +11,9 @@ export class Post {
   private _timeCreated: Date;
   private _comments: PostComment[];
   private _fileURLs: string[];
+  private _currentRating: number;
 
-  constructor(postId: Guid, creatorFirstName: string, creatorLastName: string, creatorUsername: string, message: string, timeCreated: Date, comments: PostComment[], fileURLs: string[]) {
+  constructor(postId: Guid, creatorFirstName: string, creatorLastName: string, creatorUsername: string, message: string, timeCreated: Date, comments: PostComment[], fileURLs: string[], currentRating: number) {
     this.postId = postId;
     this.creatorFirstName = creatorFirstName;
     this.creatorLastName = creatorLastName;
@@ -21,6 +22,7 @@ export class Post {
     this.timeCreated = timeCreated;
     this.comments = comments;
     this.fileURLs = fileURLs;
+    this.currentRating = currentRating;
   }
 
   public get postId(): Guid {
@@ -77,5 +79,12 @@ export class Post {
   }
   public set fileURLs(v: string[]) {
     this._fileURLs = v;
+  }
+
+  public get currentRating(): number {
+    return this._currentRating;
+  }
+  public set currentRating(v: number) {
+    this._currentRating = v;
   }
 }

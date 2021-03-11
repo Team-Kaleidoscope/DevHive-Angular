@@ -31,7 +31,7 @@ export class PostComponent implements OnInit {
       (result: object) => {
         Object.assign(this.post, result);
         this.post.fileURLs = Object.values(result)[7];
-        this.votesNumber = 23;
+        this.votesNumber = this.post.currentRating;
 
         this.timeCreated = new Date(this.post.timeCreated).toLocaleString('en-GB');
         this.loadUser();
