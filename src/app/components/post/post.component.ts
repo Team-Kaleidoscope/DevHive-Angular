@@ -6,6 +6,7 @@ import { RatingService } from 'src/app/services/rating.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/models/identity/user';
 import { Post } from 'src/models/post';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-post',
@@ -19,11 +20,14 @@ export class PostComponent implements OnInit {
   public votesNumber: number;
   public timeCreated: string;
   @Input() paramId: string;
+  public loggedIn = false;
 
-  constructor(private _postService: PostService, private _ratingServe: RatingService, private _userService: UserService, private _router: Router)
+  constructor(private _postService: PostService, private _ratingServe: RatingService, private _userService: UserService, private _router: Router, private _tokenService: TokenService)
   { }
 
   ngOnInit(): void {
+    this.loggedIn = this._tokenService.getTokenFromSessionStorage() !== '';
+
     this.post = this._postService.getDefaultPost();
     this.user = this._userService.getDefaultUser();
 
@@ -57,6 +61,15 @@ export class PostComponent implements OnInit {
   }
 
   upVotePost(): void {
-    
+    if (!this.loggedIn) {
+      this._router.navigate(['/login']);
+      return;
+    }
+
+    this._ratingServe.createRatingWithSessionStorageRequest(Guid.parse(this.paramId), true).subscribe(
+      () => {
+        this.votesNumber++;
+      }
+    );
   }
 }

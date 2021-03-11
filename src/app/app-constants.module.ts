@@ -9,6 +9,7 @@ export class AppConstants {
   public static API_TECHNOLOGY_URL = AppConstants.BASE_API_URL + '/Technology';
 
   public static API_POST_URL = AppConstants.BASE_API_URL + '/Post';
+  public static API_RATING_URL = AppConstants.BASE_API_URL + '/Rating';
   public static API_FEED_URL = AppConstants.BASE_API_URL + '/Feed';
   public static API_COMMENT_URL = AppConstants.BASE_API_URL + '/Comment';
 
