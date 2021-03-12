@@ -29,6 +29,13 @@ export class RatingService {
     return this.putRatingRequest(userId, token, postId, isLike);
   }
 
+  getRatingByUserAndPostWithSessionStorageRequest(postId: Guid): Observable<object> {
+    const userId = this._tokenService.getUserIdFromSessionStorageToken();
+    const token = this._tokenService.getTokenFromSessionStorage();
+
+    return this.getRatingByUserAndPostRequest(userId, token, postId);
+  }
+
   createRatingRequest(userId: Guid, authToken: string, postId: Guid, isLike: boolean): Observable<object>  {
     const options = {
       params: new HttpParams().set('UserId', userId.toString()),
@@ -52,5 +59,14 @@ export class RatingService {
     };
 
     return this._http.put(AppConstants.API_RATING_URL, body, options);
+  }
+
+  getRatingByUserAndPostRequest(userId: Guid, authToken: string, postId: Guid): Observable<object> {
+    const options = {
+      params: new HttpParams().set('UserId', userId.toString()).set('PostId', postId.toString()),
+      headers: new HttpHeaders().set('Authorization', 'Bearer ' + authToken)
+    };
+
+    return this._http.get(AppConstants.API_RATING_URL + 'GetByUserAndPost', options);
   }
 }
