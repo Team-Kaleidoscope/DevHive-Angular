@@ -66,9 +66,44 @@ export class PostComponent implements OnInit {
       return;
     }
 
+    this._ratingServe.putRatingWithSessionStorageRequest(Guid.parse(this.paramId), true).subscribe(
+      () => {
+        this.votesNumber += 2;
+      },
+      () => {
+        this.crateUpVoteRating();
+      }
+    );    
+  }
+
+  crateUpVoteRating(): void {
     this._ratingServe.createRatingWithSessionStorageRequest(Guid.parse(this.paramId), true).subscribe(
       () => {
         this.votesNumber++;
+      }
+    );
+  }
+
+  downVotePost(): void {
+    if (!this.loggedIn) {
+      this._router.navigate(['/login']);
+      return;
+    }
+
+    this._ratingServe.putRatingWithSessionStorageRequest(Guid.parse(this.paramId), false).subscribe(
+      () => {
+        this.votesNumber -= 2;
+      },
+      () => {
+        this.crateDownVoteRating();
+      }
+      );
+  }
+
+  crateDownVoteRating(): void {
+    this._ratingServe.createRatingWithSessionStorageRequest(Guid.parse(this.paramId), false).subscribe(
+      () => {
+        this.votesNumber--;
       }
     );
   }

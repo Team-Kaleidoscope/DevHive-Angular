@@ -1,12 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\e2e\\src",
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\post",
-    "\\src\\app\\services"
+    "\\src\\app\\services",
+    "\\src\\models"
   ],
   "SelectedNode": "\\src\\app\\services\\rating.service.ts",
   "PreviewInSolutionExplorer": false
