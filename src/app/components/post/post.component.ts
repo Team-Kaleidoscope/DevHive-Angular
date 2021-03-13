@@ -73,20 +73,18 @@ export class PostComponent implements OnInit {
         if (Object.values(x)[3] === isLike) {
           this.deleteRating(Object.values(x)[0], isLike);
 
-          this.voteBtns.item(Number(!isLike))!.style.backgroundColor = 'white';
-          this.voteBtns.item(Number(isLike))!.style.backgroundColor = 'white';
+          this.changeColorOfVoteButton(false, false);
         }
         else {
           this.putRating(isLike);
 
-          this.voteBtns.item(Number(!isLike))!.style.backgroundColor = 'lightblue';
-          this.voteBtns.item(Number(isLike))!.style.backgroundColor = 'white';
+          this.changeColorOfVoteButton(isLike, !isLike);
         }
       },
       () => {
         this.createRating(isLike);
 
-        this.voteBtns.item(Number(!isLike))!.style.backgroundColor = 'lightblue';
+        this.changeColorOfVoteButton(isLike, !isLike);
       }
     );
   }
@@ -114,5 +112,10 @@ export class PostComponent implements OnInit {
         this.votesNumber += 1 - Number(isLike) * 2;
       }
     );
+  }
+
+  private changeColorOfVoteButton(isUpvoted: boolean, isDownvoted: boolean): void {
+    this.voteBtns.item(0)!.style.backgroundColor = (isUpvoted) ? 'lightblue' : 'white';
+    this.voteBtns.item(1)!.style.backgroundColor = (isDownvoted) ? 'lightblue' : 'white';
   }
 }
