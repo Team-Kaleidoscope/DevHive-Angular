@@ -59,7 +59,7 @@ export class PostComponent implements OnInit {
     this._router.navigate(['/post/' + this.post.postId]);
   }
 
-  upVotePost(): void {
+  votePost(isLike: boolean): void {
     if (!this.loggedIn) {
       this._router.navigate(['/login']);
       return;
@@ -67,36 +67,15 @@ export class PostComponent implements OnInit {
 
     this._ratingServe.getRatingByUserAndPostWithSessionStorageRequest(Guid.parse(this.paramId)).subscribe(
       (x: object) => {        
-        if (Object.values(x)[3]) {
-          this.deleteRating(Object.values(x)[0], true);
+        if (Object.values(x)[3] === isLike) {
+          this.deleteRating(Object.values(x)[0], isLike);
         }
         else {
-          this.putRating(true);
+          this.putRating(isLike);
         }
       },
       () => {
-        this.crateRating(true);
-      }
-    );
-  }
-
-  downVotePost(): void {
-    if (!this.loggedIn) {
-      this._router.navigate(['/login']);
-      return;
-    }
-
-    this._ratingServe.getRatingByUserAndPostWithSessionStorageRequest(Guid.parse(this.paramId)).subscribe(
-      (x: object) => {
-        if (!Object.values(x)[3]) {
-          this.deleteRating(Object.values(x)[0], false);
-        }
-        else {
-          this.putRating(false);
-        }
-      },
-      () => {
-        this.crateRating(false);
+        this.crateRating(isLike);
       }
     );
   }

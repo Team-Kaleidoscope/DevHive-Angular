@@ -30,13 +30,13 @@
 		</div>
 	</section>
 	<section class="rating">
-		<button class="vote" (click)="upVotePost()">
+		<button class="vote" (click)="votePost(true)">
 			ᐃ
 		</button>
 		<summary class="score">
 			{{ votesNumber }}
 		</summary>
-		<button class="vote" (click)="downVotePost()">
+		<button class="vote" (click)="votePost(false)">
 			ᐁ
 		</button>
 	</section>
