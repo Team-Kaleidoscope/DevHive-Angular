@@ -4,9 +4,10 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
+    "\\src\\app\\components\\post",
     "\\src\\app\\services",
     "\\src\\models"
   ],
-  "SelectedNode": "\\src\\app\\services\\rating.service.ts",
+  "SelectedNode": "\\src\\app\\components\\post\\post.component.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -22,8 +22,7 @@ export class PostComponent implements OnInit {
   @Input() paramId: string;
   public loggedIn = false;
 
-  constructor(private _postService: PostService, private _ratingServe: RatingService, private _userService: UserService, private _router: Router, private _tokenService: TokenService)
-  { }
+  constructor(private _postService: PostService, private _ratingServe: RatingService, private _userService: UserService, private _router: Router, private _tokenService: TokenService) { }
 
   ngOnInit(): void {
     this.loggedIn = this._tokenService.getTokenFromSessionStorage() !== '';
@@ -66,6 +65,30 @@ export class PostComponent implements OnInit {
       return;
     }
 
+    this._ratingServe.getRatingByUserAndPostWithSessionStorageRequest(Guid.parse(this.paramId)).subscribe(
+      (x: object) => {        
+        if (Object.values(x)[3]) {
+          this.deleteUpVoteRating(Object.values(x)[0]);
+        }
+        else {
+          this.putUpVoteRating();
+        }
+      },
+      () => {
+        this.crateUpVoteRating();
+      }
+    );
+  }
+ 
+  crateUpVoteRating(): void {
+  this._ratingServe.createRatingWithSessionStorageRequest(Guid.parse(this.paramId), true).subscribe(
+    () => {
+      this.votesNumber++;
+    }
+  );
+}
+
+  putUpVoteRating(): void {
     this._ratingServe.putRatingWithSessionStorageRequest(Guid.parse(this.paramId), true).subscribe(
       () => {
         this.votesNumber += 2;
@@ -73,38 +96,38 @@ export class PostComponent implements OnInit {
       () => {
         this.crateUpVoteRating();
       }
-    );    
-  }
-
-  crateUpVoteRating(): void {
-    this._ratingServe.createRatingWithSessionStorageRequest(Guid.parse(this.paramId), true).subscribe(
-      () => {
-        this.votesNumber++;
-      }
     );
   }
 
-  downVotePost(): void {
-    if (!this.loggedIn) {
-      this._router.navigate(['/login']);
-      return;
-    }
-
-    this._ratingServe.putRatingWithSessionStorageRequest(Guid.parse(this.paramId), false).subscribe(
-      () => {
-        this.votesNumber -= 2;
-      },
-      () => {
-        this.crateDownVoteRating();
-      }
-      );
-  }
-
-  crateDownVoteRating(): void {
-    this._ratingServe.createRatingWithSessionStorageRequest(Guid.parse(this.paramId), false).subscribe(
+  deleteUpVoteRating(ratingId: string): void {
+    this._ratingServe.deleteRatingFromSessionStorageRequest(Guid.parse(ratingId)).subscribe(
       () => {
         this.votesNumber--;
       }
     );
   }
+
+  downVotePost(): void {
+  if(!this.loggedIn) {
+  this._router.navigate(['/login']);
+  return;
+}
+
+this._ratingServe.putRatingWithSessionStorageRequest(Guid.parse(this.paramId), false).subscribe(
+  () => {
+    this.votesNumber -= 2;
+  },
+  () => {
+    this.crateDownVoteRating();
+  }
+);
+  }
+
+  crateDownVoteRating(): void {
+  this._ratingServe.createRatingWithSessionStorageRequest(Guid.parse(this.paramId), false).subscribe(
+    () => {
+      this.votesNumber--;
+    }
+  );
+}
 }
