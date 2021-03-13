@@ -21,6 +21,7 @@ export class PostComponent implements OnInit {
   public timeCreated: string;
   @Input() paramId: string;
   public loggedIn = false;
+  private voteBtns: HTMLCollectionOf<HTMLElement>;
 
   constructor(private _postService: PostService, private _ratingServe: RatingService, private _userService: UserService, private _router: Router, private _tokenService: TokenService) { }
 
@@ -36,8 +37,10 @@ export class PostComponent implements OnInit {
         this.post.fileURLs = Object.values(result)[7];
         this.votesNumber = this.post.currentRating;
 
+        this.voteBtns = document.getElementsByClassName('vote') as HTMLCollectionOf<HTMLElement>;
+
         this.timeCreated = new Date(this.post.timeCreated).toLocaleString('en-GB');
-        this.loadUser();
+        this.loadUser();        
       }
     );
   }
@@ -69,18 +72,26 @@ export class PostComponent implements OnInit {
       (x: object) => {        
         if (Object.values(x)[3] === isLike) {
           this.deleteRating(Object.values(x)[0], isLike);
+
+          this.voteBtns.item(Number(!isLike))!.style.backgroundColor = 'white';
+          this.voteBtns.item(Number(isLike))!.style.backgroundColor = 'white';
         }
         else {
           this.putRating(isLike);
+
+          this.voteBtns.item(Number(!isLike))!.style.backgroundColor = 'lightblue';
+          this.voteBtns.item(Number(isLike))!.style.backgroundColor = 'white';
         }
       },
       () => {
-        this.crateRating(isLike);
+        this.createRating(isLike);
+
+        this.voteBtns.item(Number(!isLike))!.style.backgroundColor = 'lightblue';
       }
     );
   }
 
-  crateRating(isLike: boolean): void {
+  private createRating(isLike: boolean): void {
     this._ratingServe.createRatingWithSessionStorageRequest(Guid.parse(this.paramId), isLike).subscribe(
       () => {
         this.votesNumber += -1 + Number(isLike) * 2;
@@ -88,7 +99,7 @@ export class PostComponent implements OnInit {
   );
 }
 
-  putRating(isLike: boolean): void {
+  private putRating(isLike: boolean): void {
     this._ratingServe.putRatingWithSessionStorageRequest(Guid.parse(this.paramId), isLike).subscribe(
       () => {
         // when false -2 + 0 wjen true -2 + 4 
@@ -97,7 +108,7 @@ export class PostComponent implements OnInit {
     );
   }
 
-  deleteRating(ratingId: string, isLike: boolean): void {
+  private deleteRating(ratingId: string, isLike: boolean): void {
     this._ratingServe.deleteRatingFromSessionStorageRequest(Guid.parse(ratingId)).subscribe(
       () => {
         this.votesNumber += 1 - Number(isLike) * 2;
