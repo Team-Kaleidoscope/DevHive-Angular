@@ -68,66 +68,61 @@ export class PostComponent implements OnInit {
     this._ratingServe.getRatingByUserAndPostWithSessionStorageRequest(Guid.parse(this.paramId)).subscribe(
       (x: object) => {        
         if (Object.values(x)[3]) {
-          this.deleteUpVoteRating(Object.values(x)[0]);
+          this.deleteRating(Object.values(x)[0], true);
         }
         else {
-          this.putUpVoteRating();
+          this.putRating(true);
         }
       },
       () => {
-        this.crateUpVoteRating();
-      }
-    );
-  }
- 
-  crateUpVoteRating(): void {
-  this._ratingServe.createRatingWithSessionStorageRequest(Guid.parse(this.paramId), true).subscribe(
-    () => {
-      this.votesNumber++;
-    }
-  );
-}
-
-  putUpVoteRating(): void {
-    this._ratingServe.putRatingWithSessionStorageRequest(Guid.parse(this.paramId), true).subscribe(
-      () => {
-        this.votesNumber += 2;
-      },
-      () => {
-        this.crateUpVoteRating();
-      }
-    );
-  }
-
-  deleteUpVoteRating(ratingId: string): void {
-    this._ratingServe.deleteRatingFromSessionStorageRequest(Guid.parse(ratingId)).subscribe(
-      () => {
-        this.votesNumber--;
+        this.crateRating(true);
       }
     );
   }
 
   downVotePost(): void {
-  if(!this.loggedIn) {
-  this._router.navigate(['/login']);
-  return;
-}
+    if (!this.loggedIn) {
+      this._router.navigate(['/login']);
+      return;
+    }
 
-this._ratingServe.putRatingWithSessionStorageRequest(Guid.parse(this.paramId), false).subscribe(
-  () => {
-    this.votesNumber -= 2;
-  },
-  () => {
-    this.crateDownVoteRating();
-  }
-);
+    this._ratingServe.getRatingByUserAndPostWithSessionStorageRequest(Guid.parse(this.paramId)).subscribe(
+      (x: object) => {
+        if (!Object.values(x)[3]) {
+          this.deleteRating(Object.values(x)[0], false);
+        }
+        else {
+          this.putRating(false);
+        }
+      },
+      () => {
+        this.crateRating(false);
+      }
+    );
   }
 
-  crateDownVoteRating(): void {
-  this._ratingServe.createRatingWithSessionStorageRequest(Guid.parse(this.paramId), false).subscribe(
-    () => {
-      this.votesNumber--;
+  crateRating(isLike: boolean): void {
+    this._ratingServe.createRatingWithSessionStorageRequest(Guid.parse(this.paramId), isLike).subscribe(
+      () => {
+        this.votesNumber += -1 + Number(isLike) * 2;
     }
   );
 }
+
+  putRating(isLike: boolean): void {
+    this._ratingServe.putRatingWithSessionStorageRequest(Guid.parse(this.paramId), isLike).subscribe(
+      () => {
+        // when false -2 + 0 wjen true -2 + 4 
+        this.votesNumber += -2 + Number(isLike) * 4;
+      }
+    );
+  }
+
+  deleteRating(ratingId: string, isLike: boolean): void {
+    this._ratingServe.deleteRatingFromSessionStorageRequest(Guid.parse(ratingId)).subscribe(
+      () => {
+        this.votesNumber += 1 - Number(isLike) * 2;
+      }
+    );
+  }
 }
