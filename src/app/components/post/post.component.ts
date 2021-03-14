@@ -20,6 +20,7 @@ export class PostComponent implements OnInit {
   public votesNumber: number;
   public timeCreated: string;
   @Input() paramId: string;
+  @Input() index: number;
   public loggedIn = false;
   private voteBtns: HTMLCollectionOf<HTMLElement>;
 
@@ -33,9 +34,7 @@ export class PostComponent implements OnInit {
 
     this._postService.getPostRequest(Guid.parse(this.paramId)).subscribe(
       (result: object) => {
-        Object.assign(this.post, result);
-
-        console.log(this.post.postId);
+        Object.assign(this.post, result);      
 
         this.post.fileURLs = Object.values(result)[7];
         this.votesNumber = this.post.currentRating;
@@ -46,17 +45,16 @@ export class PostComponent implements OnInit {
 
         this.loadUser();        
       }
-    );
-
-    window.addEventListener("load", () => {
-      this.highlightButtonsOnInit();
-    });
+    ); 
   }
 
   private loadUser(): void {
     this._userService.getUserByUsernameRequest(this.post.creatorUsername).subscribe(
       (result: object) => {
         Object.assign(this.user, result);
+
+        this.highlightButtonsOnInit();
+
         this.loaded = true;
       }
     );
@@ -123,16 +121,14 @@ export class PostComponent implements OnInit {
   }
 
   private changeColorOfVoteButton(isUpvoted: boolean, isDownvoted: boolean): void {
-    this.voteBtns.item(0)!.style.backgroundColor = (isUpvoted) ? 'lightblue' : 'white';
-    this.voteBtns.item(1)!.style.backgroundColor = (isDownvoted) ? 'lightblue' : 'white';
+    this.voteBtns.item(this.index * 2)!.style.backgroundColor = (isUpvoted) ? 'lightblue' : 'white';
+    this.voteBtns.item((this.index * 2) + 1)!.style.backgroundColor = (isDownvoted) ? 'lightblue' : 'white';
   }
 
   private highlightButtonsOnInit(): void {
     this._ratingServe.getRatingByUserAndPostWithSessionStorageRequest(Guid.parse(this.paramId)).subscribe(
       (x: object) => {
         const isLike: boolean = Object.values(x)[3];
-
-        console.log(this.voteBtns);
 
         this.changeColorOfVoteButton(isLike, !isLike);
       }

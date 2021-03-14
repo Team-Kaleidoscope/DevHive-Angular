@@ -40,8 +40,8 @@
 				None of your friends have posted anything yet!<br>
 				Try refreshing your page!
 			</div>
-			<div *ngFor="let friendPost of posts" class="post">
-				<app-post [paramId]="friendPost.postId.toString()"></app-post>
+			<div *ngFor="let friendPost of posts; let i = index" class="post">
+				<app-post [paramId]="friendPost.postId.toString()" [index]="i"></app-post>
 			</div>
 		</section>
 	</section>
