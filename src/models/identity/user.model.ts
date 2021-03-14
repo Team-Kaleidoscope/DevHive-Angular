@@ -1,8 +1,8 @@
 import { Guid } from 'guid-typescript';
-import { Language } from '../language';
-import { Technology } from '../technology';
-import { Friend } from './friend';
-import { Role } from './role';
+import { Language } from '../language.model';
+import { Technology } from '../technology.model';
+import { Friend } from './friend.model';
+import { Role } from './role.model';
 
 export class User {
   private _id : Guid;

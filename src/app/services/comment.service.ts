@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { Observable } from 'rxjs';
-import { Comment } from 'src/models/comment';
+import { Comment } from 'src/models/comment.model';
 import { AppConstants } from '../app-constants.module';
 import { TokenService } from './token.service';
 

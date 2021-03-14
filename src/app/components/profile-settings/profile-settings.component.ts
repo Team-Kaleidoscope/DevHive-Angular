@@ -6,11 +6,11 @@ import { Router } from '@angular/router';
 import { LanguageService } from 'src/app/services/language.service';
 import { UserService } from 'src/app/services/user.service';
 import { TechnologyService } from 'src/app/services/technology.service';
-import { User } from 'src/models/identity/user';
+import { User } from 'src/models/identity/user.model';
 import { ErrorBarComponent } from '../error-bar/error-bar.component';
 import { SuccessBarComponent } from '../success-bar/success-bar.component';
-import { Language } from 'src/models/language';
-import { Technology } from 'src/models/technology';
+import { Language } from 'src/models/language.model';
+import { Technology } from 'src/models/technology.model';
 import { TokenService } from 'src/app/services/token.service';
 import { Title } from '@angular/platform-browser';
 import { AppConstants } from 'src/app/app-constants.module';
@@ -50,35 +50,35 @@ export class ProfileSettingsComponent implements OnInit {
     this.availableTechnologies = [];
     this.newProfilePicture = new File([], '');
 
-    this._userService.getUserByUsernameRequest(this._urlUsername).subscribe(
-      (res: object) => {
+    this._userService.getUserByUsernameRequest(this._urlUsername).subscribe({
+      next: (res: object) => {
         Object.assign(this.user, res);
         this.isAdminUser = this.user.roles.map(x => x.name).includes(AppConstants.ADMIN_ROLE_NAME);
         this.finishUserLoading();
       },
-      () => {
+      error: () => {
         this._router.navigate(['/not-found']);
       }
-    );
+    });
 
-    this._languageService.getAllLanguagesWithSessionStorageRequest().subscribe(
-      (result: object) => {
+    this._languageService.getAllLanguagesWithSessionStorageRequest().subscribe({
+      next: (result: object) => {
         this.availableLanguages = result as Language[];
       }
-    );
-    this._technologyService.getAllTechnologiesWithSessionStorageRequest().subscribe(
-      (result: object) => {
+    });
+    this._technologyService.getAllTechnologiesWithSessionStorageRequest().subscribe({
+      next: (result: object) => {
         this.availableTechnologies = result as Technology[];
       }
-    );
+    });
   }
 
   private finishUserLoading(): void {
     if (sessionStorage.getItem('UserCred')) {
       const userFromToken: User = this._userService.getDefaultUser();
 
-      this._userService.getUserFromSessionStorageRequest().subscribe(
-        (tokenRes: object) => {
+      this._userService.getUserFromSessionStorageRequest().subscribe({
+        next: (tokenRes: object) => {
           Object.assign(userFromToken, tokenRes);
 
           if (userFromToken.userName === this._urlUsername) {
@@ -89,10 +89,10 @@ export class ProfileSettingsComponent implements OnInit {
             this.goToProfile();
           }
         },
-        () => {
+        error: () => {
           this.logout();
         }
-      );
+      });
     }
     else {
       this.goToProfile();
@@ -147,9 +147,11 @@ export class ProfileSettingsComponent implements OnInit {
       fileUpload: new FormControl('')
     });
 
-    this.updateUserFormGroup.valueChanges.subscribe(() => {
-      this._successBar?.hideMsg();
-      this._errorBar?.hideError();
+    this.updateUserFormGroup.valueChanges.subscribe({
+      next: () => {
+        this._successBar?.hideMsg();
+        this._errorBar?.hideError();
+      }
     });
   }
 
@@ -180,11 +182,11 @@ export class ProfileSettingsComponent implements OnInit {
       return;
     }
 
-    this._userService.putProfilePictureFromSessionStorageRequest(this.newProfilePicture).subscribe(
-      () => {
+    this._userService.putProfilePictureFromSessionStorageRequest(this.newProfilePicture).subscribe({
+      next: () => {
         this.reloadPage();
       }
-    );
+    });
     this.dataArrived = false;
   }
 
@@ -195,14 +197,20 @@ export class ProfileSettingsComponent implements OnInit {
     this.patchLanguagesControl();
     this.patchTechnologiesControl();
 
-    this._userService.putUserFromSessionStorageRequest(this.updateUserFormGroup, this.user.roles, this.user.friends).subscribe(
-        () => {
+    this._userService.putUserFromSessionStorageRequest(this.updateUserFormGroup, this.user.roles, this.user.friends).subscribe({
+        next: () => {
           this._successBar.showMsg('Profile updated successfully!');
+
+          // "Reload" page when changing username
+          const newUsername = this.updateUserFormGroup.get('username')?.value;
+          if (newUsername !== this._urlUsername) {
+            this._router.navigate(['/profile/' + newUsername + '/settings']);
+          }
         },
-        (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           this._errorBar.showError(err);
         }
-    );
+    });
   }
 
   private patchLanguagesControl(): void {
@@ -284,14 +292,14 @@ export class ProfileSettingsComponent implements OnInit {
 
   deleteAccount(): void {
     if (this.deleteAccountConfirm) {
-      this._userService.deleteUserFromSessionStorageRequest().subscribe(
-        () => {
+      this._userService.deleteUserFromSessionStorageRequest().subscribe({
+        next: () => {
           this.logout();
         },
-        (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           this._errorBar.showError(err);
         }
-      );
+      });
       this.dataArrived = false;
     }
     else {

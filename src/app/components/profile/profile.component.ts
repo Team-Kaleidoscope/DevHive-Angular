@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/models/identity/user';
+import { User } from 'src/models/identity/user.model';
 import { AppConstants } from 'src/app/app-constants.module';
 import { Location } from '@angular/common';
 import { LanguageService } from 'src/app/services/language.service';
 import { TechnologyService } from 'src/app/services/technology.service';
-import { Post } from 'src/models/post';
+import { Post } from 'src/models/post.model';
 import { FeedService } from 'src/app/services/feed.service';
 import { TokenService } from 'src/app/services/token.service';
 import { Title } from '@angular/platform-browser';
-import { Friend } from 'src/models/identity/friend';
+import { Friend } from 'src/models/identity/friend.model';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -52,16 +52,16 @@ export class ProfileComponent implements OnInit {
       password: new FormControl('')
     });
 
-    this._userService.getUserByUsernameRequest(this._urlUsername).subscribe(
-      (res: object) => {
+    this._userService.getUserByUsernameRequest(this._urlUsername).subscribe({
+      next: (res: object) => {
         Object.assign(this.user, res);
         this.isAdminUser = this.user.roles.map(x => x.name).includes(AppConstants.ADMIN_ROLE_NAME);
         this.loadLanguages();
       },
-      () => {
+      error: () => {
         this._router.navigate(['/not-found']);
       }
-    );
+    });
   }
 
   private loadLanguages(): void {
@@ -91,17 +91,17 @@ export class ProfileComponent implements OnInit {
   }
 
   private loadPosts(): void {
-    this._feedService.getUserPostsRequest(this.user.userName, this._currentPage++, this._timeLoaded, AppConstants.PAGE_SIZE).subscribe(
-      (result: object) => {
+    this._feedService.getUserPostsRequest(this.user.userName, this._currentPage++, this._timeLoaded, AppConstants.PAGE_SIZE).subscribe({
+      next: (result: object) => {
         const resultArr: Post[] = Object.values(result)[0];
         this.userPosts.push(...resultArr);
         this.finishUserLoading();
       },
-      () => {
+      error: () => {
         this._currentPage = -1;
         this.finishUserLoading();
       }
-    );
+    });
   }
 
   private finishUserLoading(): void {
@@ -109,8 +109,8 @@ export class ProfileComponent implements OnInit {
       this.isUserLoggedIn = true;
       const userFromToken: User = this._userService.getDefaultUser();
 
-      this._userService.getUserFromSessionStorageRequest().subscribe(
-        (tokenRes: object) => {
+      this._userService.getUserFromSessionStorageRequest().subscribe({
+        next: (tokenRes: object) => {
           Object.assign(userFromToken, tokenRes);
 
           if (userFromToken.friends.map(x => x.userName).includes(this._urlUsername)) {
@@ -121,10 +121,10 @@ export class ProfileComponent implements OnInit {
           }
           this.dataArrived = true;
         },
-        () => {
+        error: () => {
           this.logout();
         }
-      );
+      });
     }
     else {
       this.dataArrived = true;
@@ -156,8 +156,8 @@ export class ProfileComponent implements OnInit {
     if (this.updatingFriendship) {
       this.dataArrived = false;
 
-      this._userService.getUserFromSessionStorageRequest().subscribe(
-        (result: object) => {
+      this._userService.getUserFromSessionStorageRequest().subscribe({
+        next: (result: object) => {
           const loggedInUser: User = result as User;
 
           if (this.friendOfUser) {
@@ -169,18 +169,22 @@ export class ProfileComponent implements OnInit {
             loggedInUser.friends.push(newFriend);
           }
 
-          this._userService.putBareUserFromSessionStorageRequest(loggedInUser, this.updateFrienship.get('password')?.value).subscribe(
-            () => {
-              this.reloadPage();
-            },
-            () => {
-              this._router.navigate(['/']);
-            }
-          );
+          this.updateUserWithNewFriends(loggedInUser);
         }
-      );
+      });
     }
     this.updatingFriendship = !this.updatingFriendship;
+  }
+
+  private updateUserWithNewFriends(loggedInUser: User): void {
+    this._userService.putBareUserFromSessionStorageRequest(loggedInUser, this.updateFrienship.get('password')?.value).subscribe({
+      next: () => {
+        this.reloadPage();
+      },
+      error: () => {
+        this._router.navigate(['/']);
+      }
+    });
   }
 
   onScroll(event: any): void {

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { UserService } from 'src/app/services/user.service';
@@ -34,26 +34,18 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this._errorBar.hideError();
-    this._userService.loginUserRequest(this.loginUserFormGroup).subscribe(
-        (res: object) => {
+    this._userService.loginUserRequest(this.loginUserFormGroup).subscribe({
+        next: (res: object) => {
           this._tokenService.setUserTokenToSessionStorage(res);
           this._router.navigate(['/']);
         },
-        (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           this._errorBar.showError(err);
         }
-    );
+    });
   }
 
   onRedirectRegister(): void {
     this._router.navigate(['/register']);
-  }
-
-  get username(): AbstractControl | null  {
-    return this.loginUserFormGroup.get('username');
-  }
-
-  get password(): AbstractControl | null  {
-    return this.loginUserFormGroup.get('password');
   }
 }

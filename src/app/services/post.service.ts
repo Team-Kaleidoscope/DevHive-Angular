@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import * as FormData from 'form-data';
 import { Guid } from 'guid-typescript';
 import { Observable } from 'rxjs';
-import { Post } from 'src/models/post';
+import { Post } from 'src/models/post.model';
 import { AppConstants } from '../app-constants.module';
 import { TokenService } from './token.service';
 

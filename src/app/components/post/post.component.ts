@@ -32,9 +32,9 @@ export class PostComponent implements OnInit {
     this.post = this._postService.getDefaultPost();
     this.user = this._userService.getDefaultUser();
 
-    this._postService.getPostRequest(Guid.parse(this.paramId)).subscribe(
-      (result: object) => {
-        Object.assign(this.post, result);      
+    this._postService.getPostRequest(Guid.parse(this.paramId)).subscribe({
+      next: (result: object) => {
+        Object.assign(this.post, result);
 
         this.post.fileURLs = Object.values(result)[7];
         this.votesNumber = this.post.currentRating;
@@ -45,19 +45,19 @@ export class PostComponent implements OnInit {
 
         this.loadUser();        
       }
-    ); 
+    });
   }
 
   private loadUser(): void {
-    this._userService.getUserByUsernameRequest(this.post.creatorUsername).subscribe(
-      (result: object) => {
+    this._userService.getUserByUsernameRequest(this.post.creatorUsername).subscribe({
+      next: (result: object) => {
         Object.assign(this.user, result);
 
         this.highlightButtonsOnInit();
 
         this.loaded = true;
       }
-    );
+    });
   }
 
   goToAuthorProfile(): void {

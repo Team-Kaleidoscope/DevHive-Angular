@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { User } from 'src/models/identity/user';
+import { User } from 'src/models/identity/user.model';
 import { UserService } from '../../services/user.service';
 import { AppConstants } from 'src/app/app-constants.module';
 import { FeedService } from 'src/app/services/feed.service';
-import { Post } from 'src/models/post';
+import { Post } from 'src/models/post.model';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -49,27 +49,27 @@ export class FeedComponent implements OnInit {
       fileUpload: new FormControl('')
     });
 
-    this._userService.getUserFromSessionStorageRequest().subscribe(
-      (res: object) => {
+    this._userService.getUserFromSessionStorageRequest().subscribe({
+      next: (res: object) => {
         Object.assign(this.user, res);
         this.loadFeed();
       },
-      () => {
+      error: () => {
         this.logout();
       }
-    );
+    });
   }
 
   private loadFeed(): void {
-    this._feedService.getUserFeedFromSessionStorageRequest(this._currentPage++, this._timeLoaded, AppConstants.PAGE_SIZE).subscribe(
-      (result: object) => {
+    this._feedService.getUserFeedFromSessionStorageRequest(this._currentPage++, this._timeLoaded, AppConstants.PAGE_SIZE).subscribe({
+      next: (result: object) => {
         this.posts.push(...Object.values(result)[0]);
         this.finishUserLoading();
       },
-      () => {
+      error: () => {
         this.finishUserLoading();
       }
-    );
+    });
   }
 
   private finishUserLoading(): void {
@@ -102,14 +102,14 @@ export class FeedComponent implements OnInit {
     const postMessage = this.createPostFormGroup.get('newPostMessage')?.value;
     this.dataArrived = false;
 
-    this._postService.createPostWithSessionStorageRequest(postMessage, this.files).subscribe(
-      () => {
+    this._postService.createPostWithSessionStorageRequest(postMessage, this.files).subscribe({
+      next: () => {
         this.goToProfile();
       },
-      () => {
+      error: () => {
         this.dataArrived = true;
       }
-    );
+    });
   }
 
   onScroll(event: any): void {

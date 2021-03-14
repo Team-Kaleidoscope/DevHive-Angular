@@ -4,10 +4,10 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\post",
-    "\\src\\app\\services",
+    "\\src\\app\\components\\feed",
+    "\\src\\app\\components\\profile",
     "\\src\\models"
   ],
-  "SelectedNode": "\\src\\app\\components\\post\\post.component.ts",
+  "SelectedNode": "\\src\\app\\components\\feed\\feed.component.html",
   "PreviewInSolutionExplorer": false
 }

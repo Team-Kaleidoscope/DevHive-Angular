@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { CommentService } from 'src/app/services/comment.service';
 import { TokenService } from 'src/app/services/token.service';
-import { Comment } from 'src/models/comment';
+import { Comment } from 'src/models/comment.model';
 
 @Component({
   selector: 'app-comment-page',
@@ -32,8 +32,8 @@ export class CommentPageComponent implements OnInit {
 
     // Gets the post and the logged in user and compares them,
     // to determine if the current post is made by the user
-    this._commentService.getCommentRequest(this.commentId).subscribe(
-      (result: object) => {
+    this._commentService.getCommentRequest(this.commentId).subscribe({
+      next: (result: object) => {
         this.comment = result as Comment;
         if (this.loggedIn) {
           this.editable = this.comment.issuerUsername === this._tokenService.getUsernameFromSessionStorageToken();
@@ -41,10 +41,10 @@ export class CommentPageComponent implements OnInit {
         }
         this.loaded = true;
       },
-      () => {
+      error: () => {
         this._router.navigate(['/not-found']);
       }
-    );
+    });
 
     this.editCommentFormGroup = this._fb.group({
       newCommentMessage: new FormControl('')
@@ -66,22 +66,22 @@ export class CommentPageComponent implements OnInit {
 
       if (newMessage !== '' && newMessage !== this.comment.message) {
         console.log(this.commentId);
-        this._commentService.putCommentWithSessionStorageRequest(this.commentId, this.comment.postId, newMessage).subscribe(
-          () => {
+        this._commentService.putCommentWithSessionStorageRequest(this.commentId, this.comment.postId, newMessage).subscribe({
+          next: () => {
             this.reloadPage();
           }
-        );
+        });
       }
     }
     this.editingComment = !this.editingComment;
   }
 
   deleteComment(): void {
-    this._commentService.deleteCommentWithSessionStorage(this.commentId).subscribe(
-      () => {
+    this._commentService.deleteCommentWithSessionStorage(this.commentId).subscribe({
+      next: () => {
         this.toPost();
       }
-    );
+    });
   }
 
   private reloadPage(): void {
