@@ -1,9 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as FormData from 'form-data';
 import { Guid } from 'guid-typescript';
 import { Observable } from 'rxjs';
-import { Post } from 'src/models/post';
 import { AppConstants } from '../app-constants.module';
 import { TokenService } from './token.service';
 
@@ -51,7 +49,7 @@ export class RatingService {
     const body = {
       postId: postId.toString(),
       isLike: isLike
-    };   
+    };
 
     return this._http.post(AppConstants.API_RATING_URL, body, options);
   }
@@ -61,7 +59,7 @@ export class RatingService {
       params: new HttpParams().set('UserId', userId.toString()).set('PostId', postId.toString()),
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + authToken)
     };
-    const body = {     
+    const body = {
       isLike: isLike
     };
 

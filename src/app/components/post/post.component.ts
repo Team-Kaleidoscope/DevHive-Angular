@@ -4,8 +4,8 @@ import { Guid } from 'guid-typescript';
 import { PostService } from 'src/app/services/post.service';
 import { RatingService } from 'src/app/services/rating.service';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/models/identity/user';
-import { Post } from 'src/models/post';
+import { User } from 'src/models/identity/user.model';
+import { Post } from 'src/models/post.model';
 import { TokenService } from '../../services/token.service';
 
 @Component({
@@ -41,9 +41,9 @@ export class PostComponent implements OnInit {
 
         this.voteBtns = document.getElementsByClassName('vote') as HTMLCollectionOf<HTMLElement>;
 
-        this.timeCreated = new Date(this.post.timeCreated).toLocaleString('en-GB');        
+        this.timeCreated = new Date(this.post.timeCreated).toLocaleString('en-GB');
 
-        this.loadUser();        
+        this.loadUser();
       }
     });
   }
@@ -75,7 +75,7 @@ export class PostComponent implements OnInit {
     }
 
     this._ratingServe.getRatingByUserAndPostWithSessionStorageRequest(Guid.parse(this.paramId)).subscribe(
-      (x: object) => {        
+      (x: object) => {
         if (Object.values(x)[3] === isLike) {
           this.deleteRating(Object.values(x)[0], isLike);
 
@@ -99,14 +99,14 @@ export class PostComponent implements OnInit {
     this._ratingServe.createRatingWithSessionStorageRequest(Guid.parse(this.paramId), isLike).subscribe(
       () => {
         this.votesNumber += -1 + Number(isLike) * 2;
-    }
-  );
-}
+      }
+    );
+  }
 
   private putRating(isLike: boolean): void {
     this._ratingServe.putRatingWithSessionStorageRequest(Guid.parse(this.paramId), isLike).subscribe(
       () => {
-        // when false -2 + 0 wjen true -2 + 4 
+        // when false -2 + 0 wjen true -2 + 4
         this.votesNumber += -2 + Number(isLike) * 4;
       }
     );
