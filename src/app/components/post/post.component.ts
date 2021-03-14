@@ -34,15 +34,23 @@ export class PostComponent implements OnInit {
     this._postService.getPostRequest(Guid.parse(this.paramId)).subscribe(
       (result: object) => {
         Object.assign(this.post, result);
+
+        console.log(this.post.postId);
+
         this.post.fileURLs = Object.values(result)[7];
         this.votesNumber = this.post.currentRating;
 
         this.voteBtns = document.getElementsByClassName('vote') as HTMLCollectionOf<HTMLElement>;
 
-        this.timeCreated = new Date(this.post.timeCreated).toLocaleString('en-GB');
+        this.timeCreated = new Date(this.post.timeCreated).toLocaleString('en-GB');        
+
         this.loadUser();        
       }
     );
+
+    window.addEventListener("load", () => {
+      this.highlightButtonsOnInit();
+    });
   }
 
   private loadUser(): void {
@@ -107,7 +115,7 @@ export class PostComponent implements OnInit {
   }
 
   private deleteRating(ratingId: string, isLike: boolean): void {
-    this._ratingServe.deleteRatingFromSessionStorageRequest(Guid.parse(ratingId)).subscribe(
+    this._ratingServe.deleteRatingFromSessionStorageRequest(Guid.parse(this.paramId)).subscribe(
       () => {
         this.votesNumber += 1 - Number(isLike) * 2;
       }
@@ -117,5 +125,17 @@ export class PostComponent implements OnInit {
   private changeColorOfVoteButton(isUpvoted: boolean, isDownvoted: boolean): void {
     this.voteBtns.item(0)!.style.backgroundColor = (isUpvoted) ? 'lightblue' : 'white';
     this.voteBtns.item(1)!.style.backgroundColor = (isDownvoted) ? 'lightblue' : 'white';
+  }
+
+  private highlightButtonsOnInit(): void {
+    this._ratingServe.getRatingByUserAndPostWithSessionStorageRequest(Guid.parse(this.paramId)).subscribe(
+      (x: object) => {
+        const isLike: boolean = Object.values(x)[3];
+
+        console.log(this.voteBtns);
+
+        this.changeColorOfVoteButton(isLike, !isLike);
+      }
+    );
   }
 }
