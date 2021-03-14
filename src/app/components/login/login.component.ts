@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { UserService } from 'src/app/services/user.service';
@@ -47,13 +47,5 @@ export class LoginComponent implements OnInit {
 
   onRedirectRegister(): void {
     this._router.navigate(['/register']);
-  }
-
-  get username(): AbstractControl | null  {
-    return this.loginUserFormGroup.get('username');
-  }
-
-  get password(): AbstractControl | null  {
-    return this.loginUserFormGroup.get('password');
   }
 }

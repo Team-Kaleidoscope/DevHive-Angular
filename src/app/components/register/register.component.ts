@@ -63,24 +63,4 @@ export class RegisterComponent implements OnInit {
   onRedirectLogin(): void {
     this._router.navigate(['/login']);
   }
-
-  get firstName(): AbstractControl | null  {
-    return this.registerUserFormGroup.get('firstName');
-  }
-
-  get lastName(): AbstractControl | null  {
-    return this.registerUserFormGroup.get('lastName');
-  }
-
-  get username(): AbstractControl | null  {
-    return this.registerUserFormGroup.get('username');
-  }
-
-  get email(): AbstractControl | null {
-    return this.registerUserFormGroup.get('email');
-  }
-
-  get password(): AbstractControl | null  {
-    return this.registerUserFormGroup.get('password');
-  }
 }
