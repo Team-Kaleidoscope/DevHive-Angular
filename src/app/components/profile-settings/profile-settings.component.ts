@@ -200,6 +200,12 @@ export class ProfileSettingsComponent implements OnInit {
     this._userService.putUserFromSessionStorageRequest(this.updateUserFormGroup, this.user.roles, this.user.friends).subscribe({
         next: () => {
           this._successBar.showMsg('Profile updated successfully!');
+
+          // "Reload" page when changing username
+          const newUsername = this.updateUserFormGroup.get('username')?.value;
+          if (newUsername !== this._urlUsername) {
+            this._router.navigate(['/profile/' + newUsername + '/settings']);
+          }
         },
         error: (err: HttpErrorResponse) => {
           this._errorBar.showError(err);
