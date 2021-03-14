@@ -6,7 +6,7 @@ import { Guid } from 'guid-typescript';
 import { CommentService } from 'src/app/services/comment.service';
 import { PostService } from 'src/app/services/post.service';
 import { TokenService } from 'src/app/services/token.service';
-import { Post } from 'src/models/post';
+import { Post } from 'src/models/post.model';
 import { CloudinaryService } from 'src/app/services/cloudinary.service';
 
 @Component({

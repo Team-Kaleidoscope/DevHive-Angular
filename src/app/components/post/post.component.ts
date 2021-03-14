@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/models/identity/user';
-import { Post } from 'src/models/post';
+import { User } from 'src/models/identity/user.model';
+import { Post } from 'src/models/post.model';
 
 @Component({
   selector: 'app-post',

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { CommentService } from 'src/app/services/comment.service';
 import { TokenService } from 'src/app/services/token.service';
-import { Comment } from 'src/models/comment';
+import { Comment } from 'src/models/comment.model';
 
 @Component({
   selector: 'app-comment-page',

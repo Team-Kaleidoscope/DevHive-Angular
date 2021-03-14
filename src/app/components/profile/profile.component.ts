@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/models/identity/user';
+import { User } from 'src/models/identity/user.model';
 import { AppConstants } from 'src/app/app-constants.module';
 import { Location } from '@angular/common';
 import { LanguageService } from 'src/app/services/language.service';
 import { TechnologyService } from 'src/app/services/technology.service';
-import { Post } from 'src/models/post';
+import { Post } from 'src/models/post.model';
 import { FeedService } from 'src/app/services/feed.service';
 import { TokenService } from 'src/app/services/token.service';
 import { Title } from '@angular/platform-browser';
-import { Friend } from 'src/models/identity/friend';
+import { Friend } from 'src/models/identity/friend.model';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({

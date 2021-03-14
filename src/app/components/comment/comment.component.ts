@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { CommentService } from 'src/app/services/comment.service';
 import { UserService } from 'src/app/services/user.service';
-import { Comment } from 'src/models/comment';
-import { User } from 'src/models/identity/user';
+import { Comment } from 'src/models/comment.model';
+import { User } from 'src/models/identity/user.model';
 
 @Component({
   selector: 'app-comment',

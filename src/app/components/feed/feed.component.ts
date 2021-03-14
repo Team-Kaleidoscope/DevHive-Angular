@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { User } from 'src/models/identity/user';
+import { User } from 'src/models/identity/user.model';
 import { UserService } from '../../services/user.service';
 import { AppConstants } from 'src/app/app-constants.module';
 import { FeedService } from 'src/app/services/feed.service';
-import { Post } from 'src/models/post';
+import { Post } from 'src/models/post.model';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { PostService } from 'src/app/services/post.service';
 import { TokenService } from 'src/app/services/token.service';

@@ -11,9 +11,9 @@ import { PostService } from 'src/app/services/post.service';
 import { TechnologyService } from 'src/app/services/technology.service';
 import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/models/identity/user';
-import { Language } from 'src/models/language';
-import { Technology } from 'src/models/technology';
+import { User } from 'src/models/identity/user.model';
+import { Language } from 'src/models/language.model';
+import { Technology } from 'src/models/technology.model';
 import { ErrorBarComponent } from '../error-bar/error-bar.component';
 import { SuccessBarComponent } from '../success-bar/success-bar.component';
 
