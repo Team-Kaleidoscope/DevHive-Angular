@@ -115,7 +115,7 @@ export class PostComponent implements OnInit {
   }
 
   private deleteRating(ratingId: string, isLike: boolean): void {
-    this._ratingServe.deleteRatingFromSessionStorageRequest(Guid.parse(this.paramId)).subscribe(
+    this._ratingServe.deleteRatingFromSessionStorageRequest(Guid.parse(ratingId)).subscribe(
       () => {
         this.votesNumber += 1 - Number(isLike) * 2;
       }
