@@ -169,18 +169,22 @@ export class ProfileComponent implements OnInit {
             loggedInUser.friends.push(newFriend);
           }
 
-          this._userService.putBareUserFromSessionStorageRequest(loggedInUser, this.updateFrienship.get('password')?.value).subscribe({
-            next: () => {
-              this.reloadPage();
-            },
-            error: () => {
-              this._router.navigate(['/']);
-            }
-          });
+          this.updateUserWithNewFriends(loggedInUser);
         }
       });
     }
     this.updatingFriendship = !this.updatingFriendship;
+  }
+
+  private updateUserWithNewFriends(loggedInUser: User): void {
+    this._userService.putBareUserFromSessionStorageRequest(loggedInUser, this.updateFrienship.get('password')?.value).subscribe({
+      next: () => {
+        this.reloadPage();
+      },
+      error: () => {
+        this._router.navigate(['/']);
+      }
+    });
   }
 
   onScroll(event: any): void {
