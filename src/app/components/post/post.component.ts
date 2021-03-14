@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/models/identity/user';
-import { Post } from 'src/models/post';
+import { User } from 'src/models/identity/user.model';
+import { Post } from 'src/models/post.model';
 
 @Component({
   selector: 'app-post',
@@ -26,8 +26,8 @@ export class PostComponent implements OnInit {
     this.post = this._postService.getDefaultPost();
     this.user = this._userService.getDefaultUser();
 
-    this._postService.getPostRequest(Guid.parse(this.paramId)).subscribe(
-      (result: object) => {
+    this._postService.getPostRequest(Guid.parse(this.paramId)).subscribe({
+      next: (result: object) => {
         Object.assign(this.post, result);
         this.post.fileURLs = Object.values(result)[7];
         this.votesNumber = 23;
@@ -35,16 +35,16 @@ export class PostComponent implements OnInit {
         this.timeCreated = new Date(this.post.timeCreated).toLocaleString('en-GB');
         this.loadUser();
       }
-    );
+    });
   }
 
   private loadUser(): void {
-    this._userService.getUserByUsernameRequest(this.post.creatorUsername).subscribe(
-      (result: object) => {
+    this._userService.getUserByUsernameRequest(this.post.creatorUsername).subscribe({
+      next: (result: object) => {
         Object.assign(this.user, result);
         this.loaded = true;
       }
-    );
+    });
   }
 
   goToAuthorProfile(): void {

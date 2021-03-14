@@ -1,6 +1,6 @@
 import { Guid } from 'guid-typescript';
-import { Comment } from './comment';
-import { PostComment } from './post-comment';
+import { Comment } from './comment.model';
+import { PostComment } from './post-comment.model';
 
 export class Post {
   private _postId: Guid;

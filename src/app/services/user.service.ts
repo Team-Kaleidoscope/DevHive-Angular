@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Guid } from 'guid-typescript';
-import { User } from '../../models/identity/user';
+import { User } from '../../models/identity/user.model';
 import { FormGroup } from '@angular/forms';
 import { AppConstants } from 'src/app/app-constants.module';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Role } from 'src/models/identity/role';
-import { Friend } from 'src/models/identity/friend';
+import { Role } from 'src/models/identity/role.model';
+import { Friend } from 'src/models/identity/friend.model';
 import { TokenService } from './token.service';
 
 @Injectable({

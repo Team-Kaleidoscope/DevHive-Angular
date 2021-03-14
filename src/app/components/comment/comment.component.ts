@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { CommentService } from 'src/app/services/comment.service';
 import { UserService } from 'src/app/services/user.service';
-import { Comment } from 'src/models/comment';
-import { User } from 'src/models/identity/user';
+import { Comment } from 'src/models/comment.model';
+import { User } from 'src/models/identity/user.model';
 
 @Component({
   selector: 'app-comment',
@@ -25,23 +25,23 @@ export class CommentComponent implements OnInit {
     this.comment = this._commentService.getDefaultComment();
     this.user = this._userService.getDefaultUser();
 
-    this._commentService.getCommentRequest(Guid.parse(this.paramId)).subscribe(
-      (result: object) => {
+    this._commentService.getCommentRequest(Guid.parse(this.paramId)).subscribe({
+      next: (result: object) => {
         Object.assign(this.comment, result);
 
         this.timeCreated = new Date(this.comment.timeCreated).toLocaleString('en-GB');
         this.loadUser();
       }
-    );
+    });
   }
 
   private loadUser(): void {
-    this._userService.getUserByUsernameRequest(this.comment.issuerUsername).subscribe(
-      (result: object) => {
+    this._userService.getUserByUsernameRequest(this.comment.issuerUsername).subscribe({
+      next: (result: object) => {
         Object.assign(this.user, result);
         this.loaded = true;
       }
-    );
+    });
   }
 
   goToAuthorProfile(): void {
