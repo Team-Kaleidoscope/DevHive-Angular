@@ -50,15 +50,15 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this._userService.registerUserRequest(this.registerUserFormGroup).subscribe(
-        res => {
+    this._userService.registerUserRequest(this.registerUserFormGroup).subscribe({
+        next: (res: object) => {
           this._tokenService.setUserTokenToSessionStorage(res);
           this._router.navigate(['/']);
         },
-        (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           this._errorBar.showError(err);
         }
-    );
+    });
   }
   onRedirectLogin(): void {
     this._router.navigate(['/login']);

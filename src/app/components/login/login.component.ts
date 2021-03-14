@@ -34,15 +34,15 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this._errorBar.hideError();
-    this._userService.loginUserRequest(this.loginUserFormGroup).subscribe(
-        (res: object) => {
+    this._userService.loginUserRequest(this.loginUserFormGroup).subscribe({
+        next: (res: object) => {
           this._tokenService.setUserTokenToSessionStorage(res);
           this._router.navigate(['/']);
         },
-        (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           this._errorBar.showError(err);
         }
-    );
+    });
   }
 
   onRedirectRegister(): void {
