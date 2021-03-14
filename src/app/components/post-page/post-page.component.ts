@@ -37,8 +37,8 @@ export class PostPageComponent implements OnInit {
 
     // Gets the post and the logged in user and compares them,
     // to determine if the current post is made by the user
-    this._postService.getPostRequest(this.postId).subscribe(
-      (result: object) => {
+    this._postService.getPostRequest(this.postId).subscribe({
+      next: (result: object) => {
         this.post = result as Post;
         this.post.fileURLs = Object.values(result)[7];
         if (this.loggedIn) {
@@ -52,10 +52,10 @@ export class PostPageComponent implements OnInit {
           this.dataArrived = true;
         }
       },
-      () => {
+      error: () => {
         this._router.navigate(['/not-found']);
       }
-    );
+    });
 
     this.editPostFormGroup = this._fb.group({
       newPostMessage: new FormControl(''),
@@ -69,8 +69,8 @@ export class PostPageComponent implements OnInit {
 
   private loadFiles(): void {
     for (const fileURL of this.post.fileURLs) {
-      this._cloudinaryService.getFileRequest(fileURL).subscribe(
-        (result: object) => {
+      this._cloudinaryService.getFileRequest(fileURL).subscribe({
+        next: (result: object) => {
           const file = result as File;
           const tmp = {
             name: fileURL.match('(?<=\/)(?:.(?!\/))+$')?.pop() ?? 'Attachment'
@@ -83,7 +83,7 @@ export class PostPageComponent implements OnInit {
             this.dataArrived = true;
           }
         }
-      );
+      });
     }
   }
 
@@ -118,11 +118,11 @@ export class PostPageComponent implements OnInit {
       const newMessage = this.editPostFormGroup.get('newPostMessage')?.value;
 
       if (newMessage === '' && newMessage !== this.post.message) {
-        this._postService.putPostWithSessionStorageRequest(this.postId, newMessage, this.files).subscribe(
-          () => {
+        this._postService.putPostWithSessionStorageRequest(this.postId, newMessage, this.files).subscribe({
+          next: () => {
             this.reloadPage();
           }
-        );
+        });
         this.dataArrived = false;
       }
     }
@@ -137,21 +137,21 @@ export class PostPageComponent implements OnInit {
 
     const newComment = this.addCommentFormGroup.get('newComment')?.value;
     if (newComment !== '' && newComment !== null) {
-      this._commentService.createCommentWithSessionStorageRequest(this.postId, newComment).subscribe(
-        () => {
+      this._commentService.createCommentWithSessionStorageRequest(this.postId, newComment).subscribe({
+        next: () => {
           this.editPostFormGroup.reset();
           this.reloadPage();
         }
-      );
+      });
     }
   }
 
   deletePost(): void {
-    this._postService.deletePostWithSessionStorage(this.postId).subscribe(
-      () => {
+    this._postService.deletePostWithSessionStorage(this.postId).subscribe({
+      next: () => {
         this._router.navigate(['/profile/' + this._tokenService.getUsernameFromSessionStorageToken()]);
       }
-    );
+    });
   }
 
   private reloadPage(): void {
