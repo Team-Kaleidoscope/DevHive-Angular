@@ -53,7 +53,9 @@ export class PostComponent implements OnInit {
       next: (result: object) => {
         Object.assign(this.user, result);
 
-        this.highlightButtonsOnInit();
+        if (this.loggedIn) {
+          this.highlightButtonsOnInit();
+        }
 
         this.loaded = true;
       }
