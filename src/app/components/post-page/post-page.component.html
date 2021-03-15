@@ -8,7 +8,7 @@
 		</div>
 		<button class="submit-btn" type="submit" (click)="toLogin()" *ngIf="!loggedIn">Login</button>
 	</nav>
-	<app-post [paramId]="postId.toString()"></app-post>
+	<app-post [paramId]="postId.toString()" [index]="0"></app-post>
 	<div class="many-buttons" *ngIf="editable">
 		<button class="submit-btn" (click)="editPost()">Edit post</button>
 		<button class="submit-btn delete-btn" (click)="deletePost()">Delete post</button>
