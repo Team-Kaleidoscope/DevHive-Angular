@@ -2,11 +2,15 @@
 @import "./reset.css";
 
 :root {
-  --bg-color: white;
+  --max-width: 40rem;
+  --bg-color: #18191a;
+  --fg-color: #ffeede;
   --focus-color: forestgreen;
-  --card-bg: white;
+  --card-bg: #303030;
+  --card-padding: 0.5em;
   --success: forestgreen;
   --failure: indianred;
+  --faded-color: #696969;
 }
 
 html,
@@ -16,7 +20,16 @@ body {
 }
 body {
   font: 21px sans-serif !important;
+  color: var(--fg-color);
   background-color: var(--bg-color);
+}
+
+button {
+  color: inherit;
+  background: inherit;
+  font: inherit;
+  padding: 0;
+  border: none;
 }
 
 input:focus,
@@ -38,7 +51,7 @@ input[type=file]::file-selector-button {
 #content {
   /* Used for the login and register pages */
   height: 100%;
-  max-width: 20em;
+  max-width: var(--max-width);
   box-sizing: border-box;
   border: 0.5em solid var(--bg-color);
 
@@ -94,6 +107,129 @@ input[type=file]::file-selector-button {
   padding: 0.26em;
   margin: 0.1em 0.2em;
   width: fit-content;
+}
+
+/* General flex */
+
+.flex-row, .flex-col {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flexible, .flexible-children > * {
+  flex: 1;
+}
+
+.flex-center-align-items {
+  align-items: center;
+}
+
+.flex-justify-start {
+  justify-content: flex-start;
+}
+
+.flex-justify-end {
+  justify-content: flex-end;
+}
+
+.justify-children-center > * {
+  display: flex;
+  justify-content: center;
+}
+
+/* General font sizes */
+
+.font-size-dot9 {
+  font-size: 0.9em;
+}
+
+.font-size-dot8 {
+  font-size: 0.8em;
+}
+
+.font-size-dot7 {
+  font-size: 0.7em;
+}
+
+.img-height-font-size {
+  height: 1em;
+}
+
+/* General colors */
+
+.fg-color-faded {
+  color: var(--faded-color);
+}
+
+/* General text */
+
+.text-vertical-middle {
+  vertical-align: middle;
+}
+
+/* General border */
+
+.faded-slim-border {
+  border: 1px solid var(--faded-color);
+}
+
+.border-radius-normal, .card {
+  border-radius: 0.5em;
+}
+
+.border-radius-smaller {
+  border-radius: 0.3em;
+}
+
+.border-radius-small {
+  border-radius: 0.2em;
+}
+
+.border-bottom-only {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+/* General padding */
+
+.small-padding {
+  padding: 0.2em;
+}
+
+/* Cards */
+
+.card {
+  margin: .5em auto;
+  box-sizing: border-box;
+  padding: var(--card-padding);
+  background-color: var(--card-bg);
+  position: relative;
+}
+
+
+/* Effects */
+
+.lighter-hover:hover {
+  cursor: pointer;
+  background: #424242;
+}
+
+.click-effect:active {
+  transform: scale(0.9);
+}
+
+.hover-half-opacity:hover {
+  opacity: 0.5;
+  cursor: pointer;
 }
 
 /* Inputs, the type found in login and register */

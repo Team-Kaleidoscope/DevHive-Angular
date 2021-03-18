@@ -1,48 +1,60 @@
 <app-loading *ngIf="!loaded"></app-loading>
 
-<section class="post rounded-border" *ngIf="loaded">
-	<section class="content">
-		<summary class="author" (click)="goToAuthorProfile()">
-			<img class="round-image" [src]="user.profilePictureURL">
-			<div class="author-info">
-				<div class="name">
-					{{ user.firstName }} {{ user.lastName }}
-				</div>
-				<div class="handle">
-					@{{ user.userName }}
-				</div>
-			</div>
+<section class="card flex-row" *ngIf="loaded">
+	<aside class="left-pane">
+		<img class="author-picture round-image hover-half-opacity" [src]="user.profilePictureURL"  (click)="goToAuthorProfile()">
+	</aside>
+	<main class="content flexible">
+		<summary class="font-size-dot8 text-vertical-middle hover-half-opacity"  (click)="goToAuthorProfile()">
+			<span>
+				{{ user.firstName }} {{ user.lastName }}
+			</span>
+			<span class="fg-color-faded">
+				@{{ user.userName }}
+			</span>
 		</summary>
-		<article class="message" (click)="goToPostPage()">
+		<article class="message">
 			{{ post.message }}
 		</article>
-		<div class="bottom-post" (click)="goToPostPage()">
-			<time class="timestamp">
-				{{ timeCreated }}
+		<section class="flex-row flexible-children">
+			<figure *ngFor="let fileURL of post.fileURLs">
+				<app-post-attachment [paramURL]="fileURL"></app-post-attachment>
+			</figure>
+		</section>
+		<section class="post-details flex-row flex-justify-end font-size-dot7 faded-slim-border border-bottom-only">
+			<time class="flex-row flex-center-align-items">
+				<img class="img-height-font-size" src="/assets/icons/tabler-icon-calendar-time.svg">&nbsp;
+				<span>
+					{{ timeCreated }}
+				</span>
 			</time>
-			<div class="separator">
-				║
-			</div>
-			<summary class="comment-count">
-				{{ post.comments.length }}
-				<img src="assets/images/comment.png">
+			<summary class="flex-row flex-center-align-items">
+				<img class="img-height-font-size" src="/assets/icons/tabler-icon-message-2.svg">&nbsp;
+				<span>
+					{{ post.comments.length }}
+				</span>
 			</summary>
-		</div>
-	</section>
-	<section class="rating">
-		<button class="vote" (click)="votePost(true)">
-			ᐃ
+		</section>
+		<section class="flex-row flexible-children justify-children-center">
+			<button class="small-padding lighter-hover click-effect border-radius-smaller"  (click)="goToPostPage()">
+				<img src="/assets/icons/tabler-icon-message-2.svg">
+				&nbsp;Comment
+			</button>
+			<button class="small-padding lighter-hover click-effect border-radius-smaller"  (click)="goToPostPage()">
+				<img src="/assets/icons/tabler-icon-link.svg">
+				&nbsp;Share
+			</button>
+		</section>
+	</main>
+	<aside class="flex-col flex-center-align-items">
+		<button class="flex-col lighter-hover border-radius-small click-effect" (click)="votePost(true)">
+			<img src="/assets/icons/tabler-icon-chevron-up.svg">
 		</button>
-		<summary class="score">
+		<summary>
 			{{ votesNumber }}
 		</summary>
-		<button class="vote" (click)="votePost(false)">
-			ᐁ
+		<button class="flex-col lighter-hover border-radius-small click-effect" (click)="votePost(false)">
+			<img src="/assets/icons/tabler-icon-chevron-down.svg">
 		</button>
-	</section>
+	</aside>
 </section>
-<aside class="attachments">
-	<figure *ngFor="let fileURL of post.fileURLs">
-		<app-post-attachment class="no-events" [paramURL]="fileURL"></app-post-attachment>
-	</figure>
-</aside>
