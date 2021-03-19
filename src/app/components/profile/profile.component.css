@@ -7,12 +7,17 @@
   width: 5rem;
 }
 
+.sec-info-card {
+  padding-bottom: calc(var(--card-padding) - 0.3em);
+}
+
 .sec-info-title {
   padding-bottom: 0.2em;
   margin-bottom: 0.3em;
 }
 
 .sec-info {
+  width: fit-content;
   background-color: #424242;
   margin: 0 0.3em 0.3em 0;
 }

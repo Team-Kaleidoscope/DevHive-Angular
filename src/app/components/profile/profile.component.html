@@ -21,30 +21,30 @@
 			</form>
 		</div>
 	</section>
-	<section class="card flex-col full-width">
+	<section class="card sec-info-card flex-col full-width">
 		<div class="sec-info-title faded-slim-border border-bottom-only">
 			Languages
 		</div>
-		<span *ngIf="user.languages.length === 0">
+		<div *ngIf="user.languages.length === 0">
 			None
-		</span>
+		</div>
 		<div class="flex-row" *ngFor="let lang of user.languages">
-			<span class="sec-info border-radius-normal padding-small">
+			<div class="sec-info border-radius-normal padding-small">
 				{{ lang.name }}
-			</span>
+			</div>
 		</div>
 	</section>
-	<section class="card flex-col full-width">
+	<section class="card sec-info-card flex-col full-width">
 		<div class="sec-info-title faded-slim-border border-bottom-only">
 			Technologies
 		</div>
-		<span *ngIf="user.technologies.length === 0">
+		<div *ngIf="user.technologies.length === 0">
 			None
-		</span>
-		<div *ngFor="let tech of user.technologies">
-			<span class="sec-info border-radius-normal padding-small">
+		</div>
+		<div  class="flex-row" *ngFor="let tech of user.technologies">
+			<div class="sec-info border-radius-normal padding-small">
 				{{ tech.name }}
-			</span>
+			</div>
 		</div>
 	</section>
 	<hr class="card-hr">
