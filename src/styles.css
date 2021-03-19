@@ -24,16 +24,18 @@ body {
   background-color: var(--bg-color);
 }
 
-button {
+button, textarea, input {
   color: inherit;
   background: inherit;
+  background-color: inherit;
   font: inherit;
   padding: 0;
   border: none;
 }
 
 input:focus,
-button:focus {
+button:focus,
+textarea:focus {
   outline: 0;
 }
 
