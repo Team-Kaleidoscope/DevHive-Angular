@@ -254,6 +254,12 @@ input[type=file]::file-selector-button {
   }
 }
 
+.card-hr {
+  width: calc(100% - 1em);
+  border: 1px solid var(--fg-color);
+  background-color: var(--fg-color);
+}
+
 /* Effects */
 
 .lighter-hover:hover, .light-hover:hover, .hover-half-opacity:hover {
