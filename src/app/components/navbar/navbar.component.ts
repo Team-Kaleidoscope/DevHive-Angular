@@ -29,6 +29,11 @@ export class NavbarComponent implements OnInit {
   }
 
   goToProfile(): void {
+    // Properly reload the page
+    // Needed because if you're on someone's profile and go to yours, angular won't refresh the page (with your info)
+    this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this._router.onSameUrlNavigation = 'reload';
+
     this._router.navigate(['/profile/' + this.user.userName]);
   }
 
