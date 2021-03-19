@@ -14,7 +14,7 @@ export class AppConstants {
   public static API_COMMENT_URL = AppConstants.BASE_API_URL + '/Comment';
 
   public static PAGE_SIZE = 10;
-  public static FALLBACK_PROFILE_ICON = 'assets/images/feed/profile-pic.png';
+  public static FALLBACK_PROFILE_ICON = 'assets/icons/tabler-icon-user.svg';
 
   public static SESSION_TOKEN_KEY = 'UserCred';
   public static ADMIN_ROLE_NAME = 'Admin';
