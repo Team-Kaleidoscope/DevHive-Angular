@@ -28,3 +28,8 @@
 .post-details > * {
   margin-left: 1.1em;
 }
+
+.rating img {
+  height: 1.2em;
+  width: 1.2em;
+}
