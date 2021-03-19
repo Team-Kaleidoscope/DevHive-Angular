@@ -3,12 +3,14 @@
 		<div class="flexible" *ngIf="!loggedIn">
 			<!-- This element serves as a spacer -->
 		</div>
-		<div id="nav-profile-picture" class="nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" (click)="goToProfile()" *ngIf="loggedIn">
-			<img class="round-image" [src]="user.profilePictureURL">
-		</div>
-		<div id="nav-username" class="font-size-dot9 nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" (click)="goToProfile()" *ngIf="loggedIn">
-			<div class="padding-small">
-				@{{ user.userName }}
+		<div class="nav-item border-radius-small flex-row flex-center-align-items light-hover hover-half-opacity click-effect" (click)="goToProfile()" *ngIf="loggedIn">
+			<div id="nav-profile-picture" class="flex-col">
+				<img class="round-image" [src]="user.profilePictureURL">
+			</div>
+			<div id="nav-username" class="font-size-dot9 flex-col">
+				<div class="padding-small">
+					@{{ user.userName }}
+				</div>
 			</div>
 		</div>
 		<div class="nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" (click)="goToFeed()">
