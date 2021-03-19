@@ -78,7 +78,7 @@ export class PostService {
 
   deletePostRequest(postId: Guid, authToken: string): Observable<object> {
     const options = {
-      params: new HttpParams().set('Id', postId.toString()),
+      params: new HttpParams().set('PostId', postId.toString()),
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + authToken)
     };
     return this._http.delete(AppConstants.API_POST_URL, options);

@@ -55,7 +55,7 @@ export class CommentService {
 
   getCommentRequest(id: Guid): Observable<object> {
     const options = {
-      params: new HttpParams().set('Id', id.toString())
+      params: new HttpParams().set('CommentId', id.toString())
     };
     return this._http.get(AppConstants.API_COMMENT_URL, options);
   }
@@ -75,7 +75,7 @@ export class CommentService {
 
   deleteCommentRequest(commentId: Guid, authToken: string): Observable<object> {
     const options = {
-      params: new HttpParams().set('Id', commentId.toString()),
+      params: new HttpParams().set('CommentId', commentId.toString()),
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + authToken)
     };
     return this._http.delete(AppConstants.API_COMMENT_URL, options);
