@@ -11,15 +11,13 @@ import { User } from 'src/models/identity/user.model';
 })
 export class NavbarComponent implements OnInit {
   public user: User;
+  public loggedIn: Boolean;
 
   constructor(private _router: Router, private _userService: UserService, private _tokenService: TokenService)
   { }
 
   ngOnInit(): void {
-    if (!this._tokenService.getTokenFromSessionStorage()) {
-      this._router.navigate(['/login']);
-      return;
-    }
+    this.loggedIn = this._tokenService.getTokenFromSessionStorage() !== '';
 
     this.user = this._userService.getDefaultUser();
 
@@ -35,7 +33,12 @@ export class NavbarComponent implements OnInit {
   }
 
   goToFeed(): void {
-    this._router.navigate(['/']);
+    if (this.loggedIn) {
+      this._router.navigate(['/']);
+    }
+    else {
+      this.goToLogin();
+    }
   }
 
   goToSettings(): void {
@@ -44,6 +47,10 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this._tokenService.logoutUserFromSessionStorage();
+    this.goToLogin();
+  }
+
+  goToLogin(): void {
     this._router.navigate(['/login']);
   }
 }
