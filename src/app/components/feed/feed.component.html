@@ -2,7 +2,7 @@
 
 <app-loading *ngIf="!dataArrived"></app-loading>
 
-<main class="centered-content scroll-standalone flex-col flex-justify-start" *ngIf="dataArrived">
+<main class="centered-content scroll-standalone under-navbar flex-col flex-justify-start" *ngIf="dataArrived">
 	<form id="create-post" class="card flex-col" [formGroup]="createPostFormGroup" (ngSubmit)="createPost()">
 		<textarea id="new-post-message" class="faded-slim-border border-bottom-only padding-small" rows="1" formControlName="newPostMessage" placeholder="What's on your mind?"></textarea>
 		<section id="attachments-btns" class="flex-row flex-justify-start flex-center-align-children">

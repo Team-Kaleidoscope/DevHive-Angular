@@ -2,7 +2,7 @@
 
 <app-loading *ngIf="!dataArrived"></app-loading>
 
-<div id="content" *ngIf="dataArrived">
+<div id="content" class="scroll-standalone under-navbar" *ngIf="dataArrived">
 	<nav id="navigation">
 		<button class="submit-btn" (click)="goToProfile()">ᐊ Back</button>
 		<button class="submit-btn" (click)="navigateToAdminPanel()" *ngIf="isAdminUser">Panel</button>

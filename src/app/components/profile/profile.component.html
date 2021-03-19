@@ -2,7 +2,7 @@
 
 <app-loading *ngIf="!dataArrived"></app-loading>
 
-<main class="scroll-standalone flex-col centered-content" *ngIf="dataArrived" (scroll)="onScroll($event)">
+<main class="scroll-standalone under-navbar flex-col centered-content" *ngIf="dataArrived" (scroll)="onScroll($event)">
 	<section id="user-info" class="card flex-row full-width flex-justify-center">
 		<div>
 			<img id="profile-picture" class="round-image" [src]="user.profilePictureURL">

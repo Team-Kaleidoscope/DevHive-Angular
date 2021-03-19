@@ -2,7 +2,7 @@
 
 <app-loading *ngIf="!dataArrived"></app-loading>
 
-<main id="content" *ngIf="dataArrived">
+<main id="content" class="scroll-standalone under-navbar" *ngIf="dataArrived">
 	<nav>
 		<div class="many-buttons"  *ngIf="loggedIn">
 			<button class="submit-btn" type="submit" (click)="backToFeed()">ᐊ Back to feed</button>

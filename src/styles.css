@@ -11,6 +11,7 @@
   --success: forestgreen;
   --failure: indianred;
   --faded-color: #696969;
+  --navbar-height: 2.6em;
 }
 
 html,
@@ -285,6 +286,10 @@ input[type=file]::file-selector-button {
   max-width: var(--max-width);
   margin: 0 auto;
   box-sizing: border-box;
+}
+
+.under-navbar {
+  height: calc(100% - var(--navbar-height)) !important;
 }
 
 /* Inputs, the type found in login and register */
