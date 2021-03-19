@@ -25,7 +25,7 @@
 		<div class="sec-info-title faded-slim-border border-bottom-only">
 			Languages
 		</div>
-		<div *ngIf="user.languages.length === 0">
+		<div class="none-message" *ngIf="user.languages.length === 0">
 			None
 		</div>
 		<div class="flex-row" *ngFor="let lang of user.languages">
@@ -38,7 +38,7 @@
 		<div class="sec-info-title faded-slim-border border-bottom-only">
 			Technologies
 		</div>
-		<div *ngIf="user.technologies.length === 0">
+		<div class="none-message" *ngIf="user.technologies.length === 0">
 			None
 		</div>
 		<div  class="flex-row" *ngFor="let tech of user.technologies">
