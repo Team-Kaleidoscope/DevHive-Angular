@@ -55,7 +55,7 @@ export class CommentService {
 
   getCommentRequest(id: Guid): Observable<object> {
     const options = {
-      params: new HttpParams().set('CommentId', id.toString())
+      params: new HttpParams().set('Id', id.toString())
     };
     return this._http.get(AppConstants.API_COMMENT_URL, options);
   }
