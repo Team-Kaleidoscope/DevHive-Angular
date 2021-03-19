@@ -1,0 +1,36 @@
+<nav id="navbar">
+	<div id="nav-contents" class="flex-row padding-smaller flex-center-align-items">
+		<div id="nav-profile-picture" class="nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" (click)="goToProfile()">
+			<img class="round-image" [src]="user.profilePictureURL">
+		</div>
+		<div id="nav-username" class="font-size-dot9 nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" (click)="goToProfile()">
+			<div class="padding-small">
+				Konstantin
+			</div>
+		</div>
+		<div class="nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" (click)="goToFeed()">
+			<img src="/assets/icons/tabler-icon-home.svg">
+		</div>
+		<div class="nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" style="display: none">
+			<!-- Trending functionality isn't implemented yet! -->
+			<img src="/assets/icons/tabler-icon-trending-up.svg">
+		</div>
+		<div class="nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" style="display: none">
+			<!-- Chat functionality isn't implemented yet! -->
+			<img src="/assets/icons/tabler-icon-message-circle.svg">
+		</div>
+		<div class="nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" style="display: none">
+			<!-- Search functionality isn't implemented yet! -->
+			<img src="/assets/icons/tabler-icon-search.svg">
+		</div>
+		<div class="flexible">
+			<!-- This element serves as a spacer -->
+		</div>
+		<div class="nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" (click)="goToSettings()">
+			<img src="/assets/icons/tabler-icon-settings.svg">
+		</div>
+		<div class="nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" (click)="logout()">
+			<img src="/assets/icons/tabler-icon-logout.svg">
+		</div>
+	</div>
+</nav>

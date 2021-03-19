@@ -201,8 +201,20 @@ input[type=file]::file-selector-button {
 
 /* General padding */
 
-.small-padding {
+.padding-normal {
+  padding: 0.4em;
+}
+
+.padding-smaller {
+  padding: 0.3em;
+}
+
+.padding-small {
   padding: 0.2em;
+}
+
+.padding-tiny {
+  padding: 0.1em;
 }
 
 /* Cards */
@@ -218,18 +230,24 @@ input[type=file]::file-selector-button {
 
 /* Effects */
 
-.lighter-hover:hover {
+.lighter-hover:hover, .light-hover:hover, .hover-half-opacity:hover {
   cursor: pointer;
+}
+
+.lighter-hover:hover {
   background: #424242;
 }
 
-.click-effect:active {
-  transform: scale(0.9);
+.light-hover:hover {
+  background: #696969;
 }
 
 .hover-half-opacity:hover {
   opacity: 0.5;
-  cursor: pointer;
+}
+
+.click-effect:active {
+  transform: scale(0.9);
 }
 
 /* Inputs, the type found in login and register */
