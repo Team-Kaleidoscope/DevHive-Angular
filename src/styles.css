@@ -234,6 +234,11 @@ input[type=file]::file-selector-button {
   padding: 0.1em;
 }
 
+.side-padding-smaller {
+  padding-right: 0.3em;
+  padding-left: 0.3em;
+}
+
 /* Cards */
 
 .card {
