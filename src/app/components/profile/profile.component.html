@@ -49,7 +49,7 @@
 	</section>
 	<hr class="card-hr">
 	<section>
-		<div *ngIf="userPosts.length === 0">
+		<div class="text-centered" *ngIf="userPosts.length === 0">
 			{{ user.firstName }} {{ user.lastName }} hasn't posted anything yet!
 		</div>
 		<div *ngFor="let userPost of userPosts; let i = index">
