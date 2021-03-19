@@ -2,61 +2,57 @@
 
 <app-loading *ngIf="!dataArrived"></app-loading>
 
-<div id="content" *ngIf="dataArrived">
-	<nav id="navigation">
-		<button class="submit-btn" (click)="goBack()">ᐊ Back</button>
-		<button class="submit-btn" (click)="navigateToSettings()" *ngIf="isTheLoggedInUser">Settings</button>
-		<button class="submit-btn" (click)="navigateToAdminPanel()" *ngIf="isTheLoggedInUser && isAdminUser">Panel</button>
-		<button class="submit-btn" (click)="logout()" *ngIf="isTheLoggedInUser">Logout</button>
-	</nav>
-	<hr>
-	<div class="scroll-standalone" (scroll)="onScroll($event)">
-		<div id="main-info" class="rounded-border">
-			<img class="round-image" [src]="user.profilePictureURL" alt=""/>
-			<div id="other-main-info">
-				<div id="name">
-					{{ user.firstName }} {{ user.lastName }}
-				</div>
-				<div id="username">
-					@{{ user.userName }}
-				</div>
-				<form [formGroup]="updateFrienship" (ngSubmit)="modifyFriend()" *ngIf="!isTheLoggedInUser && isUserLoggedIn">
-					<button id="add-friend" type="submit" class="submit-btn">{{ friendOfUser ? 'Unfriend' : 'Add friend' }}</button>
-					<br>
-					<input id="loggedin-password" type="password" formControlName="password" class="input-field" *ngIf="updatingFriendship" placeholder="Type in password to confirm">
-				</form>
-			</div>
+<main class="scroll-standalone flex-col centered-content" *ngIf="dataArrived" (scroll)="onScroll($event)">
+	<section id="user-info" class="card flex-row full-width flex-justify-center">
+		<div>
+			<img id="profile-picture" class="round-image" [src]="user.profilePictureURL">
 		</div>
-		<div class="secondary-info rounded-border">
-			Languages:
-			<div *ngFor="let lang of user.languages">
-				<div class="user-language">
-					{{ lang.name }}
-				</div>
+		<div class="flexible flex-col flex-center-align-items flex-justify-center">
+			<div class="text-centered">
+				{{ user.firstName }} {{ user.lastName }}
 			</div>
-			<div *ngIf="user.languages.length === 0">
-				&nbsp;None
+			<div>
+				@{{ user.userName }}
 			</div>
+			<form [formGroup]="updateFrienship" (ngSubmit)="modifyFriend()" *ngIf="!isTheLoggedInUser && isUserLoggedIn">
+				<button id="add-friend" type="submit" class="submit-btn">{{ friendOfUser ? 'Unfriend' : 'Add friend' }}</button>
+				<br>
+				<input id="loggedin-password" type="password" formControlName="password" class="input-field" *ngIf="updatingFriendship" placeholder="Type in password to confirm">
+			</form>
 		</div>
-		<div class="secondary-info rounded-border">
-			Technologies:
-			<div *ngFor="let tech of user.technologies">
-				<div class="user-language">
-					{{ tech.name }}
-				</div>
-			</div>
-			<div *ngIf="user.technologies.length === 0">
-				&nbsp;None
-			</div>
+	</section>
+	<section class="card flex-col full-width">
+		<div class="sec-info-title faded-slim-border border-bottom-only">
+			Languages
 		</div>
-		<hr>
-		<div id="posts">
-			<div id="no-posts" *ngIf="userPosts.length === 0">
-				{{ user.firstName }} {{ user.lastName }} hasn't posted anything yet!
-			</div>
-			<div *ngFor="let userPost of userPosts; let i = index">
-				<app-post [paramId]="userPost.postId.toString()" [index]="i"></app-post>
-			</div>
+		<span *ngIf="user.languages.length === 0">
+			None
+		</span>
+		<div class="flex-row" *ngFor="let lang of user.languages">
+			<span class="sec-info border-radius-normal padding-small">
+				{{ lang.name }}
+			</span>
 		</div>
-	</div>
-</div>
+	</section>
+	<section class="card flex-col full-width">
+		<div class="sec-info-title faded-slim-border border-bottom-only">
+			Technologies
+		</div>
+		<span *ngIf="user.technologies.length === 0">
+			None
+		</span>
+		<div *ngFor="let tech of user.technologies">
+			<span class="sec-info border-radius-normal padding-small">
+				{{ tech.name }}
+			</span>
+		</div>
+	</section>
+	<section>
+		<div *ngIf="userPosts.length === 0">
+			{{ user.firstName }} {{ user.lastName }} hasn't posted anything yet!
+		</div>
+		<div *ngFor="let userPost of userPosts; let i = index">
+			<app-post [paramId]="userPost.postId.toString()" [index]="i"></app-post>
+		</div>
+	</section>
+</main>

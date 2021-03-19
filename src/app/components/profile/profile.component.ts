@@ -131,18 +131,6 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  goBack(): void {
-    this._router.navigate(['/']);
-  }
-
-  navigateToAdminPanel(): void {
-    this._router.navigate(['/admin-panel']);
-  }
-
-  navigateToSettings(): void {
-    this._router.navigate([this._router.url + '/settings']);
-  }
-
   logout(): void {
     this._tokenService.logoutUserFromSessionStorage();
 
