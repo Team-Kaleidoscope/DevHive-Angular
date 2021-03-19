@@ -8,7 +8,7 @@
 		</div>
 		<div id="nav-username" class="font-size-dot9 nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" (click)="goToProfile()" *ngIf="loggedIn">
 			<div class="padding-small">
-				Konstantin
+				@{{ user.userName }}
 			</div>
 		</div>
 		<div class="nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" (click)="goToFeed()">

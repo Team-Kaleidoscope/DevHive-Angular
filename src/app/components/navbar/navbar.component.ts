@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
     this.loggedIn = this._tokenService.getTokenFromSessionStorage() !== '';
 
     this.user = this._userService.getDefaultUser();
+    this.user.userName = ''; // so you don't always see a flash of 'Gosho'
 
     this._userService.getUserFromSessionStorageRequest().subscribe({
       next: (res: object) => {
