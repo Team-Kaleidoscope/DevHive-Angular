@@ -3,12 +3,6 @@
   background-color: var(--card-bg);
 }
 
-#nav-contents {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-
 #nav-contents img {
   height: 1.9em;
   width: 1.9em;

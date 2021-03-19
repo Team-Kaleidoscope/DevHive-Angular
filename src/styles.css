@@ -140,6 +140,11 @@ input[type=file]::file-selector-button {
   justify-content: flex-end;
 }
 
+.flex-center-align-children > * {
+  display: flex;
+  align-items: center;
+}
+
 .justify-children-center > * {
   display: flex;
   justify-content: center;
@@ -220,13 +225,22 @@ input[type=file]::file-selector-button {
 /* Cards */
 
 .card {
-  margin: .5em auto;
+  margin: 0.5em auto;
   box-sizing: border-box;
   padding: var(--card-padding);
   background-color: var(--card-bg);
   position: relative;
 }
 
+@media screen and (max-width: 30rem) {
+  .card {
+    font-size: 0.8em;
+  }
+
+  .card button {
+    font-size: 0.9em;
+  }
+}
 
 /* Effects */
 
@@ -248,6 +262,14 @@ input[type=file]::file-selector-button {
 
 .click-effect:active {
   transform: scale(0.9);
+}
+
+/* Misc */
+
+.centered-content {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 /* Inputs, the type found in login and register */
