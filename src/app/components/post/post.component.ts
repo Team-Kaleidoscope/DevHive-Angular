@@ -22,9 +22,11 @@ export class PostComponent implements OnInit {
   @Input() paramId: string;
   @Input() index: number;
   public loggedIn = false;
-  private voteBtns: HTMLCollectionOf<HTMLElement>;
+  private upvoteBtns: HTMLCollectionOf<HTMLElement>;
+  private downvoteBtns: HTMLCollectionOf<HTMLElement>;
 
-  constructor(private _postService: PostService, private _ratingServe: RatingService, private _userService: UserService, private _router: Router, private _tokenService: TokenService) { }
+  constructor(private _postService: PostService, private _ratingServe: RatingService, private _userService: UserService, private _router: Router, private _tokenService: TokenService)
+  { }
 
   ngOnInit(): void {
     this.loggedIn = this._tokenService.getTokenFromSessionStorage() !== '';
@@ -39,7 +41,8 @@ export class PostComponent implements OnInit {
         this.post.fileURLs = Object.values(result)[7];
         this.votesNumber = this.post.currentRating;
 
-        this.voteBtns = document.getElementsByClassName('vote') as HTMLCollectionOf<HTMLElement>;
+        this.upvoteBtns = document.getElementsByClassName('upvote') as HTMLCollectionOf<HTMLElement>;
+        this.downvoteBtns = document.getElementsByClassName('downvote') as HTMLCollectionOf<HTMLElement>;
 
         this.timeCreated = new Date(this.post.timeCreated).toLocaleString('en-GB');
 
@@ -123,8 +126,8 @@ export class PostComponent implements OnInit {
   }
 
   private changeColorOfVoteButton(isUpvoted: boolean, isDownvoted: boolean): void {
-    this.voteBtns.item(this.index * 2)!.style.backgroundColor = (isUpvoted) ? 'lightblue' : 'white';
-    this.voteBtns.item((this.index * 2) + 1)!.style.backgroundColor = (isDownvoted) ? 'lightblue' : 'white';
+    this.upvoteBtns.item(this.index)!.style.backgroundColor = (isUpvoted) ? 'var(--upvote-highlight)' : 'inherit';
+    this.downvoteBtns.item(this.index)!.style.backgroundColor = (isDownvoted) ? 'var(--downvote-highlight)' : 'inherit';
   }
 
   private highlightButtonsOnInit(): void {

@@ -12,6 +12,8 @@
   --failure: indianred;
   --faded-color: #696969;
   --navbar-height: 2.6em;
+  --upvote-highlight: #999908;
+  --downvote-highlight: #c35b5b;
 }
 
 html,
@@ -237,6 +239,11 @@ input[type=file]::file-selector-button {
 .side-padding-smaller {
   padding-right: 0.3em;
   padding-left: 0.3em;
+}
+
+.top-bot-padding-small {
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
 }
 
 /* Cards */
