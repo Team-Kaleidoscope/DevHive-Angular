@@ -21,6 +21,7 @@
 
 .attachment-download {
   max-width: 420px !important;
+  background-color: var(--card-bg);
   text-decoration: none;
   color: inherit;
 }

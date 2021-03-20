@@ -10,7 +10,7 @@
 
 <div class="show-full-attachment flex-row flex-justify-center flex-center-align-items" *ngIf="showFull" (click)="toggleShowFull()">
 	<img class="attachment-img" *ngIf="isImage" src="{{paramURL}}">
-	<a class="attachment-download faded-slim-border padding-normal lighter-hover click-effect border-radius-smaller" *ngIf="!isImage" href="{{paramURL}}">
+	<a class="attachment-download faded-slim-border padding-normal hover-half-opacity click-effect border-radius-smaller" *ngIf="!isImage" href="{{paramURL}}">
 		Download attachment
 	</a>
 </div>
