@@ -122,6 +122,10 @@ input[type=file]::file-selector-button {
   flex-wrap: wrap;
 }
 
+.flex-no-wrap {
+  flex-wrap: nowrap;
+}
+
 .flex-row {
   flex-direction: row;
 }
@@ -244,6 +248,17 @@ input[type=file]::file-selector-button {
 .top-bot-padding-small {
   padding-top: 0.2em;
   padding-bottom: 0.2em;
+}
+
+/* Margin */
+
+.margin-top-bot-small {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+
+.margin-right-small {
+  margin-right: 0.2em;
 }
 
 /* Cards */
