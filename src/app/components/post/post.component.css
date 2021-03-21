@@ -32,3 +32,24 @@
   height: 1.2em;
   width: 1.2em;
 }
+
+/* Edit */
+
+#attachments-btns img, .file-button > input {
+  height: 1.4em;
+  width: 1.4em;
+}
+
+.file-button {
+  position: relative;
+}
+
+.file-button > img {
+  position: absolute;
+  pointer-events: none;
+}
+
+.file-button > input {
+  font-size: inherit;
+  color: transparent;
+}

@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
+import { CloudinaryService } from 'src/app/services/cloudinary.service';
 import { PostService } from 'src/app/services/post.service';
 import { RatingService } from 'src/app/services/rating.service';
 import { UserService } from 'src/app/services/user.service';
@@ -22,10 +24,14 @@ export class PostComponent implements OnInit {
   @Input() paramId: string;
   @Input() index: number;
   public loggedIn = false;
+  public loggedInAuthor = false;
+  public editingPost = false;
+  public files: File[];
+  public editPostFormGroup: FormGroup;
   private upvoteBtns: HTMLCollectionOf<HTMLElement>;
   private downvoteBtns: HTMLCollectionOf<HTMLElement>;
 
-  constructor(private _postService: PostService, private _ratingServe: RatingService, private _userService: UserService, private _router: Router, private _tokenService: TokenService)
+  constructor(private _postService: PostService, private _ratingServe: RatingService, private _userService: UserService, private _router: Router, private _tokenService: TokenService, private _cloudinaryService: CloudinaryService, private _fb: FormBuilder)
   { }
 
   ngOnInit(): void {
@@ -33,6 +39,7 @@ export class PostComponent implements OnInit {
 
     this.post = this._postService.getDefaultPost();
     this.user = this._userService.getDefaultUser();
+    this.files = [];
 
     this._postService.getPostRequest(Guid.parse(this.paramId)).subscribe({
       next: (result: object) => {
@@ -49,6 +56,11 @@ export class PostComponent implements OnInit {
         this.loadUser();
       }
     });
+
+    this.editPostFormGroup = this._fb.group({
+      newPostMessage: new FormControl(''),
+      fileUpload: new FormControl('')
+    });
   }
 
   private loadUser(): void {
@@ -58,11 +70,39 @@ export class PostComponent implements OnInit {
 
         if (this.loggedIn) {
           this.highlightButtonsOnInit();
+
+          this.loggedInAuthor = this._tokenService.getUsernameFromSessionStorageToken() === this.post.creatorUsername;
+          this.editPostFormGroup.get('newPostMessage')?.setValue(this.post.message);
+
+          if (this.post.fileURLs.length > 0) {
+            this.loadFiles();
+            return;
+          }
         }
 
         this.loaded = true;
       }
     });
+  }
+
+  private loadFiles(): void {
+    for (const fileURL of this.post.fileURLs) {
+      this._cloudinaryService.getFileRequest(fileURL).subscribe({
+        next: (result: object) => {
+          const file = result as File;
+          const tmp = {
+            name: fileURL.match('(?<=\/)(?:.(?!\/))+$')?.pop() ?? 'Attachment'
+          };
+
+          Object.assign(file, tmp);
+          this.files.push(file);
+
+          if (this.files.length === this.post.fileURLs.length) {
+            this.loaded = true;
+          }
+        }
+      });
+    }
   }
 
   goToAuthorProfile(): void {
@@ -71,6 +111,46 @@ export class PostComponent implements OnInit {
 
   goToPostPage(): void {
     this._router.navigate(['/post/' + this.post.postId]);
+  }
+
+  toggleEditing(): void {
+    this.editingPost = !this.editingPost;
+  }
+
+  onFileUpload(event: any): void {
+    this.files.push(...event.target.files);
+    this.editPostFormGroup.get('fileUpload')?.reset();
+  }
+
+  removeAttachment(fileName: string): void {
+    this.files = this.files.filter(x => x.name !== fileName);
+  }
+
+  editPost(): void {
+    const newMessage = this.editPostFormGroup.get('newPostMessage')?.value;
+
+    if (newMessage !== '') {
+      this._postService.putPostWithSessionStorageRequest(Guid.parse(this.paramId), newMessage, this.files).subscribe({
+        next: () => {
+          this.reloadPage();
+        }
+      });
+      this.loaded = false;
+    }
+  }
+
+  deletePost(): void {
+    this._postService.deletePostWithSessionStorage(Guid.parse(this.paramId)).subscribe({
+      next: () => {
+        this._router.navigate(['/profile/' + this._tokenService.getUsernameFromSessionStorageToken()]);
+      }
+    });
+  }
+
+  private reloadPage(): void {
+    this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this._router.onSameUrlNavigation = 'reload';
+    this._router.navigate([this._router.url]);
   }
 
   votePost(isLike: boolean): void {
