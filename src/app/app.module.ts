@@ -22,7 +22,6 @@ import { SuccessBarComponent } from './components/success-bar/success-bar.compon
 import { PostPageComponent } from './components/post-page/post-page.component';
 import { AdminPanelPageComponent } from './components/admin-panel-page/admin-panel-page.component';
 import { CommentComponent } from './components/comment/comment.component';
-import { CommentPageComponent } from './components/comment-page/comment-page.component';
 import { PostAttachmentComponent } from './components/post-attachment/post-attachment.component';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -43,7 +42,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     PostPageComponent,
     AdminPanelPageComponent,
     CommentComponent,
-    CommentPageComponent,
     PostAttachmentComponent,
     NavbarComponent,
   ],

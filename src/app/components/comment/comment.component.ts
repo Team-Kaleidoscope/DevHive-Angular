@@ -47,8 +47,4 @@ export class CommentComponent implements OnInit {
   goToAuthorProfile(): void {
     this._router.navigate(['/profile/' + this.comment.issuerUsername]);
   }
-
-  goToCommentPage(): void {
-    this._router.navigate(['/comment/' + this.comment.commentId]);
-  }
 }
