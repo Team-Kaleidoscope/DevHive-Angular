@@ -1,3 +1,7 @@
+section:empty {
+  display: none;
+}
+
 #create-post {
   width: 100%;
   margin-top: 1em;
@@ -8,17 +12,9 @@
   resize: vertical;
 }
 
-#attachments-btns {
-  padding: 0.5em 0;
-}
-
 #attachments-btns img, .file-button > input {
   height: 1.4em;
   width: 1.4em;
-}
-
-#new-post-attachments {
-  margin-bottom: 0.5em;
 }
 
 .file-button {

@@ -277,6 +277,15 @@ input[type=file]::file-selector-button {
   padding-left: 0.3em;
 }
 
+.bot-padding-bigger {
+  padding-bottom: 0.5em;
+}
+
+.top-bot-padding-bigger {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
 .top-bot-padding-small {
   padding-top: 0.2em;
   padding-bottom: 0.2em;
@@ -446,26 +455,16 @@ input[type=file]::file-selector-button {
 
 /* Form attachments (the ones that are shown while creating and editing a post) */
 
+.form-attachment {
+  background-color: #424242;
+}
+
 .form-attachments {
   display: flex;
   flex-wrap: wrap;
   color: gray;
   font-size: 0.75em;
   margin: 0 0.3em;
-}
-
-.form-attachment {
-  border: 2px solid black;
-  border-radius: 0.6em;
-  margin-top: 0.2em;
-  margin-right: 0.2em;
-  padding: 0.2em;
-  display: flex;
-  align-items: center;
-}
-
-.form-attachment:last-child {
-  margin-right: 0;
 }
 
 .remove-form-attachment {

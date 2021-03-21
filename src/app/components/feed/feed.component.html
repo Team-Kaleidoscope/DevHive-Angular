@@ -5,17 +5,19 @@
 <main class="centered-content scroll-standalone under-navbar flex-col flex-justify-start" *ngIf="dataArrived">
 	<form id="create-post" class="card flex-col" [formGroup]="createPostFormGroup" (ngSubmit)="createPost()">
 		<textarea id="new-post-message" class="faded-slim-border border-bottom-only padding-small" rows="1" formControlName="newPostMessage" placeholder="What's on your mind?"></textarea>
-		<section id="attachments-btns" class="flex-row flex-justify-start flex-center-align-children">
+		<section class="flex-row flex-justify-start flex-center-align-children top-bot-padding-bigger">
 			<div class="file-button hover-half-opacity click-effect">
 				<img src="/assets/icons/tabler-icon-paperclip.svg">
 				<input type="file" formControlName="fileUpload" (change)="onFileUpload($event)" multiple>
 			</div>
 		</section>
-		<section id="new-post-attachments" class="flex-row faded-slim-border border-bottom-only">
-			<div *ngFor="let file of files" class="form-attachment">
-				{{ file.name ? file.name : 'Attachment' }}
-				<div class="remove-form-attachment" (click)="removeAttachment(file.name)">
-					☒
+		<section class="flex-row bot-padding-bigger">
+			<div *ngFor="let file of files" class="form-attachment faded-slim-border flexible flex-row flex-no-wrap flex-center-align-items padding-small margin-top-bot-small">
+				<div class="flexible">
+					{{ file.name ? file.name : 'Attachment' }}
+				</div>
+				<div class="flex-col hover-half-opacity border-radius-small click-effect" (click)="removeAttachment(file.name)">
+					<img src="/assets/icons/tabler-icon-x.svg">
 				</div>
 			</div>
 		</section>
