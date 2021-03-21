@@ -1,8 +1,8 @@
 <app-loading *ngIf="!loaded"></app-loading>
 
-<section class="card flex-row" *ngIf="loaded">
+<section class="card flex-row" [hidden]="loaded">
 	<aside class="left-pane">
-		<img class="author-picture round-image hover-half-opacity" [src]="user.profilePictureURL"  (click)="goToAuthorProfile()">
+		<img class="author-picture round-image hover-half-opacity" [src]="user.profilePictureURL" (click)="goToAuthorProfile()">
 	</aside>
 	<main class="content flexible">
 		<summary class="font-size-dot8 text-vertical-middle hover-half-opacity"  (click)="goToAuthorProfile()">
@@ -75,13 +75,13 @@
 		</section>
 	</main>
 	<aside class="rating flex-col flex-center-align-items">
-		<button class="upvote flex-col lighter-hover border-radius-small click-effect" (click)="votePost(true)">
+		<button #upvote class="flex-col lighter-hover border-radius-small click-effect" (click)="votePost(true)">
 			<img src="/assets/icons/tabler-icon-chevron-up.svg">
 		</button>
 		<summary class="top-bot-padding-small">
 			{{ votesNumber }}
 		</summary>
-		<button class="downvote flex-col lighter-hover border-radius-small click-effect" (click)="votePost(false)">
+		<button #downvote class="flex-col lighter-hover border-radius-small click-effect" (click)="votePost(false)">
 			<img src="/assets/icons/tabler-icon-chevron-down.svg">
 		</button>
 	</aside>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
@@ -15,7 +15,7 @@ import { TokenService } from '../../services/token.service';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css'],
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, AfterViewInit {
   public loaded = false;
   public user: User;
   public post: Post;
@@ -23,15 +23,15 @@ export class PostComponent implements OnInit {
   public timeCreated: string;
   @Input() paramId: string;
   @Input() index: number;
+  @ViewChild('upvote') upvoteBtn: ElementRef;
+  @ViewChild('downvote') downvoteBtn: ElementRef;
   public loggedIn = false;
   public loggedInAuthor = false;
   public editingPost = false;
   public files: File[];
   public editPostFormGroup: FormGroup;
-  private upvoteBtns: HTMLCollectionOf<HTMLElement>;
-  private downvoteBtns: HTMLCollectionOf<HTMLElement>;
 
-  constructor(private _postService: PostService, private _ratingServe: RatingService, private _userService: UserService, private _router: Router, private _tokenService: TokenService, private _cloudinaryService: CloudinaryService, private _fb: FormBuilder)
+  constructor(private _postService: PostService, private _ratingServe: RatingService, private _userService: UserService, private _router: Router, private _tokenService: TokenService, private _cloudinaryService: CloudinaryService, private _fb: FormBuilder, private _elem: ElementRef, private _renderer: Renderer2)
   { }
 
   ngOnInit(): void {
@@ -47,9 +47,6 @@ export class PostComponent implements OnInit {
 
         this.post.fileURLs = Object.values(result)[7];
         this.votesNumber = this.post.currentRating;
-
-        this.upvoteBtns = document.getElementsByClassName('upvote') as HTMLCollectionOf<HTMLElement>;
-        this.downvoteBtns = document.getElementsByClassName('downvote') as HTMLCollectionOf<HTMLElement>;
 
         this.timeCreated = new Date(this.post.timeCreated).toLocaleString('en-GB');
 
@@ -69,8 +66,6 @@ export class PostComponent implements OnInit {
         Object.assign(this.user, result);
 
         if (this.loggedIn) {
-          this.highlightButtonsOnInit();
-
           this.loggedInAuthor = this._tokenService.getUsernameFromSessionStorageToken() === this.post.creatorUsername;
           this.editPostFormGroup.get('newPostMessage')?.setValue(this.post.message);
 
@@ -103,6 +98,16 @@ export class PostComponent implements OnInit {
         }
       });
     }
+  }
+
+  ngAfterViewInit(): void {
+    this._ratingServe.getRatingByUserAndPostWithSessionStorageRequest(Guid.parse(this.paramId)).subscribe({
+      next: (x: object) => {
+        const isLike: boolean = Object.values(x)[3];
+
+        this.changeColorOfVoteButton(isLike, !isLike);
+      }
+    });
   }
 
   goToAuthorProfile(): void {
@@ -206,17 +211,7 @@ export class PostComponent implements OnInit {
   }
 
   private changeColorOfVoteButton(isUpvoted: boolean, isDownvoted: boolean): void {
-    this.upvoteBtns.item(this.index)!.style.backgroundColor = (isUpvoted) ? 'var(--upvote-highlight)' : 'inherit';
-    this.downvoteBtns.item(this.index)!.style.backgroundColor = (isDownvoted) ? 'var(--downvote-highlight)' : 'inherit';
-  }
-
-  private highlightButtonsOnInit(): void {
-    this._ratingServe.getRatingByUserAndPostWithSessionStorageRequest(Guid.parse(this.paramId)).subscribe(
-      (x: object) => {
-        const isLike: boolean = Object.values(x)[3];
-
-        this.changeColorOfVoteButton(isLike, !isLike);
-      }
-    );
+    this._renderer.setStyle(this.upvoteBtn.nativeElement, 'backgroundColor', (isUpvoted) ? 'var(--upvote-highlight)' : 'inherit');
+    this._renderer.setStyle(this.downvoteBtn.nativeElement, 'backgroundColor', (isDownvoted) ? 'var(--downvote-highlight)' : 'inherit');
   }
 }
