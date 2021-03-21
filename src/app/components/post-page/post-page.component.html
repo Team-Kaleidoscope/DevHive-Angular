@@ -11,7 +11,7 @@
 		</button>
 	</form>
 	<hr class="card-hr">
-	<section class="margin-top-bigger">
+	<section>
 		<div class="comment" *ngFor="let comm of post?.comments">
 			<app-comment [paramId]="comm.id.toString()"></app-comment>
 		</div>
