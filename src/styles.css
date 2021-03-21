@@ -5,10 +5,10 @@
   --max-width: 40rem;
   --bg-color: #18191a;
   --fg-color: #ffeede;
-  --focus-color: forestgreen;
+  --focus-color: #669908;
   --card-bg: #303030;
   --card-padding: 0.5em;
-  --success: forestgreen;
+  --success: #669908;
   --failure: indianred;
   --faded-color: #696969;
   --navbar-height: 2.6em;
@@ -53,21 +53,6 @@ input[type=file]::file-selector-button {
   visibility: hidden;
 }
 
-#content {
-  /* Used for the login and register pages */
-  height: 100%;
-  max-width: var(--max-width);
-  box-sizing: border-box;
-  border: 0.5em solid var(--bg-color);
-
-  margin: 0 auto;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
 .rounded-border {
   border: 2px solid black;
   border-radius: 0.6em;
@@ -82,6 +67,7 @@ input[type=file]::file-selector-button {
 .title {
   font-size: 2em;
   font-weight: bold;
+  text-align: center;
 }
 
 .error {
@@ -113,6 +99,44 @@ input[type=file]::file-selector-button {
   padding: 0.26em;
   margin: 0.1em 0.2em;
   width: fit-content;
+}
+
+/* Cards */
+
+.card {
+  margin: 0.5em auto;
+  box-sizing: border-box;
+  padding: var(--card-padding);
+  background-color: var(--card-bg);
+  position: relative;
+}
+
+@media screen and (max-width: 30rem) {
+  .card {
+    font-size: 0.8em;
+  }
+
+  .card button {
+    font-size: 0.9em;
+  }
+
+  .title {
+    font-size: 1.5em;
+  }
+
+  .input-selection:first-child {
+    margin-top: 1.2em !important;
+  }
+
+  :not(card) button {
+    font-size: 0.7em;
+  }
+}
+
+.card-hr {
+  width: calc(100% - 1em);
+  border: 1px solid var(--fg-color);
+  background-color: var(--fg-color);
 }
 
 /* General flex */
@@ -205,7 +229,7 @@ input[type=file]::file-selector-button {
 }
 
 .border-radius-normal, .card {
-  border-radius: 0.5em;
+  border-radius: 0.5rem;
 }
 
 .border-radius-smaller {
@@ -223,6 +247,14 @@ input[type=file]::file-selector-button {
 }
 
 /* General padding */
+
+.padding-big {
+  padding: 0.6em;
+}
+
+.padding-bigger {
+  padding: 0.5em;
+}
 
 .padding-normal {
   padding: 0.4em;
@@ -252,6 +284,14 @@ input[type=file]::file-selector-button {
 
 /* Margin */
 
+.no-margin {
+  margin: 0;
+}
+
+.margin-top-normal {
+  margin-top: 0.4em;
+}
+
 .margin-top-bot-small {
   margin-top: 0.2em;
   margin-bottom: 0.2em;
@@ -259,32 +299,6 @@ input[type=file]::file-selector-button {
 
 .margin-right-small {
   margin-right: 0.2em;
-}
-
-/* Cards */
-
-.card {
-  margin: 0.5em auto;
-  box-sizing: border-box;
-  padding: var(--card-padding);
-  background-color: var(--card-bg);
-  position: relative;
-}
-
-@media screen and (max-width: 30rem) {
-  .card {
-    font-size: 0.8em;
-  }
-
-  .card button {
-    font-size: 0.9em;
-  }
-}
-
-.card-hr {
-  width: calc(100% - 1em);
-  border: 1px solid var(--fg-color);
-  background-color: var(--fg-color);
 }
 
 /* Effects */
@@ -311,6 +325,10 @@ input[type=file]::file-selector-button {
 
 /* Misc */
 
+.full-height {
+  height: 100%;
+}
+
 .full-width {
   width: 100%;
 }
@@ -325,39 +343,34 @@ input[type=file]::file-selector-button {
   height: calc(100% - var(--navbar-height)) !important;
 }
 
+.focus-fg-color {
+  color: var(--focus-color);
+  border-color: var(--focus-color);
+}
+
 /* Inputs, the type found in login and register */
 
-.input-field {
-  width: 100%;
-  background-color: var(--bg-color);
-
-  border: 0;
-  border-bottom: 1px solid grey;
+.fancy-input {
   box-sizing: border-box;
-
   margin-bottom: 0.5em;
   padding: 0.4em;
   padding-left: 0;
-
-  font-size: inherit;
 }
 
-.input-field-label {
+.fancy-input-label {
   width: inherit;
   height: inherit;
   position: absolute;
   left: 0;
 
   margin-top: 0.4em;
-  color: grey;
-
   transition: 0.2s;
   scale: 1em;
 }
 
 .input-selection {
   position: relative;
-  margin-top: 0.7em;
+  margin-top: 0.5em;
 }
 
 .input-selection input::placeholder {
@@ -406,7 +419,7 @@ input[type=file]::file-selector-button {
   top: 0;
 }
 
-/* Move the errors above the input when
+  /* Move the errors above the input when
    * using the site on a small screen and
    * add some space for them above the input
    */
@@ -429,41 +442,6 @@ input[type=file]::file-selector-button {
 
 .input-field:placeholder-shown ~ .input-errors > .error {
   opacity: 0;
-}
-
-/* Submit button */
-
-.submit-btn {
-  width: 100%;
-  color: white;
-  background-color: black;
-
-  border: 2px solid black;
-  border-radius: 0.4em;
-  box-sizing: border-box;
-
-  font-size: 0.8em;
-  text-align: center;
-
-  margin-top: 0.5em;
-  padding: 0.3em;
-}
-
-.submit-btn:hover {
-  cursor: pointer;
-  color: var(--focus-color);
-  background-color: white;
-  border-color: var(--focus-color) !important;
-}
-
-.submit-btn:active {
-  transition: 0s !important;
-  transform: scale(0.9);
-}
-
-.delete-btn:hover {
-  color: indianred;
-  border-color: indianred !important;
 }
 
 /* Form attachments (the ones that are shown while creating and editing a post) */

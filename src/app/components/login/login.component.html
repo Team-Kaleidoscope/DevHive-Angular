@@ -1,30 +1,25 @@
-<main id="content">
-	<summary class="title">Login</summary>
+<main class="centered-content flex-col flex-center-align-items flex-justify-center full-height">
+	<summary class="title card full-width no-margin padding-small">Login</summary>
 
-	<form [formGroup]="loginUserFormGroup" (ngSubmit)="onSubmit()">
-		<hr>
+	<app-error-bar class="full-width margin-top-normal"></app-error-bar>
 
-		<section class="input-selection">
-			<input type="text" placeholder="Username" class="input-field" formControlName="username" required>
-			<label class="input-field-label">Username</label>
-
+	<form class="full-width card padding-big" [formGroup]="loginUserFormGroup" (ngSubmit)="onSubmit()">
+		<section class="input-selection full-width">
+			<input type="text" placeholder="Username" class="fancy-input full-width faded-slim-border border-bottom-only" formControlName="username" required>
+			<label class="fancy-input-label full-width">Username</label>
 			<div class="input-errors">
 				<label *ngIf="loginUserFormGroup.get('username')?.errors?.required" class="error">*Required</label>
 			</div>
 		</section>
-
 		<section class="input-selection">
-			<input type="password" placeholder="Password" class="input-field" formControlName="password" required>
-			<label class="input-field-label">Password</label>
-
+			<input type="password" placeholder="Password" class="fancy-input full-width faded-slim-border border-bottom-only" formControlName="password" required>
+			<label class="fancy-input-label full-width">Password</label>
 			<div class="input-errors">
 				<label *ngIf="loginUserFormGroup.get('password')?.errors?.required" class="error">*Required</label>
 			</div>
 		</section>
 
-		<hr>
-		<button class="submit-btn" type="submit">Submit</button>
-		<app-error-bar></app-error-bar>
+		<button class="faded-slim-border padding-smaller lighter-hover click-effect border-radius-smaller full-width" type="submit">Submit</button>
 	</form>
-	<button class="submit-btn redirect-to-register" (click)="onRedirectRegister()">New to DevHive? Register instead</button>
+	<button class="focus-fg-color faded-slim-border padding-smaller lighter-hover click-effect border-radius-smaller full-width margin-top-normal" (click)="onRedirectRegister()">New to DevHive? Register instead</button>
 </main>
