@@ -1,21 +1,34 @@
 <app-loading *ngIf="!loaded"></app-loading>
 
-<section class="comment rounded-border" *ngIf="loaded">
-	<summary class="author" (click)="goToAuthorProfile()">
-		<img class="round-image" [src]="user.profilePictureURL">
-		<div class="author-info">
-			<div class="name">
+<section class="card flex-row" *ngIf="loaded">
+	<aside class="left-pane">
+		<img class="author-picture round-image hover-half-opacity" [src]="user.profilePictureURL" (click)="goToAuthorProfile()">
+	</aside>
+	<main class="content flexible">
+		<summary class="font-size-dot8 text-vertical-middle hover-half-opacity" (click)="goToAuthorProfile()">
+			<span>
 				{{ user.firstName }} {{ user.lastName }}
-			</div>
-			<div class="handle">
+			</span>
+			<span class="fg-color-faded">
 				@{{ user.userName }}
-			</div>
-		</div>
-	</summary>
-	<article class="message" (click)="goToCommentPage()">
-		{{ comment.message }}
-	</article>
-	<time class="timestamp" (click)="goToCommentPage()">
-		{{ timeCreated }}
-	</time>
+			</span>
+		</summary>
+		<article class="message margin-top-bot-small">
+			{{ comment.message }}
+		</article>
+		<section class="comment-details flex-row flex-justify-end font-size-dot7 faded-slim-border border-bottom-only">
+			<time class="flex-row flex-center-align-items">
+				<img class="img-height-font-size" src="/assets/icons/tabler-icon-calendar-time.svg">&nbsp;
+				<span>
+					{{ timeCreated }}
+				</span>
+			</time>
+		</section>
+		<section class="flex-row justify-children-center flex-center-align-children">
+			<button class="flexible padding-small lighter-hover click-effect border-radius-smaller">
+				<img src="/assets/icons/tabler-icon-link.svg">
+				&nbsp;Share
+			</button>
+		</section>
+	</main>
 </section>
