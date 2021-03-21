@@ -58,7 +58,7 @@
 			</summary>
 		</section>
 		<section class="flex-row justify-children-center flex-center-align-children">
-			<button class="padding-small lighter-hover click-effect border-radius-smaller"  (click)="toggleEditing()">
+			<button class="padding-small lighter-hover click-effect border-radius-smaller" *ngIf="loggedInAuthor" (click)="toggleEditing()">
 				<img src="/assets/icons/tabler-icon-edit.svg">
 			</button>
 			<button class="flexible padding-small lighter-hover click-effect border-radius-smaller"  (click)="goToPostPage()">
@@ -69,7 +69,7 @@
 				<img src="/assets/icons/tabler-icon-link.svg">
 				&nbsp;Share
 			</button>
-			<button class="padding-small lighter-hover click-effect border-radius-smaller"  (click)="deletePost()">
+			<button class="padding-small lighter-hover click-effect border-radius-smaller" *ngIf="loggedInAuthor" (click)="deletePost()">
 				<img src="/assets/icons/tabler-icon-trash.svg">
 			</button>
 		</section>
