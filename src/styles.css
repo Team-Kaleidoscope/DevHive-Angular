@@ -297,8 +297,20 @@ input[type=file]::file-selector-button {
   margin: 0;
 }
 
+.no-margin-top {
+  margin-top: 0;
+}
+
 .margin-top-normal {
   margin-top: 0.4em;
+}
+
+.margin-top-bigger {
+  margin-top: 0.5em;
+}
+
+.margin-bot-bigger {
+  margin-bottom: 0.5em;
 }
 
 .margin-top-bot-small {
@@ -358,6 +370,11 @@ input[type=file]::file-selector-button {
 }
 
 /* Inputs, the type found in login and register */
+
+.textarea-new-msg {
+  min-height: 1.5em;
+  resize: vertical;
+}
 
 .fancy-input {
   box-sizing: border-box;
@@ -457,27 +474,4 @@ input[type=file]::file-selector-button {
 
 .form-attachment {
   background-color: #424242;
-}
-
-.form-attachments {
-  display: flex;
-  flex-wrap: wrap;
-  color: gray;
-  font-size: 0.75em;
-  margin: 0 0.3em;
-}
-
-.remove-form-attachment {
-  font-size: 0.9em;
-  color: var(--failure);
-  background-color: white;
-  border-radius: 0.2em;
-  margin: 0 0.2em;
-  padding: 0.2em;
-}
-
-.remove-form-attachment:hover {
-  color: white;
-  background-color: var(--failure);
-  cursor: pointer;
 }

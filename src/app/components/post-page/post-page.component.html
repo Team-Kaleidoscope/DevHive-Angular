@@ -2,38 +2,18 @@
 
 <app-loading *ngIf="!dataArrived"></app-loading>
 
-<main id="content" class="scroll-standalone under-navbar" *ngIf="dataArrived">
-	<nav>
-		<div class="many-buttons"  *ngIf="loggedIn">
-			<button class="submit-btn" type="submit" (click)="backToFeed()">ᐊ Back to feed</button>
-			<button class="submit-btn" type="submit" (click)="backToProfile()">ᐊ Back to profile</button>
-		</div>
-		<button class="submit-btn" type="submit" (click)="toLogin()" *ngIf="!loggedIn">Login</button>
-	</nav>
+<main class="centered-content scroll-standalone under-navbar flex-col" *ngIf="dataArrived">
 	<app-post [paramId]="postId.toString()" [index]="0"></app-post>
-	<div class="many-buttons" *ngIf="editable">
-		<button class="submit-btn" (click)="editPost()">Edit post</button>
-		<button class="submit-btn delete-btn" (click)="deletePost()">Delete post</button>
-	</div>
-	<form  id="editPost" [formGroup]="editPostFormGroup"  *ngIf="editingPost" (ngSubmit)="editPost()">
-		<input id="new-message-input" type="text" placeholder="New post message" class="input-field" formControlName="newPostMessage">
-		<img id="attachment-img" src="assets/images/paper-clip.png">
-		<input id="file-upload" type="file" formControlName="fileUpload" (change)="onFileUpload($event)" multiple>
-		<input type="submit" style="display: none" />
+	<form class="card flex-col full-width no-margin-top" [formGroup]="addCommentFormGroup" (ngSubmit)="addComment()">
+		<textarea rows="1" placeholder="Add a new comment" class="textarea-new-msg faded-slim-border border-bottom-only padding-small margin-bot-bigger" formControlName="newComment"></textarea>
+		<button class="faded-slim-border padding-small lighter-hover click-effect border-radius-smaller" type="submit">
+			Add Comment
+		</button>
 	</form>
-	<figure class="form-attachments" *ngIf="editingPost">
-		<div *ngFor="let file of files" class="form-attachment">
-			{{ file.name ? file.name : 'Attachment' }}
-			<div class="remove-form-attachment" (click)="removeAttachment(file.name)">
-				☒
-			</div>
+	<hr class="card-hr">
+	<section class="margin-top-bigger">
+		<div class="comment" *ngFor="let comm of post?.comments">
+			<app-comment [paramId]="comm.id.toString()"></app-comment>
 		</div>
-	</figure>
-	<form [formGroup]="addCommentFormGroup" (ngSubmit)="addComment()">
-		<input type="text" placeholder="Add comment" class="input-field" formControlName="newComment">
-		<input type="submit" style="display: none" />
-	</form>
-	<section class="comment" *ngFor="let comm of post?.comments">
-		<app-comment [paramId]="comm.id.toString()"></app-comment>
 	</section>
 </main>

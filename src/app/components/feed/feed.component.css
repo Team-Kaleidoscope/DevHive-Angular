@@ -7,11 +7,6 @@ section:empty {
   margin-top: 1em;
 }
 
-#new-post-message {
-  min-height: 1.5em;
-  resize: vertical;
-}
-
 #attachments-btns img, .file-button > input {
   height: 1.4em;
   width: 1.4em;

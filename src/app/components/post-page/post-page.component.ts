@@ -87,48 +87,6 @@ export class PostPageComponent implements OnInit {
     }
   }
 
-  backToFeed(): void {
-    this._router.navigate(['/']);
-  }
-
-  backToProfile(): void {
-    this._router.navigate(['/profile/' + this._tokenService.getUsernameFromSessionStorageToken()]);
-  }
-
-  toLogin(): void {
-    this._router.navigate(['/login']);
-  }
-
-  onFileUpload(event: any): void {
-    this.files.push(...event.target.files);
-    this.editPostFormGroup.get('fileUpload')?.reset();
-  }
-
-  removeAttachment(fileName: string): void {
-    this.files = this.files.filter(x => x.name !== fileName);
-  }
-
-  editPost(): void {
-    if (this._tokenService.getTokenFromSessionStorage() === '') {
-      this.toLogin();
-      return;
-    }
-
-    if (this.editingPost) {
-      const newMessage = this.editPostFormGroup.get('newPostMessage')?.value;
-
-      if (newMessage === '' && newMessage !== this.post.message) {
-        this._postService.putPostWithSessionStorageRequest(this.postId, newMessage, this.files).subscribe({
-          next: () => {
-            this.reloadPage();
-          }
-        });
-        this.dataArrived = false;
-      }
-    }
-    this.editingPost = !this.editingPost;
-  }
-
   addComment(): void {
     if (!this.loggedIn) {
       this._router.navigate(['/login']);
@@ -144,14 +102,6 @@ export class PostPageComponent implements OnInit {
         }
       });
     }
-  }
-
-  deletePost(): void {
-    this._postService.deletePostWithSessionStorage(this.postId).subscribe({
-      next: () => {
-        this._router.navigate(['/profile/' + this._tokenService.getUsernameFromSessionStorageToken()]);
-      }
-    });
   }
 
   private reloadPage(): void {
