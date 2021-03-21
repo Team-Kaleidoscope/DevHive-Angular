@@ -12,6 +12,10 @@
 	</form>
 	<hr class="card-hr">
 	<section>
+		<div class="text-centered" *ngIf="post?.comments.length === 0">
+			Nobody has comented on this post yet!<br>
+			Try refreshing the page!
+		</div>
 		<div class="comment" *ngFor="let comm of post?.comments">
 			<app-comment [paramId]="comm.id.toString()"></app-comment>
 		</div>
