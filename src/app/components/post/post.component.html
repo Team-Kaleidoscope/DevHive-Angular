@@ -1,48 +1,88 @@
 <app-loading *ngIf="!loaded"></app-loading>
 
-<section class="post rounded-border" *ngIf="loaded">
-	<section class="content">
-		<summary class="author" (click)="goToAuthorProfile()">
-			<img class="round-image" [src]="user.profilePictureURL">
-			<div class="author-info">
-				<div class="name">
-					{{ user.firstName }} {{ user.lastName }}
-				</div>
-				<div class="handle">
-					@{{ user.userName }}
-				</div>
-			</div>
+<section class="card flex-row" [hidden]="loaded" (mouseleave)="resetShareBtn()">
+	<aside class="left-pane">
+		<img class="author-picture round-image hover-half-opacity" [src]="user.profilePictureURL" (click)="goToAuthorProfile()">
+	</aside>
+	<main class="content flexible">
+		<summary class="font-size-dot8 text-vertical-middle hover-half-opacity"  (click)="goToAuthorProfile()">
+			<span>
+				{{ user.firstName }} {{ user.lastName }}
+			</span>
+			<span class="fg-faded">
+				@{{ user.userName }}
+			</span>
 		</summary>
-		<article class="message" (click)="goToPostPage()">
+		<article class="message margin-top-bot-dot2" *ngIf="!editingPost">
 			{{ post.message }}
 		</article>
-		<div class="bottom-post" (click)="goToPostPage()">
-			<time class="timestamp">
-				{{ timeCreated }}
-			</time>
-			<div class="separator">
-				║
+		<section class="flex-row flexible-children" *ngIf="!editingPost">
+			<figure *ngFor="let fileURL of post.fileURLs">
+				<app-post-attachment [paramURL]="fileURL"></app-post-attachment>
+			</figure>
+		</section>
+		<form [formGroup]="editPostFormGroup" *ngIf="editingPost">
+			<textarea class="textarea-new-msg width-full border-faded-slim border-bottom-only padding-dot2" rows="1" formControlName="newPostMessage" placeholder="What's on your mind?"></textarea>
+			<section class="flex-row flex-justify-start align-children-center top-bot-padding-dot6ger">
+				<div class="file-button hover-half-opacity click-effect">
+					<img src="/assets/icons/tabler-icon-paperclip.svg">
+					<input type="file" formControlName="fileUpload" (change)="onFileUpload($event)" multiple>
+				</div>
+			</section>
+		</form>
+		<section class="flex-row bot-padding-dot6ger" *ngIf="editingPost">
+			<div *ngFor="let file of files" class="form-attachment border-faded-slim flexible flex-row flex-no-wrap flex-center-align-items padding-dot2 margin-top-bot-dot2">
+				<div class="flexible">
+					{{ file.name ? file.name : 'Attachment' }}
+				</div>
+				<div class="flex-col hover-half-opacity border-radius-dot2 click-effect" (click)="removeAttachment(file.name)">
+					<img src="/assets/icons/tabler-icon-x.svg">
+				</div>
 			</div>
-			<summary class="comment-count">
-				{{ post.comments.length }}
-				<img src="assets/images/comment.png">
-			</summary>
-		</div>
-	</section>
-	<section class="rating">
-		<button class="vote" (click)="votePost(true)">
-			ᐃ
+		</section>
+		<button class="border-faded-slim width-full padding-dot2 lighter-hover click-effect border-radius-dot3 margin-bot-dot5" *ngIf="editingPost" (click)="editPost()">
+			Update Post
 		</button>
-		<summary class="score">
+		<section class="post-details flex-row flex-justify-end font-size-dot7 border-faded-slim border-bottom-only">
+			<time class="flex-row flex-center-align-items">
+				<img class="height-font" src="/assets/icons/tabler-icon-calendar-time.svg">&nbsp;
+				<span>
+					{{ timeCreated }}
+				</span>
+			</time>
+			<summary class="flex-row flex-center-align-items">
+				<img class="height-font" src="/assets/icons/tabler-icon-message-2.svg">&nbsp;
+				<span>
+					{{ post.comments.length }}
+				</span>
+			</summary>
+		</section>
+		<section class="flex-row justify-children-center align-children-center">
+			<button class="padding-dot2 lighter-hover click-effect border-radius-dot3" *ngIf="loggedInAuthor" (click)="toggleEditing()">
+				<img src="/assets/icons/tabler-icon-edit.svg">
+			</button>
+			<button class="flexible padding-dot2 lighter-hover click-effect border-radius-dot3" (click)="goToPostPage()">
+				<img src="/assets/icons/tabler-icon-message-2.svg">
+				&nbsp;Comment
+			</button>
+			<button #share ngxClipboard [cbContent]="getPostLink()" class="flexible padding-dot2 lighter-hover click-effect border-radius-dot3" (click)="showCopiedMessage()">
+				<img src="/assets/icons/tabler-icon-link.svg">
+				&nbsp;Share
+			</button>
+			<button class="padding-dot2 lighter-hover click-effect border-radius-dot3" *ngIf="loggedInAuthor" (click)="deletePost()">
+				<img src="/assets/icons/tabler-icon-trash.svg">
+			</button>
+		</section>
+	</main>
+	<aside class="rating flex-col flex-center-align-items">
+		<button #upvote class="flex-col lighter-hover border-radius-dot2 click-effect" (click)="votePost(true)">
+			<img src="/assets/icons/tabler-icon-chevron-up.svg">
+		</button>
+		<summary class="top-bot-padding-dot2">
 			{{ votesNumber }}
 		</summary>
-		<button class="vote" (click)="votePost(false)">
-			ᐁ
+		<button #downvote class="flex-col lighter-hover border-radius-dot2 click-effect" (click)="votePost(false)">
+			<img src="/assets/icons/tabler-icon-chevron-down.svg">
 		</button>
-	</section>
+	</aside>
 </section>
-<aside class="attachments">
-	<figure *ngFor="let fileURL of post.fileURLs">
-		<app-post-attachment class="no-events" [paramURL]="fileURL"></app-post-attachment>
-	</figure>
-</aside>

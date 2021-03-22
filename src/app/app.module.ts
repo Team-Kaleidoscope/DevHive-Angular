@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
+import { ClipboardModule } from 'ngx-clipboard';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,9 +23,9 @@ import { SuccessBarComponent } from './components/success-bar/success-bar.compon
 import { PostPageComponent } from './components/post-page/post-page.component';
 import { AdminPanelPageComponent } from './components/admin-panel-page/admin-panel-page.component';
 import { CommentComponent } from './components/comment/comment.component';
-import { CommentPageComponent } from './components/comment-page/comment-page.component';
 import { PostAttachmentComponent } from './components/post-attachment/post-attachment.component';
 import { RouterModule } from '@angular/router';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -42,8 +43,8 @@ import { RouterModule } from '@angular/router';
     PostPageComponent,
     AdminPanelPageComponent,
     CommentComponent,
-    CommentPageComponent,
-    PostAttachmentComponent
+    PostAttachmentComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -54,7 +55,8 @@ import { RouterModule } from '@angular/router';
     MatInputModule,
     MatButtonModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

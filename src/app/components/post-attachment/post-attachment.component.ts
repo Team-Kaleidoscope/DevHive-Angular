@@ -18,7 +18,12 @@ export class PostAttachmentComponent implements OnInit {
   ngOnInit(): void {
     this.isImage = this.paramURL.includes('image') && !this.paramURL.endsWith('pdf');
     this.fileType = this.isImage ? 'img' : 'raw';
-    this.fileName = this.paramURL.match('(?<=\/)(?:.(?!\/))+$')?.pop() ?? 'Attachment';
+    if (this.fileType === 'img') {
+      this.fileName = this.paramURL.match(/(?!\/)+?[^\/]+?(?=\.)/g)?.pop() ?? 'Attachment';
+    }
+    else {
+      this.fileName = this.paramURL.match(/[^\/]+?$/g)?.pop() ?? 'Attachment';
+    }
   }
 
   toggleShowFull(): void {

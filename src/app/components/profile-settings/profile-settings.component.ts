@@ -50,6 +50,23 @@ export class ProfileSettingsComponent implements OnInit {
     this.availableTechnologies = [];
     this.newProfilePicture = new File([], '');
 
+    // Initializing forms with blank (default) values
+    this.updateUserFormGroup = this._fb.group({
+      firstName: new FormControl(''),
+      lastName: new FormControl(''),
+      username: new FormControl(''),
+      email: new FormControl(''),
+      password: new FormControl(''),
+      languageInput: new FormControl(''),
+      languages: new FormControl(''),
+      technologyInput: new FormControl(''),
+      technologies: new FormControl('')
+    });
+    this.updateProfilePictureFormGroup = this._fb.group({
+      fileUpload: new FormControl('')
+    });
+
+
     this._userService.getUserByUsernameRequest(this._urlUsername).subscribe({
       next: (res: object) => {
         Object.assign(this.user, res);
@@ -273,13 +290,13 @@ export class ProfileSettingsComponent implements OnInit {
     this._router.navigate([this._router.url.substring(0, this._router.url.length - 9)]);
   }
 
-  navigateToAdminPanel(): void {
+  goToAdminPanel(): void {
     this._router.navigate(['/admin-panel']);
   }
 
   logout(): void {
     this._tokenService.logoutUserFromSessionStorage();
-    this.goToProfile();
+    this._router.navigate(['/login']);
   }
 
   toggleLanguages(): void {

@@ -103,6 +103,24 @@ export class AdminPanelPageComponent implements OnInit {
     this.loadAvailableTechnologies();
   }
 
+  private loadAvailableLanguages(): void {
+    this._languageService.getAllLanguagesWithSessionStorageRequest().subscribe({
+      next: (result: object) => {
+        this.availableLanguages = result as Language[];
+        this.dataArrived = true;
+      }
+    });
+  }
+
+  private loadAvailableTechnologies(): void {
+     this._technologyService.getAllTechnologiesWithSessionStorageRequest().subscribe({
+      next: (result: object) => {
+        this.availableTechnologies = result as Technology[];
+        this.dataArrived = true;
+      }
+     });
+  }
+
   // Navigation
 
   backToProfile(): void {
@@ -186,13 +204,6 @@ export class AdminPanelPageComponent implements OnInit {
     this.loadAvailableLanguages();
   }
 
-  private loadAvailableLanguages(): void {
-    this._languageService.getAllLanguagesWithSessionStorageRequest().subscribe({
-      next: (result: object) => {
-        this.availableLanguages = result as Language[];
-      }
-    });
-  }
 
   // Technology modifying
 
@@ -260,14 +271,6 @@ export class AdminPanelPageComponent implements OnInit {
     this.technologyForm.reset();
     this._successBar.showMsg(successMsg);
     this.loadAvailableTechnologies();
-  }
-
-  private loadAvailableTechnologies(): void {
-     this._technologyService.getAllTechnologiesWithSessionStorageRequest().subscribe({
-      next: (result: object) => {
-        this.availableTechnologies = result as Technology[];
-      }
-     });
   }
 
   // Deletions

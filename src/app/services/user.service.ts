@@ -17,7 +17,7 @@ export class UserService {
   { }
 
   getDefaultUser(): User {
-    return new User(Guid.createEmpty(), 'gosho_trapov', 'Gosho', 'Trapov', 'gotra@bg.com', AppConstants.FALLBACK_PROFILE_ICON, [], [], [], []);
+    return new User(Guid.createEmpty(), '', '', '', '', AppConstants.FALLBACK_PROFILE_ICON, [], [], [], []);
   }
 
   /* Requests from session storage */

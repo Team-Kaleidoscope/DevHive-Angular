@@ -1,10 +1,18 @@
-<main id="content">
-	<summary class="title">
-		Page not found!
-	</summary>
-	<hr>
-	<nav id="back-btns">
-		<button class="submit-btn" type="submit" (click)="backToFeed()">Back to feed</button>
-		<button class="submit-btn" type="submit" (click)="backToLogin()">Back to login</button>
-	</nav>
+<main class="centered-content flex-col flex-center-align-items flex-justify-center height-full">
+	<div class="card width-full padding-dot6">
+		<summary class="title">
+			Page not found!
+		</summary>
+		<hr class="card-hr">
+		<nav class="flex-row flexible-children padding-dot2">
+			<button class="flex-row flex-justify-center flex-center-align-items border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3 margin-right-dot2" (click)="backToFeed()">
+				<img src="/assets/icons/tabler-icon-home.svg">
+				&nbsp;Back to feed
+			</button>
+			<button class="flex-row flex-justify-center flex-center-align-items border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3" (click)="backToLogin()">
+				<img src="/assets/icons/tabler-icon-login.svg">
+				&nbsp;Back to login
+			</button>
+		</nav>
+	</div>
 </main>

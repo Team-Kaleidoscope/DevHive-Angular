@@ -1,0 +1,38 @@
+#navbar {
+  height: var(--navbar-height);
+  width: 100%;
+  background-color: var(--card-bg);
+}
+
+#nav-contents img {
+  height: 1.9em;
+  width: 1.9em;
+}
+
+@media screen and (max-width: 30rem) {
+  #nav-username {
+    display: none;
+  }
+
+  #navbar {
+    font-size: 0.8em;
+  }
+}
+
+#nav-profile-picture {
+  padding: 0.1em;
+}
+
+#nav-profile-picture img {
+  height: 1.8em;
+  width: 1.8em;
+}
+
+.nav-item {
+  margin-left: 0.2em;
+  padding: 0 0.1em;
+}
+
+.nav-item:first-child {
+  margin-left: 0;
+}
