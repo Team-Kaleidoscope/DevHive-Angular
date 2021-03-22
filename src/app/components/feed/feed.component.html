@@ -5,7 +5,7 @@
 <main class="centered-content scroll-standalone under-navbar flex-col flex-justify-start" *ngIf="dataArrived">
 	<form id="create-post" class="card flex-col" [formGroup]="createPostFormGroup" (ngSubmit)="createPost()">
 		<textarea class="textarea-new-msg border-faded-slim border-bottom-only padding-dot2" rows="1" formControlName="newPostMessage" placeholder="What's on your mind?"></textarea>
-		<section class="flex-row flex-justify-start align-children-center top-bot-padding-dot6ger">
+		<section class="flex-row flex-justify-start align-children-center padding-top-bot-dot5">
 			<div class="file-button hover-half-opacity click-effect">
 				<img src="/assets/icons/tabler-icon-paperclip.svg">
 				<input type="file" formControlName="fileUpload" (change)="onFileUpload($event)" multiple>
