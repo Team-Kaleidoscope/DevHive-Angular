@@ -14,7 +14,7 @@
 			</span>
 		</summary>
 		<form [formGroup]="editCommentFormGroup" *ngIf="editingComment" (ngSubmit)="editComment()">
-			<textarea class="textarea-new-msg full-width faded-slim-border border-bottom-only padding-small" rows="1" formControlName="newCommentMessage" placeholder="What's on your mind?"></textarea>
+			<textarea class="textarea-new-msg full-width faded-slim-border border-bottom-only padding-small margin-bot-bigger" rows="1" formControlName="newCommentMessage" placeholder="What's on your mind?"></textarea>
 			<button type="submit" class="faded-slim-border full-width padding-small lighter-hover click-effect border-radius-smaller margin-bot-bigger">
 				Update Comment
 			</button>

@@ -372,8 +372,9 @@ input[type=file]::file-selector-button {
 /* Inputs, the type found in login and register */
 
 .textarea-new-msg {
-  min-height: 1.5em;
+  min-height: 2em;
   resize: vertical;
+  box-sizing: border-box;
 }
 
 .fancy-input {
