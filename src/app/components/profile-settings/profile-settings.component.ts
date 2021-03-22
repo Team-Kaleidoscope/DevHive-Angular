@@ -290,7 +290,7 @@ export class ProfileSettingsComponent implements OnInit {
     this._router.navigate([this._router.url.substring(0, this._router.url.length - 9)]);
   }
 
-  navigateToAdminPanel(): void {
+  goToAdminPanel(): void {
     this._router.navigate(['/admin-panel']);
   }
 
