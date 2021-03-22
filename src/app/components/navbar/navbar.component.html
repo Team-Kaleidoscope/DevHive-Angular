@@ -1,8 +1,5 @@
 <nav id="navbar">
 	<div id="nav-contents" class="centered-content flex-row padding-smaller flex-center-align-items">
-		<div class="flexible" *ngIf="!loggedIn">
-			<!-- This element serves as a spacer -->
-		</div>
 		<div class="nav-item border-radius-small flex-row flex-center-align-items light-hover hover-half-opacity click-effect" (click)="goToProfile()" *ngIf="loggedIn">
 			<div id="nav-profile-picture" class="flex-col">
 				<img class="round-image" [src]="user.profilePictureURL">
@@ -13,7 +10,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" (click)="goToFeed()">
+		<div class="nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" (click)="goToFeed()" *ngIf="loggedIn">
 			<img src="/assets/icons/tabler-icon-home.svg">
 		</div>
 		<div class="nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" style="display: none">
@@ -37,7 +34,8 @@
 		<div class="nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" (click)="logout()" *ngIf="loggedIn">
 			<img src="/assets/icons/tabler-icon-logout.svg">
 		</div>
-		<div class="nav-item flex-col border-radius-small light-hover hover-half-opacity click-effect" (click)="goToLogin()" *ngIf="!loggedIn">
+		<div class="nav-item flex-row flex-center-align-items border-radius-small light-hover hover-half-opacity click-effect side-padding-smaller" (click)="goToLogin()" *ngIf="!loggedIn">
+			Login&nbsp;
 			<img src="/assets/icons/tabler-icon-login.svg">
 		</div>
 		<div class="flexible" *ngIf="!loggedIn">
