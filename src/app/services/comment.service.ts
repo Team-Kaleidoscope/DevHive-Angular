@@ -14,7 +14,7 @@ export class CommentService {
   { }
 
   getDefaultComment(): Comment {
-    return new Comment(Guid.createEmpty(), Guid.createEmpty(), 'Gosho', 'Trapov', 'gosho_trapov', 'Your opinion on my idea?', new Date());
+    return new Comment(Guid.createEmpty(), Guid.createEmpty(), '', '', '', '', new Date());
   }
 
   /* Requests from session storage */
