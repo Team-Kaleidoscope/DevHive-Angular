@@ -3,7 +3,7 @@
 <app-loading *ngIf="!dataArrived"></app-loading>
 
 <main class="scroll-standalone under-navbar centered-content flex-col">
-	<form class="flex-row card font-size-dot9" [formGroup]="updateProfilePictureFormGroup" (ngSubmit)="updateProfilePicture()">
+	<form class="flex-row card full-width font-size-dot9 margin-top-bot-very-big" [formGroup]="updateProfilePictureFormGroup" (ngSubmit)="updateProfilePicture()">
 		<img id="profile-picture" class="round-image" [src]="user.profilePictureURL">
 		<section class="flexible flex-col flex-center-align-items flex-justify-center side-padding-font">
 			<input class="full-width faded-slim-border padding-smaller lighter-hover click-effect border-radius-smaller" type="file" accept="image/*" formControlName="fileUpload" (change)="onFileUpload($event)">
@@ -12,7 +12,7 @@
 			</button>
 		</section>
 	</form>
-	<form class="flex-col card padding-big" [formGroup]="updateUserFormGroup" (ngSubmit)="onSubmit()">
+	<form class="flex-col card full-width padding-big" [formGroup]="updateUserFormGroup" (ngSubmit)="onSubmit()">
 		<section class="flex-col">
 			<div class="flex-row">
 				<label class="flexible focus-fg-color">First Name</label>
@@ -59,41 +59,57 @@
 			</div>
 			<input type="password" class="fancy-input faded-slim-border border-bottom-only" formControlName="password" required>
 		</section>
-		<button type="button" class="submit-btn edit-btn" (click)="toggleLanguages()">▼ Edit Languages ▼</button>
-		<div *ngIf="showLanguages">
-			<div class="input-selection">
-				<input type="text" class="input-field" formControlName="languageInput" required>
-				<div class="input-errors">
-					<label class="error">Type in your desired languages, separated by a space</label>
-				</div>
+		<button type="button" class="focus-fg-color full-width faded-slim-border padding-smaller lighter-hover click-effect margin-top-normal" (click)="toggleLanguages()">
+			▼ Edit Languages ▼
+		</button>
+		<section *ngIf="showLanguages">
+			<div class="margin-top-bigger">
+				<label class="error">
+					Type in your desired languages, separated by a space
+				</label>
+				<input class="fancy-input full-width faded-slim-border border-bottom-only" type="text" placeholder="You have no selected languages!" formControlName="languageInput" required>
 			</div>
-			Available languages:
-			<div id="all-languages">
-				<div class="user-language" *ngFor="let lang of availableLanguages">
+			<div class="none-message" *ngIf="availableLanguages.length === 0">
+				No languages available!
+			</div>
+			<div *ngIf="availableLanguages.length > 0">
+				Available languages:
+			</div>
+			<div class="flex-row margin-top-normal" *ngFor="let lang of availableLanguages">
+				<div class="sec-info border-radius-normal padding-small">
 					{{ lang.name }}
 				</div>
 			</div>
-		</div>
-		<button type="button" class="submit-btn edit-btn" (click)="toggleTechnologies()">▼ Edit Technologies ▼</button>
-		<div *ngIf="showTechnologies">
-			<div class="input-selection">
-				<input type="text" class="input-field" formControlName="technologyInput" required>
-				<div class="input-errors">
-					<label class="error">Type in your desired technologies, separated by a space</label>
-				</div>
+		</section>
+		<button type="button" class="focus-fg-color full-width faded-slim-border padding-smaller lighter-hover click-effect margin-top-normal" (click)="toggleTechnologies()">
+			▼ Edit Technologies ▼
+		</button>
+		<section *ngIf="showTechnologies">
+			<div class="margin-top-bigger">
+				<label class="error">
+					Type in your desired technologies, separated by a space
+				</label>
+				<input class="fancy-input full-width faded-slim-border border-bottom-only" type="text" placeholder="You have no selected technologies!" formControlName="technologyInput" required>
 			</div>
-			Available technologies:
-			<div id="all-technologies">
-				<div class="user-technology" *ngFor="let tech of availableTechnologies">
+			<div class="none-message" *ngIf="availableTechnologies.length === 0">
+				No technologies available!
+			</div>
+			<div *ngIf="availableTechnologies.length > 0">
+				Available technologies:
+			</div>
+			<div class="flex-row margin-top-normal" *ngFor="let tech of availableTechnologies">
+				<div class="sec-info border-radius-normal padding-small">
 					{{ tech.name }}
 				</div>
 			</div>
-		</div>
-		<button class="full-width faded-slim-border padding-smaller lighter-hover click-effect border-radius-smaller margin-top-normal" type="submit">
+		</section>
+		<section class="margin-top-bot-smaller">
+			<app-success-bar></app-success-bar>
+			<app-error-bar></app-error-bar>
+		</section>
+		<button class="full-width faded-slim-border padding-smaller lighter-hover click-effect border-radius-smaller" type="submit">
 			Update profile
 		</button>
-		<app-success-bar></app-success-bar>
-		<app-error-bar></app-error-bar>
 	</form>
 	<section class="card full-width">
 		<div class="margin-bot-bigger text-centered error-fg-color" *ngIf="deleteAccountConfirm">

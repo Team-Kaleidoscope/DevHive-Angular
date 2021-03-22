@@ -329,6 +329,16 @@ input[type=file]::file-selector-button {
   margin-bottom: 0.5em;
 }
 
+.margin-top-bot-very-big {
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+}
+
+.margin-top-bot-smaller {
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}
+
 .margin-top-bot-small {
   margin-top: 0.2em;
   margin-bottom: 0.2em;
