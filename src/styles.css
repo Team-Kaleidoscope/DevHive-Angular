@@ -179,7 +179,7 @@ input[type=file]::file-selector-button {
   justify-content: center;
 }
 
-.flex-center-align-children > * {
+.align-children-center > * {
   display: flex;
   align-items: center;
 }
@@ -203,10 +203,6 @@ input[type=file]::file-selector-button {
   font-size: 0.7em;
 }
 
-.img-height-font-size {
-  height: 1em;
-}
-
 /* General text */
 
 .text-centered {
@@ -219,19 +215,19 @@ input[type=file]::file-selector-button {
 
 /* General border */
 
-.faded-slim-border {
+.border-faded-slim {
   border: 1px solid var(--faded-color);
 }
 
-.border-radius-normal, .card {
+.border-radius-dot5r, .card {
   border-radius: 0.5rem;
 }
 
-.border-radius-smaller {
+.border-radius-dot3 {
   border-radius: 0.3em;
 }
 
-.border-radius-small {
+.border-radius-dot2 {
   border-radius: 0.2em;
 }
 
@@ -243,66 +239,66 @@ input[type=file]::file-selector-button {
 
 /* General colors */
 
-.fg-color-faded {
+.fg-faded {
   color: var(--faded-color);
 }
 
-.focus-fg-color {
+.fg-focus {
   color: var(--focus-color);
   border-color: var(--focus-color);
 }
 
-.error-fg-color {
+.fg-error {
   color: var(--failure);
   border-color: var(--failure);
 }
 
 /* General padding */
 
-.padding-big {
+.padding-dot6 {
   padding: 0.6em;
 }
 
-.padding-bigger {
+.padding-dot5 {
   padding: 0.5em;
 }
 
-.padding-normal {
+.padding-dot4 {
   padding: 0.4em;
 }
 
-.padding-smaller {
+.padding-dot3 {
   padding: 0.3em;
 }
 
-.padding-small {
+.padding-dot2 {
   padding: 0.2em;
 }
 
-.padding-tiny {
+.padding-dot1 {
   padding: 0.1em;
 }
 
-.side-padding-font {
+.padding-side-font {
   padding-right: 1em;
   padding-left: 1em;
 }
 
-.side-padding-smaller {
+.padding-side-dot3 {
   padding-right: 0.3em;
   padding-left: 0.3em;
 }
 
-.bot-padding-bigger {
+.padding-bot-dot5 {
   padding-bottom: 0.5em;
 }
 
-.top-bot-padding-bigger {
+.padding-top-bot-dot5 {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
 
-.top-bot-padding-small {
+.padding-top-bot-dot2 {
   padding-top: 0.2em;
   padding-bottom: 0.2em;
 }
@@ -370,15 +366,21 @@ input[type=file]::file-selector-button {
   transform: scale(0.9);
 }
 
-/* Misc */
+/* Size */
 
-.full-height {
+.height-full {
   height: 100%;
 }
 
-.full-width {
+.width-full {
   width: 100%;
 }
+
+.height-font {
+  height: 1em;
+}
+
+/* Misc */
 
 .centered-content {
   max-width: var(--max-width);

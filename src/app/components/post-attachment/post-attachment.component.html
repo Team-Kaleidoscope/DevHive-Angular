@@ -1,4 +1,4 @@
-<figure class="form-attachment faded-slim-border flexible flex-row flex-no-wrap padding-small hover-half-opacity margin-top-bot-small" (click)="toggleShowFull()">
+<figure class="form-attachment border-faded-slim flexible flex-row flex-no-wrap padding-dot2 hover-half-opacity margin-top-bot-small" (click)="toggleShowFull()">
 	<div class="flex-col flex-justify-center margin-right-small" [ngSwitch]="fileType">
 		<img *ngSwitchCase="'img'" src="/assets/icons/tabler-icon-photo.svg">
 		<img *ngSwitchDefault src="/assets/icons/tabler-icon-file.svg">
@@ -10,7 +10,7 @@
 
 <div class="show-full-attachment flex-row flex-justify-center flex-center-align-items" *ngIf="showFull" (click)="toggleShowFull()">
 	<img class="attachment-img" *ngIf="isImage" src="{{paramURL}}">
-	<a class="attachment-download faded-slim-border padding-normal hover-half-opacity click-effect border-radius-smaller" *ngIf="!isImage" href="{{paramURL}}">
+	<a class="attachment-download border-faded-slim padding-dot4 hover-half-opacity click-effect border-radius-dot3" *ngIf="!isImage" href="{{paramURL}}">
 		Download attachment
 	</a>
 </div>

@@ -3,47 +3,47 @@
 <app-loading *ngIf="!dataArrived"></app-loading>
 
 <main class="scroll-standalone under-navbar flex-col centered-content" *ngIf="dataArrived" (scroll)="onScroll($event)">
-	<section id="user-info" class="card flex-row full-width flex-justify-center">
+	<section id="user-info" class="card flex-row width-full flex-justify-center">
 		<div>
 			<img id="profile-picture" class="round-image" [src]="user.profilePictureURL">
 		</div>
-		<div class="flexible flex-col flex-center-align-items flex-justify-center side-padding-smaller">
+		<div class="flexible flex-col flex-center-align-items flex-justify-center side-padding-dot3">
 			<div class="text-centered">
 				{{ user.firstName }} {{ user.lastName }}
 			</div>
 			<div>
 				@{{ user.userName }}
 			</div>
-			<form class="flex-row flexible-children full-width font-size-dot7 margin-top-normal" [formGroup]="updateFrienship" (ngSubmit)="modifyFriend()" *ngIf="!isTheLoggedInUser && isUserLoggedIn">
-				<input class="faded-slim-border border-bottom-only margin-right-small" type="password" formControlName="password" *ngIf="updatingFriendship" placeholder="Type in password to confirm">
-				<button id="add-friend" type="submit" class="faded-slim-border padding-tiny lighter-hover click-effect border-radius-smaller full-width">
+			<form class="flex-row flexible-children width-full font-size-dot7 margin-top-normal" [formGroup]="updateFrienship" (ngSubmit)="modifyFriend()" *ngIf="!isTheLoggedInUser && isUserLoggedIn">
+				<input class="border-faded-slim border-bottom-only margin-right-small" type="password" formControlName="password" *ngIf="updatingFriendship" placeholder="Type in password to confirm">
+				<button id="add-friend" type="submit" class="border-faded-slim padding-dot1 lighter-hover click-effect border-radius-dot3 width-full">
 					{{ updatingFriendship ? 'Confirm' : (friendOfUser ? 'Unfriend' : 'Add friend') }}
 				</button>
 			</form>
 		</div>
 	</section>
-	<section class="card sec-info-card flex-col full-width">
-		<div class="sec-info-title faded-slim-border border-bottom-only">
+	<section class="card sec-info-card flex-col width-full">
+		<div class="sec-info-title border-faded-slim border-bottom-only">
 			Languages
 		</div>
 		<div class="none-message" *ngIf="user.languages.length === 0">
 			None
 		</div>
 		<div class="flex-row" *ngFor="let lang of user.languages">
-			<div class="sec-info border-radius-normal padding-small">
+			<div class="sec-info border-radius-dot5r padding-dot2">
 				{{ lang.name }}
 			</div>
 		</div>
 	</section>
-	<section class="card sec-info-card flex-col full-width">
-		<div class="sec-info-title faded-slim-border border-bottom-only">
+	<section class="card sec-info-card flex-col width-full">
+		<div class="sec-info-title border-faded-slim border-bottom-only">
 			Technologies
 		</div>
 		<div class="none-message" *ngIf="user.technologies.length === 0">
 			None
 		</div>
 		<div  class="flex-row" *ngFor="let tech of user.technologies">
-			<div class="sec-info border-radius-normal padding-small">
+			<div class="sec-info border-radius-dot5r padding-dot2">
 				{{ tech.name }}
 			</div>
 		</div>

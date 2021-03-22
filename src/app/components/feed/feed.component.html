@@ -4,24 +4,24 @@
 
 <main class="centered-content scroll-standalone under-navbar flex-col flex-justify-start" *ngIf="dataArrived">
 	<form id="create-post" class="card flex-col" [formGroup]="createPostFormGroup" (ngSubmit)="createPost()">
-		<textarea class="textarea-new-msg faded-slim-border border-bottom-only padding-small" rows="1" formControlName="newPostMessage" placeholder="What's on your mind?"></textarea>
-		<section class="flex-row flex-justify-start flex-center-align-children top-bot-padding-bigger">
+		<textarea class="textarea-new-msg border-faded-slim border-bottom-only padding-dot2" rows="1" formControlName="newPostMessage" placeholder="What's on your mind?"></textarea>
+		<section class="flex-row flex-justify-start align-children-center top-bot-padding-dot6ger">
 			<div class="file-button hover-half-opacity click-effect">
 				<img src="/assets/icons/tabler-icon-paperclip.svg">
 				<input type="file" formControlName="fileUpload" (change)="onFileUpload($event)" multiple>
 			</div>
 		</section>
-		<section class="flex-row bot-padding-bigger">
-			<div *ngFor="let file of files" class="form-attachment faded-slim-border flexible flex-row flex-no-wrap flex-center-align-items padding-small margin-top-bot-small">
+		<section class="flex-row bot-padding-dot6ger">
+			<div *ngFor="let file of files" class="form-attachment border-faded-slim flexible flex-row flex-no-wrap flex-center-align-items padding-dot2 margin-top-bot-small">
 				<div class="flexible">
 					{{ file.name ? file.name : 'Attachment' }}
 				</div>
-				<div class="flex-col hover-half-opacity border-radius-small click-effect" (click)="removeAttachment(file.name)">
+				<div class="flex-col hover-half-opacity border-radius-dot2 click-effect" (click)="removeAttachment(file.name)">
 					<img src="/assets/icons/tabler-icon-x.svg">
 				</div>
 			</div>
 		</section>
-		<button class="faded-slim-border padding-small lighter-hover click-effect border-radius-smaller">
+		<button class="border-faded-slim padding-dot2 lighter-hover click-effect border-radius-dot3">
 			Post
 		</button>
 	</form>

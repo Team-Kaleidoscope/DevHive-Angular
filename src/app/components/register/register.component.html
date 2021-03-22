@@ -1,44 +1,44 @@
-<main class="centered-content flex-col flex-center-align-items flex-justify-center full-height">
-	<summary class="title card full-width no-margin padding-small">Register</summary>
+<main class="centered-content flex-col flex-center-align-items flex-justify-center height-full">
+	<summary class="title card width-full no-margin padding-dot2">Register</summary>
 
-	<app-error-bar class="full-width margin-top-normal"></app-error-bar>
+	<app-error-bar class="width-full margin-top-normal"></app-error-bar>
 
-	<form class="full-width card padding-big" [formGroup]="registerUserFormGroup" (ngSubmit)="onSubmit()">
-		<section class="input-selection full-width">
-			<input type="text" placeholder="First Name" class="fancy-input full-width faded-slim-border border-bottom-only" formControlName="firstName" required>
-			<label class="fancy-input-label full-width">First Name</label>
+	<form class="width-full card padding-dot6" [formGroup]="registerUserFormGroup" (ngSubmit)="onSubmit()">
+		<section class="input-selection width-full">
+			<input type="text" placeholder="First Name" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="firstName" required>
+			<label class="fancy-input-label width-full">First Name</label>
 			<div class="input-errors">
 				<label *ngIf="registerUserFormGroup.get('firstName')?.errors?.required" class="error">*Required</label>
 				<label *ngIf="registerUserFormGroup.get('firstName')?.errors?.minlength" class="error">*Minimum 3 characters</label>
 			</div>
 		</section>
 		<section class="input-selection">
-			<input type="text" placeholder="Last Name" class="fancy-input full-width faded-slim-border border-bottom-only" formControlName="lastName" required>
-			<label class="fancy-input-label full-width">Last Name</label>
+			<input type="text" placeholder="Last Name" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="lastName" required>
+			<label class="fancy-input-label width-full">Last Name</label>
 			<div class="input-errors">
 				<label *ngIf="registerUserFormGroup.get('lastName')?.errors?.required" class="error">*Required</label>
 				<label *ngIf="registerUserFormGroup.get('lastName')?.errors?.minlength" class="error">*Minimum 3 characters</label>
 			</div>
 		</section>
 		<section class="input-selection">
-			<input type="text" placeholder="Username" class="fancy-input full-width faded-slim-border border-bottom-only" formControlName="username" required>
-			<label class="fancy-input-label full-width">Username</label>
+			<input type="text" placeholder="Username" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="username" required>
+			<label class="fancy-input-label width-full">Username</label>
 			<div class="input-errors">
 				<label *ngIf="registerUserFormGroup.get('username')?.errors?.required" class="error">*Required</label>
 				<label *ngIf="registerUserFormGroup.get('username')?.errors?.minlength" class="error">*Minimum 3 characters</label>
 			</div>
 		</section>
 		<section class="input-selection">
-			<input type="text" placeholder="Email" class="fancy-input full-width faded-slim-border border-bottom-only" formControlName="email" required>
-			<label class="fancy-input-label full-width">Email</label>
+			<input type="text" placeholder="Email" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="email" required>
+			<label class="fancy-input-label width-full">Email</label>
 			<div class="input-errors">
 				<label *ngIf="registerUserFormGroup.get('email')?.errors?.required" class="error">*Required</label>
 				<label *ngIf="registerUserFormGroup.get('email')?.errors?.email" class="error">*Invalid email</label>
 			</div>
 		</section>
 		<section class="input-selection">
-			<input type="password" placeholder="Password" class="fancy-input full-width faded-slim-border border-bottom-only" formControlName="password" required>
-			<label class="fancy-input-label full-width">Password</label>
+			<input type="password" placeholder="Password" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="password" required>
+			<label class="fancy-input-label width-full">Password</label>
 			<div class="input-errors">
 				<label *ngIf="registerUserFormGroup.get('password')?.errors?.required" class="error">*Required</label>
 				<label *ngIf="registerUserFormGroup.get('password')?.errors?.minlength" class="error">*Minimum 3 characters</label>
@@ -47,9 +47,9 @@
 		</section>
 
 
-		<button class="faded-slim-border padding-smaller lighter-hover click-effect border-radius-smaller full-width" type="submit">Submit</button>
+		<button class="border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3 width-full" type="submit">Submit</button>
 	</form>
-	<button class="focus-fg-color faded-slim-border padding-smaller lighter-hover click-effect border-radius-smaller full-width margin-top-normal" (click)="onRedirectLogin()">
+	<button class="fg-focus border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3 width-full margin-top-normal" (click)="onRedirectLogin()">
 		Already have an account? Login here
 	</button>
 </main>

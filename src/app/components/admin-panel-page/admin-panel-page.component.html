@@ -6,34 +6,34 @@
 	<app-success-bar></app-success-bar>
 	<app-error-bar></app-error-bar>
 
-	<div class="card full-width">
+	<div class="card width-full">
 		<section>
-			<button type="button" class="focus-fg-color full-width faded-slim-border padding-smaller lighter-hover click-effect" (click)="toggleLanguages()">
+			<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect" (click)="toggleLanguages()">
 				▼ Edit Languages ▼
 			</button>
 			<form class="flex-col margin-top-bot-smaller" [formGroup]="languageForm" (ngSubmit)="submitLanguages()" *ngIf="showLanguages">
-				<label class="focus-fg-color">
+				<label class="fg-focus">
 					Create language:
 				</label>
-				<input type="text" class="fancy-input full-width faded-slim-border border-bottom-only" formControlName="languageCreate" placeholder="New language name">
+				<input type="text" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="languageCreate" placeholder="New language name">
 
-				<label class="focus-fg-color">
+				<label class="fg-focus">
 					Update language:
 				</label>
 				<div class="flex-row flexible-children">
-					<input type="text" class="fancy-input faded-slim-border border-bottom-only margin-right-small" formControlName="updateLanguageOldName" placeholder="Old language name">
-					<input type="text" class="fancy-input faded-slim-border border-bottom-only" formControlName="updateLanguageNewName" placeholder="New language name">
+					<input type="text" class="fancy-input border-faded-slim border-bottom-only margin-right-small" formControlName="updateLanguageOldName" placeholder="Old language name">
+					<input type="text" class="fancy-input border-faded-slim border-bottom-only" formControlName="updateLanguageNewName" placeholder="New language name">
 				</div>
 
-				<label class="focus-fg-color">
+				<label class="fg-focus">
 					Delete language:
 				</label>
-				<input type="text" class="fancy-input full-width faded-slim-border border-bottom-only" formControlName="deleteLanguageName" placeholder="Language name">
+				<input type="text" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="deleteLanguageName" placeholder="Language name">
 
-				<button class="full-width faded-slim-border padding-smaller lighter-hover click-effect border-radius-smaller" type="submit">
+				<button class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3" type="submit">
 					Modify languages
 				</button>
-				<section class="faded-slim-border padding-normal margin-top-normal">
+				<section class="border-faded-slim padding-dot4 margin-top-normal">
 					<div class="none-message" *ngIf="availableLanguages.length === 0">
 						No languages in database!
 					</div>
@@ -41,7 +41,7 @@
 						Available languages:
 					</div>
 					<div class="flex-row margin-top-normal" *ngFor="let lang of availableLanguages">
-						<div class="sec-info border-radius-normal padding-small">
+						<div class="sec-info border-radius-dot5r padding-dot2">
 							{{ lang.name }}
 						</div>
 					</div>
@@ -49,32 +49,32 @@
 			</form>
 		</section>
 		<section>
-			<button type="button" class="focus-fg-color full-width faded-slim-border padding-smaller lighter-hover click-effect margin-top-normal" (click)="toggleTechnologies()">
+			<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-normal" (click)="toggleTechnologies()">
 				▼ Edit Technologies ▼
 			</button>
 			<form class="flex-col margin-top-bot-smaller" [formGroup]="technologyForm" (ngSubmit)="submitTechnologies()" *ngIf="showTechnologies">
-				<label class="focus-fg-color">
+				<label class="fg-focus">
 					Create technology:
 				</label>
-				<input type="text" class="fancy-input full-width faded-slim-border border-bottom-only" formControlName="technologyCreate" placeholder="New technology name">
+				<input type="text" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="technologyCreate" placeholder="New technology name">
 
-				<label class="focus-fg-color">
+				<label class="fg-focus">
 					Update technology:
 				</label>
 				<div class="flex-row flexible-children">
-					<input type="text" class="fancy-input faded-slim-border border-bottom-only margin-right-small" formControlName="updateTechnologyOldName" placeholder="Old technology name">
-					<input type="text" class="fancy-input faded-slim-border border-bottom-only" formControlName="updateTechnologyNewName" placeholder="New technology name">
+					<input type="text" class="fancy-input border-faded-slim border-bottom-only margin-right-small" formControlName="updateTechnologyOldName" placeholder="Old technology name">
+					<input type="text" class="fancy-input border-faded-slim border-bottom-only" formControlName="updateTechnologyNewName" placeholder="New technology name">
 				</div>
 
-				<label class="focus-fg-color">
+				<label class="fg-focus">
 					Delete technology:
 				</label>
-				<input type="text" class="fancy-input full-width faded-slim-border border-bottom-only" formControlName="deleteTechnologyName" placeholder="Technology name">
+				<input type="text" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="deleteTechnologyName" placeholder="Technology name">
 
-				<button class="full-width faded-slim-border padding-smaller lighter-hover click-effect border-radius-smaller" type="submit">
+				<button class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3" type="submit">
 					Modify technology
 				</button>
-				<section class="faded-slim-border padding-normal margin-top-normal">
+				<section class="border-faded-slim padding-dot4 margin-top-normal">
 					<div class="none-message" *ngIf="availableTechnologies.length === 0">
 						No technologies in database!
 					</div>
@@ -82,7 +82,7 @@
 						Available technologies:
 					</div>
 					<div class="flex-row margin-top-normal" *ngFor="let tech of availableTechnologies">
-						<div class="sec-info border-radius-normal padding-small">
+						<div class="sec-info border-radius-dot5r padding-dot2">
 							{{ tech.name }}
 						</div>
 					</div>
@@ -90,26 +90,26 @@
 			</form>
 		</section>
 		<section>
-			<button type="button" class="focus-fg-color full-width faded-slim-border padding-smaller lighter-hover click-effect margin-top-normal" (click)="toggleDeletions()">
+			<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-normal" (click)="toggleDeletions()">
 				▼ Deletions ▼
 			</button>
 			<form class="flex-col margin-top-bot-smaller" [formGroup]="deleteForm" (ngSubmit)="submitDelete()" *ngIf="showDeletions">
-				<label class="focus-fg-color">
+				<label class="fg-focus">
 					Delete user by Id:
 				</label>
-				<input type="text" class="fancy-input full-width faded-slim-border border-bottom-only" formControlName="deleteUser" placeholder="User Id">
+				<input type="text" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="deleteUser" placeholder="User Id">
 
-				<label class="focus-fg-color">
+				<label class="fg-focus">
 					Delete post by Id:
 				</label>
-				<input type="text" class="fancy-input full-width faded-slim-border border-bottom-only" formControlName="deletePost" placeholder="Post Id">
+				<input type="text" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="deletePost" placeholder="Post Id">
 
-				<label class="focus-fg-color">
+				<label class="fg-focus">
 					Delete comment by Id:
 				</label>
-				<input type="text" class="fancy-input full-width faded-slim-border border-bottom-only" formControlName="deleteComment" placeholder="Comment Id">
+				<input type="text" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="deleteComment" placeholder="Comment Id">
 
-				<button class="full-width faded-slim-border padding-smaller lighter-hover click-effect border-radius-smaller" type="submit">
+				<button class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3" type="submit">
 					Delete
 				</button>
 			</form>
