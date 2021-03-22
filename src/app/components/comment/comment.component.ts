@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { CommentService } from 'src/app/services/comment.service';
@@ -13,7 +13,7 @@ import { User } from 'src/models/identity/user.model';
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.css']
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent implements OnInit, AfterViewInit {
   public loaded = false;
   public loggedInAuthor = false;
   public editingComment = false;
@@ -22,8 +22,11 @@ export class CommentComponent implements OnInit {
   public timeCreated: string;
   @Input() paramId: string;
   public editCommentFormGroup: FormGroup;
+  @ViewChild('share') shareBtn: ElementRef;
+  private _defaultShareBtnInnerHTML: string;
+  private _linkShared = false;
 
-  constructor(private _router: Router, private _commentService: CommentService, private _userService: UserService, private _tokenService: TokenService, private _fb: FormBuilder)
+  constructor(private _router: Router, private _commentService: CommentService, private _userService: UserService, private _tokenService: TokenService, private _fb: FormBuilder, private _elem: ElementRef, private _renderer: Renderer2)
   { }
 
   ngOnInit(): void {
@@ -57,6 +60,10 @@ export class CommentComponent implements OnInit {
         this.loaded = true;
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    this._defaultShareBtnInnerHTML = this.shareBtn.nativeElement.innerHTML;
   }
 
   goToAuthorProfile(): void {
@@ -99,5 +106,21 @@ export class CommentComponent implements OnInit {
     this._router.routeReuseStrategy.shouldReuseRoute = () => false;
     this._router.onSameUrlNavigation = 'reload';
     this._router.navigate([this._router.url]);
+  }
+
+  resetShareBtn(): void {
+    if (this._linkShared) {
+      this._renderer.setProperty(this.shareBtn.nativeElement, 'innerHTML', this._defaultShareBtnInnerHTML);
+      this._linkShared = false;
+    }
+  }
+
+  showCopiedMessage(): void {
+    this._renderer.setProperty(this.shareBtn.nativeElement, 'innerHTML', 'Link copied to clipboard!');
+    this._linkShared = true;
+  }
+
+  getPostLink(): string {
+    return location.origin + '/comment/' + this.paramId;
   }
 }
