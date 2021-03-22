@@ -3,7 +3,7 @@
 <app-loading *ngIf="!dataArrived"></app-loading>
 
 <main class="centered-content scroll-standalone under-navbar flex-col" *ngIf="dataArrived">
-	<app-post [paramId]="postId.toString()" [index]="0"></app-post>
+	<app-post [paramId]="postId.toString()"></app-post>
 	<form class="card flex-col full-width no-margin-top" [formGroup]="addCommentFormGroup" (ngSubmit)="addComment()">
 		<textarea rows="1" placeholder="Add a new comment" class="textarea-new-msg faded-slim-border border-bottom-only padding-small margin-bot-bigger" formControlName="newComment"></textarea>
 		<button class="faded-slim-border padding-small lighter-hover click-effect border-radius-smaller" type="submit">

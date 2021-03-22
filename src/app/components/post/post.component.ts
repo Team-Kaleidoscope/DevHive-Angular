@@ -22,7 +22,6 @@ export class PostComponent implements OnInit, AfterViewInit {
   public votesNumber: number;
   public timeCreated: string;
   @Input() paramId: string;
-  @Input() index: number;
   @ViewChild('upvote') upvoteBtn: ElementRef;
   @ViewChild('downvote') downvoteBtn: ElementRef;
   public loggedIn = false;
