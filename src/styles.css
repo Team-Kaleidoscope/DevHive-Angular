@@ -305,42 +305,42 @@ input[type=file]::file-selector-button {
 
 /* Margin */
 
-.no-margin {
+.margin-0 {
   margin: 0;
 }
 
-.no-margin-top {
+.margin-top-0 {
   margin-top: 0;
 }
 
-.margin-top-normal {
+.margin-top-dot4 {
   margin-top: 0.4em;
 }
 
-.margin-top-bigger {
+.margin-top-dot5 {
   margin-top: 0.5em;
 }
 
-.margin-bot-bigger {
+.margin-bot-dot5 {
   margin-bottom: 0.5em;
 }
 
-.margin-top-bot-very-big {
+.margin-top-bot-dot7 {
   margin-top: 0.7em;
   margin-bottom: 0.7em;
 }
 
-.margin-top-bot-smaller {
+.margin-top-bot-dot3 {
   margin-top: 0.3em;
   margin-bottom: 0.3em;
 }
 
-.margin-top-bot-small {
+.margin-top-bot-dot2 {
   margin-top: 0.2em;
   margin-bottom: 0.2em;
 }
 
-.margin-right-small {
+.margin-right-dot2 {
   margin-right: 0.2em;
 }
 

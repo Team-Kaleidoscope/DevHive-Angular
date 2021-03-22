@@ -14,8 +14,8 @@
 			<div>
 				@{{ user.userName }}
 			</div>
-			<form class="flex-row flexible-children width-full font-size-dot7 margin-top-normal" [formGroup]="updateFrienship" (ngSubmit)="modifyFriend()" *ngIf="!isTheLoggedInUser && isUserLoggedIn">
-				<input class="border-faded-slim border-bottom-only margin-right-small" type="password" formControlName="password" *ngIf="updatingFriendship" placeholder="Type in password to confirm">
+			<form class="flex-row flexible-children width-full font-size-dot7 margin-top-dot4" [formGroup]="updateFrienship" (ngSubmit)="modifyFriend()" *ngIf="!isTheLoggedInUser && isUserLoggedIn">
+				<input class="border-faded-slim border-bottom-only margin-right-dot2" type="password" formControlName="password" *ngIf="updatingFriendship" placeholder="Type in password to confirm">
 				<button id="add-friend" type="submit" class="border-faded-slim padding-dot1 lighter-hover click-effect border-radius-dot3 width-full">
 					{{ updatingFriendship ? 'Confirm' : (friendOfUser ? 'Unfriend' : 'Add friend') }}
 				</button>

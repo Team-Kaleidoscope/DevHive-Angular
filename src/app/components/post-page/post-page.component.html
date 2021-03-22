@@ -4,8 +4,8 @@
 
 <main class="centered-content scroll-standalone under-navbar flex-col" *ngIf="dataArrived">
 	<app-post [paramId]="postId.toString()"></app-post>
-	<form class="card flex-col width-full no-margin-top" [formGroup]="addCommentFormGroup" (ngSubmit)="addComment()">
-		<textarea rows="1" placeholder="Add a new comment" class="textarea-new-msg border-faded-slim border-bottom-only padding-dot2 margin-bot-bigger" formControlName="newComment"></textarea>
+	<form class="card flex-col width-full margin-0-top" [formGroup]="addCommentFormGroup" (ngSubmit)="addComment()">
+		<textarea rows="1" placeholder="Add a new comment" class="textarea-new-msg border-faded-slim border-bottom-only padding-dot2 margin-bot-dot5" formControlName="newComment"></textarea>
 		<button class="border-faded-slim padding-dot2 lighter-hover click-effect border-radius-dot3" type="submit">
 			Add Comment
 		</button>

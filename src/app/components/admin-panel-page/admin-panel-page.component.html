@@ -11,7 +11,7 @@
 			<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect" (click)="toggleLanguages()">
 				▼ Edit Languages ▼
 			</button>
-			<form class="flex-col margin-top-bot-smaller" [formGroup]="languageForm" (ngSubmit)="submitLanguages()" *ngIf="showLanguages">
+			<form class="flex-col margin-top-bot-dot3" [formGroup]="languageForm" (ngSubmit)="submitLanguages()" *ngIf="showLanguages">
 				<label class="fg-focus">
 					Create language:
 				</label>
@@ -21,7 +21,7 @@
 					Update language:
 				</label>
 				<div class="flex-row flexible-children">
-					<input type="text" class="fancy-input border-faded-slim border-bottom-only margin-right-small" formControlName="updateLanguageOldName" placeholder="Old language name">
+					<input type="text" class="fancy-input border-faded-slim border-bottom-only margin-right-dot2" formControlName="updateLanguageOldName" placeholder="Old language name">
 					<input type="text" class="fancy-input border-faded-slim border-bottom-only" formControlName="updateLanguageNewName" placeholder="New language name">
 				</div>
 
@@ -33,14 +33,14 @@
 				<button class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3" type="submit">
 					Modify languages
 				</button>
-				<section class="border-faded-slim padding-dot4 margin-top-normal">
+				<section class="border-faded-slim padding-dot4 margin-top-dot4">
 					<div class="none-message" *ngIf="availableLanguages.length === 0">
 						No languages in database!
 					</div>
 					<div *ngIf="availableLanguages.length > 0">
 						Available languages:
 					</div>
-					<div class="flex-row margin-top-normal" *ngFor="let lang of availableLanguages">
+					<div class="flex-row margin-top-dot4" *ngFor="let lang of availableLanguages">
 						<div class="sec-info border-radius-dot5r padding-dot2">
 							{{ lang.name }}
 						</div>
@@ -49,10 +49,10 @@
 			</form>
 		</section>
 		<section>
-			<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-normal" (click)="toggleTechnologies()">
+			<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-dot4" (click)="toggleTechnologies()">
 				▼ Edit Technologies ▼
 			</button>
-			<form class="flex-col margin-top-bot-smaller" [formGroup]="technologyForm" (ngSubmit)="submitTechnologies()" *ngIf="showTechnologies">
+			<form class="flex-col margin-top-bot-dot3" [formGroup]="technologyForm" (ngSubmit)="submitTechnologies()" *ngIf="showTechnologies">
 				<label class="fg-focus">
 					Create technology:
 				</label>
@@ -62,7 +62,7 @@
 					Update technology:
 				</label>
 				<div class="flex-row flexible-children">
-					<input type="text" class="fancy-input border-faded-slim border-bottom-only margin-right-small" formControlName="updateTechnologyOldName" placeholder="Old technology name">
+					<input type="text" class="fancy-input border-faded-slim border-bottom-only margin-right-dot2" formControlName="updateTechnologyOldName" placeholder="Old technology name">
 					<input type="text" class="fancy-input border-faded-slim border-bottom-only" formControlName="updateTechnologyNewName" placeholder="New technology name">
 				</div>
 
@@ -74,14 +74,14 @@
 				<button class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3" type="submit">
 					Modify technology
 				</button>
-				<section class="border-faded-slim padding-dot4 margin-top-normal">
+				<section class="border-faded-slim padding-dot4 margin-top-dot4">
 					<div class="none-message" *ngIf="availableTechnologies.length === 0">
 						No technologies in database!
 					</div>
 					<div *ngIf="availableTechnologies.length > 0">
 						Available technologies:
 					</div>
-					<div class="flex-row margin-top-normal" *ngFor="let tech of availableTechnologies">
+					<div class="flex-row margin-top-dot4" *ngFor="let tech of availableTechnologies">
 						<div class="sec-info border-radius-dot5r padding-dot2">
 							{{ tech.name }}
 						</div>
@@ -90,10 +90,10 @@
 			</form>
 		</section>
 		<section>
-			<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-normal" (click)="toggleDeletions()">
+			<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-dot4" (click)="toggleDeletions()">
 				▼ Deletions ▼
 			</button>
-			<form class="flex-col margin-top-bot-smaller" [formGroup]="deleteForm" (ngSubmit)="submitDelete()" *ngIf="showDeletions">
+			<form class="flex-col margin-top-bot-dot3" [formGroup]="deleteForm" (ngSubmit)="submitDelete()" *ngIf="showDeletions">
 				<label class="fg-focus">
 					Delete user by Id:
 				</label>

@@ -13,7 +13,7 @@
 				@{{ user.userName }}
 			</span>
 		</summary>
-		<article class="message margin-top-bot-small" *ngIf="!editingPost">
+		<article class="message margin-top-bot-dot2" *ngIf="!editingPost">
 			{{ post.message }}
 		</article>
 		<section class="flex-row flexible-children" *ngIf="!editingPost">
@@ -31,7 +31,7 @@
 			</section>
 		</form>
 		<section class="flex-row bot-padding-dot6ger" *ngIf="editingPost">
-			<div *ngFor="let file of files" class="form-attachment border-faded-slim flexible flex-row flex-no-wrap flex-center-align-items padding-dot2 margin-top-bot-small">
+			<div *ngFor="let file of files" class="form-attachment border-faded-slim flexible flex-row flex-no-wrap flex-center-align-items padding-dot2 margin-top-bot-dot2">
 				<div class="flexible">
 					{{ file.name ? file.name : 'Attachment' }}
 				</div>
@@ -40,7 +40,7 @@
 				</div>
 			</div>
 		</section>
-		<button class="border-faded-slim width-full padding-dot2 lighter-hover click-effect border-radius-dot3 margin-bot-bigger" *ngIf="editingPost" (click)="editPost()">
+		<button class="border-faded-slim width-full padding-dot2 lighter-hover click-effect border-radius-dot3 margin-bot-dot5" *ngIf="editingPost" (click)="editPost()">
 			Update Post
 		</button>
 		<section class="post-details flex-row flex-justify-end font-size-dot7 border-faded-slim border-bottom-only">

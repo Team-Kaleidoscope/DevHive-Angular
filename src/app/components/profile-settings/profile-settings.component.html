@@ -8,11 +8,11 @@
 			Go to admin panel
 		</button>
 	</section>
-	<form class="flex-row card width-full font-size-dot9 margin-top-bot-very-big" [formGroup]="updateProfilePictureFormGroup" (ngSubmit)="updateProfilePicture()">
+	<form class="flex-row card width-full font-size-dot9 margin-top-bot-dot7" [formGroup]="updateProfilePictureFormGroup" (ngSubmit)="updateProfilePicture()">
 		<img id="profile-picture" class="round-image" [src]="user.profilePictureURL">
 		<section class="flexible flex-col flex-center-align-items flex-justify-center padding-side-font">
 			<input class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3" type="file" accept="image/*" formControlName="fileUpload" (change)="onFileUpload($event)">
-			<button class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3 margin-top-normal" type="submit" *ngIf="newProfilePicture.size > 0">
+			<button class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3 margin-top-dot4" type="submit" *ngIf="newProfilePicture.size > 0">
 				Update profile picture
 			</button>
 		</section>
@@ -64,11 +64,11 @@
 			</div>
 			<input type="password" class="fancy-input border-faded-slim border-bottom-only" formControlName="password" required>
 		</section>
-		<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-normal" (click)="toggleLanguages()">
+		<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-dot4" (click)="toggleLanguages()">
 			▼ Edit Languages ▼
 		</button>
 		<section *ngIf="showLanguages">
-			<div class="margin-top-bigger">
+			<div class="margin-top-dot5">
 				<label class="error">
 					Type in your desired languages, separated by a space
 				</label>
@@ -80,17 +80,17 @@
 			<div *ngIf="availableLanguages.length > 0">
 				Available languages:
 			</div>
-			<div class="flex-row margin-top-normal" *ngFor="let lang of availableLanguages">
+			<div class="flex-row margin-top-dot4" *ngFor="let lang of availableLanguages">
 				<div class="sec-info border-radius-dot5r padding-dot2">
 					{{ lang.name }}
 				</div>
 			</div>
 		</section>
-		<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-normal" (click)="toggleTechnologies()">
+		<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-dot4" (click)="toggleTechnologies()">
 			▼ Edit Technologies ▼
 		</button>
 		<section *ngIf="showTechnologies">
-			<div class="margin-top-bigger">
+			<div class="margin-top-dot5">
 				<label class="error">
 					Type in your desired technologies, separated by a space
 				</label>
@@ -102,13 +102,13 @@
 			<div *ngIf="availableTechnologies.length > 0">
 				Available technologies:
 			</div>
-			<div class="flex-row margin-top-normal" *ngFor="let tech of availableTechnologies">
+			<div class="flex-row margin-top-dot4" *ngFor="let tech of availableTechnologies">
 				<div class="sec-info border-radius-dot5r padding-dot2">
 					{{ tech.name }}
 				</div>
 			</div>
 		</section>
-		<section class="margin-top-bot-smaller">
+		<section class="margin-top-bot-dot3">
 			<app-success-bar></app-success-bar>
 			<app-error-bar></app-error-bar>
 		</section>
@@ -117,7 +117,7 @@
 		</button>
 	</form>
 	<section class="card width-full">
-		<div class="margin-bot-bigger text-centered fg-error" *ngIf="deleteAccountConfirm">
+		<div class="margin-bot-dot5 text-centered fg-error" *ngIf="deleteAccountConfirm">
 			Are you sure you want to delete your account?<br>This is permanent!
 		</div>
 		<button class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3 fg-error" (click)="deleteAccount()">

@@ -14,12 +14,12 @@
 			</span>
 		</summary>
 		<form [formGroup]="editCommentFormGroup" *ngIf="editingComment" (ngSubmit)="editComment()">
-			<textarea class="textarea-new-msg width-full border-faded-slim border-bottom-only padding-dot2 margin-bot-bigger" rows="1" formControlName="newCommentMessage" placeholder="What's on your mind?"></textarea>
-			<button type="submit" class="border-faded-slim width-full padding-dot2 lighter-hover click-effect border-radius-dot3 margin-bot-bigger">
+			<textarea class="textarea-new-msg width-full border-faded-slim border-bottom-only padding-dot2 margin-bot-dot5" rows="1" formControlName="newCommentMessage" placeholder="What's on your mind?"></textarea>
+			<button type="submit" class="border-faded-slim width-full padding-dot2 lighter-hover click-effect border-radius-dot3 margin-bot-dot5">
 				Update Comment
 			</button>
 		</form>
-		<article class="message margin-top-bot-small" *ngIf="!editingComment">
+		<article class="message margin-top-bot-dot2" *ngIf="!editingComment">
 			{{ comment.message }}
 		</article>
 		<section class="comment-details flex-row flex-justify-end font-size-dot7 border-faded-slim border-bottom-only">

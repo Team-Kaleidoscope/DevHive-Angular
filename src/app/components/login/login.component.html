@@ -1,7 +1,7 @@
 <main class="centered-content flex-col flex-center-align-items flex-justify-center height-full">
-	<summary class="title card width-full no-margin padding-dot2">Login</summary>
+	<summary class="title card width-full margin-0 padding-dot2">Login</summary>
 
-	<app-error-bar class="width-full margin-top-normal"></app-error-bar>
+	<app-error-bar class="width-full margin-top-dot4"></app-error-bar>
 
 	<form class="width-full card padding-dot6" [formGroup]="loginUserFormGroup" (ngSubmit)="onSubmit()">
 		<section class="input-selection width-full">
@@ -21,5 +21,5 @@
 
 		<button class="border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3 width-full" type="submit">Submit</button>
 	</form>
-	<button class="fg-focus border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3 width-full margin-top-normal" (click)="onRedirectRegister()">New to DevHive? Register instead</button>
+	<button class="fg-focus border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3 width-full margin-top-dot4" (click)="onRedirectRegister()">New to DevHive? Register instead</button>
 </main>
