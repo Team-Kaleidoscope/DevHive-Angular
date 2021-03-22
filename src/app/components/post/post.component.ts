@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChi
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
+import { AppConstants } from 'src/app/app-constants.module';
 import { CloudinaryService } from 'src/app/services/cloudinary.service';
 import { PostService } from 'src/app/services/post.service';
 import { RatingService } from 'src/app/services/rating.service';
@@ -24,6 +25,9 @@ export class PostComponent implements OnInit, AfterViewInit {
   @Input() paramId: string;
   @ViewChild('upvote') upvoteBtn: ElementRef;
   @ViewChild('downvote') downvoteBtn: ElementRef;
+  @ViewChild('share') shareBtn: ElementRef;
+  private _defaultShareBtnInnerHTML: string;
+  private _linkShared = false; // For optimisation purposes
   public loggedIn = false;
   public loggedInAuthor = false;
   public editingPost = false;
@@ -107,6 +111,8 @@ export class PostComponent implements OnInit, AfterViewInit {
         this.changeColorOfVoteButton(isLike, !isLike);
       }
     });
+
+    this._defaultShareBtnInnerHTML = this.shareBtn.nativeElement.innerHTML;
   }
 
   goToAuthorProfile(): void {
@@ -212,5 +218,21 @@ export class PostComponent implements OnInit, AfterViewInit {
   private changeColorOfVoteButton(isUpvoted: boolean, isDownvoted: boolean): void {
     this._renderer.setStyle(this.upvoteBtn.nativeElement, 'backgroundColor', (isUpvoted) ? 'var(--upvote-highlight)' : 'inherit');
     this._renderer.setStyle(this.downvoteBtn.nativeElement, 'backgroundColor', (isDownvoted) ? 'var(--downvote-highlight)' : 'inherit');
+  }
+
+  resetShareBtn(): void {
+    if (this._linkShared) {
+      this._renderer.setProperty(this.shareBtn.nativeElement, 'innerHTML', this._defaultShareBtnInnerHTML);
+      this._linkShared = false;
+    }
+  }
+
+  showCopiedMessage(): void {
+    this._renderer.setProperty(this.shareBtn.nativeElement, 'innerHTML', 'Link copied to clipboard!');
+    this._linkShared = true;
+  }
+
+  getPostLink(): string {
+    return AppConstants.API_POST_URL + '/' + this.paramId;
   }
 }

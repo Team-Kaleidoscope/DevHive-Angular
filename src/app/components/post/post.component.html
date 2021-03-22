@@ -1,6 +1,6 @@
 <app-loading *ngIf="!loaded"></app-loading>
 
-<section class="card flex-row" [hidden]="loaded">
+<section class="card flex-row" [hidden]="loaded" (mouseleave)="resetShareBtn()">
 	<aside class="left-pane">
 		<img class="author-picture round-image hover-half-opacity" [src]="user.profilePictureURL" (click)="goToAuthorProfile()">
 	</aside>
@@ -61,11 +61,11 @@
 			<button class="padding-small lighter-hover click-effect border-radius-smaller" *ngIf="loggedInAuthor" (click)="toggleEditing()">
 				<img src="/assets/icons/tabler-icon-edit.svg">
 			</button>
-			<button class="flexible padding-small lighter-hover click-effect border-radius-smaller"  (click)="goToPostPage()">
+			<button class="flexible padding-small lighter-hover click-effect border-radius-smaller" (click)="goToPostPage()">
 				<img src="/assets/icons/tabler-icon-message-2.svg">
 				&nbsp;Comment
 			</button>
-			<button class="flexible padding-small lighter-hover click-effect border-radius-smaller"  (click)="goToPostPage()">
+			<button #share ngxClipboard [cbContent]="getPostLink()" class="flexible padding-small lighter-hover click-effect border-radius-smaller" (click)="showCopiedMessage()">
 				<img src="/assets/icons/tabler-icon-link.svg">
 				&nbsp;Share
 			</button>

@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
+import { ClipboardModule } from 'ngx-clipboard';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -54,7 +55,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     MatInputModule,
     MatButtonModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
