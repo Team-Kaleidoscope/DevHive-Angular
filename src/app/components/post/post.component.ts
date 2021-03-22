@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChi
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
-import { AppConstants } from 'src/app/app-constants.module';
 import { CloudinaryService } from 'src/app/services/cloudinary.service';
 import { PostService } from 'src/app/services/post.service';
 import { RatingService } from 'src/app/services/rating.service';
@@ -233,6 +232,6 @@ export class PostComponent implements OnInit, AfterViewInit {
   }
 
   getPostLink(): string {
-    return AppConstants.API_POST_URL + '/' + this.paramId;
+    return location.origin + '/post/' + this.paramId;
   }
 }
