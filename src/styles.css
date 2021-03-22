@@ -53,6 +53,7 @@ input[type=file]::file-selector-button {
   visibility: hidden;
 }
 
+
 .rounded-border {
   border: 2px solid black;
   border-radius: 0.6em;
@@ -206,12 +207,6 @@ input[type=file]::file-selector-button {
   height: 1em;
 }
 
-/* General colors */
-
-.fg-color-faded {
-  color: var(--faded-color);
-}
-
 /* General text */
 
 .text-centered {
@@ -246,6 +241,22 @@ input[type=file]::file-selector-button {
   border-right: none;
 }
 
+/* General colors */
+
+.fg-color-faded {
+  color: var(--faded-color);
+}
+
+.focus-fg-color {
+  color: var(--focus-color);
+  border-color: var(--focus-color);
+}
+
+.error-fg-color {
+  color: var(--failure);
+  border-color: var(--failure);
+}
+
 /* General padding */
 
 .padding-big {
@@ -270,6 +281,11 @@ input[type=file]::file-selector-button {
 
 .padding-tiny {
   padding: 0.1em;
+}
+
+.side-padding-font {
+  padding-right: 1em;
+  padding-left: 1em;
 }
 
 .side-padding-smaller {
@@ -362,11 +378,6 @@ input[type=file]::file-selector-button {
 
 .under-navbar {
   height: calc(100% - var(--navbar-height)) !important;
-}
-
-.focus-fg-color {
-  color: var(--focus-color);
-  border-color: var(--focus-color);
 }
 
 /* Inputs, the type found in login and register */
