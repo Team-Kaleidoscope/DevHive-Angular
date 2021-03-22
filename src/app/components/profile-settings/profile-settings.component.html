@@ -15,7 +15,7 @@
 	<form class="flex-col card padding-big" [formGroup]="updateUserFormGroup" (ngSubmit)="onSubmit()">
 		<section class="flex-col">
 			<div class="flex-row">
-				<label class="flexible">First Name</label>
+				<label class="flexible focus-fg-color">First Name</label>
 
 				<label *ngIf="updateUserFormGroup.get('firstName')?.errors?.required" class="error">*Required</label>
 				<label *ngIf="updateUserFormGroup.get('firstName')?.errors?.minlength" class="error">*Minimum 3 characters</label>
@@ -24,7 +24,7 @@
 		</section>
 		<section class="flex-col">
 			<div class="flex-row">
-				<label class="flexible">Last Name</label>
+				<label class="flexible focus-fg-color">Last Name</label>
 
 				<label *ngIf="updateUserFormGroup.get('lastName')?.errors?.required" class="error">*Required</label>
 				<label *ngIf="updateUserFormGroup.get('lastName')?.errors?.minlength" class="error">*Minimum 3 characters</label>
@@ -33,7 +33,7 @@
 		</section>
 		<section class="flex-col">
 			<div class="flex-row">
-				<label class="flexible">Username</label>
+				<label class="flexible focus-fg-color">Username</label>
 
 				<label *ngIf="updateUserFormGroup.get('username')?.errors?.required" class="error">*Required</label>
 				<label *ngIf="updateUserFormGroup.get('username')?.errors?.minlength" class="error">*Minimum 3 characters</label>
@@ -42,7 +42,7 @@
 		</section>
 		<section class="flex-col">
 			<div class="flex-row">
-				<label class="flexible">Email</label>
+				<label class="flexible focus-fg-color">Email</label>
 
 				<label *ngIf="updateUserFormGroup.get('email')?.errors?.required" class="error">*Required</label>
 				<label *ngIf="updateUserFormGroup.get('email')?.errors?.email" class="error">*Invalid email</label>
@@ -51,7 +51,7 @@
 		</section>
 		<section class="flex-col">
 			<div class="flex-row">
-				<label class="flexible">Password</label>
+				<label class="flexible focus-fg-color">Password</label>
 
 				<label *ngIf="updateUserFormGroup.get('password')?.errors?.required" class="error">*Required</label>
 				<label *ngIf="updateUserFormGroup.get('password')?.errors?.minlength" class="error">*Minimum 3 characters</label>
