@@ -279,7 +279,7 @@ export class ProfileSettingsComponent implements OnInit {
 
   logout(): void {
     this._tokenService.logoutUserFromSessionStorage();
-    this.goToProfile();
+    this._router.navigate(['/login']);
   }
 
   toggleLanguages(): void {
