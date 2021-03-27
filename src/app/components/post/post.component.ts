@@ -172,8 +172,8 @@ export class PostComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this._ratingServe.getRatingByUserAndPostWithSessionStorageRequest(Guid.parse(this.paramId)).subscribe(
-      (x: object) => {
+    this._ratingServe.getRatingByUserAndPostWithSessionStorageRequest(Guid.parse(this.paramId)).subscribe({
+      next: (x: object) => {
         if (Object.values(x)[3] === isLike) {
           this.deleteRating(Object.values(x)[0], isLike);
 
@@ -185,37 +185,37 @@ export class PostComponent implements OnInit, AfterViewInit {
           this.changeColorOfVoteButton(isLike, !isLike);
         }
       },
-      () => {
+      error: () => {
         this.createRating(isLike);
 
         this.changeColorOfVoteButton(isLike, !isLike);
       }
-    );
+    });
   }
 
   private createRating(isLike: boolean): void {
-    this._ratingServe.createRatingWithSessionStorageRequest(Guid.parse(this.paramId), isLike).subscribe(
-      () => {
+    this._ratingServe.createRatingWithSessionStorageRequest(Guid.parse(this.paramId), isLike).subscribe({
+      next: () => {
         this.votesNumber += -1 + Number(isLike) * 2;
       }
-    );
+    });
   }
 
   private putRating(isLike: boolean): void {
-    this._ratingServe.putRatingWithSessionStorageRequest(Guid.parse(this.paramId), isLike).subscribe(
-      () => {
+    this._ratingServe.putRatingWithSessionStorageRequest(Guid.parse(this.paramId), isLike).subscribe({
+      next: () => {
         // when false -2 + 0 wjen true -2 + 4
         this.votesNumber += -2 + Number(isLike) * 4;
       }
-    );
+    });
   }
 
   private deleteRating(ratingId: string, isLike: boolean): void {
-    this._ratingServe.deleteRatingFromSessionStorageRequest(Guid.parse(ratingId)).subscribe(
-      () => {
+    this._ratingServe.deleteRatingFromSessionStorageRequest(Guid.parse(ratingId)).subscribe({
+      next: () => {
         this.votesNumber += 1 - Number(isLike) * 2;
       }
-    );
+    });
   }
 
   private changeColorOfVoteButton(isUpvoted: boolean, isDownvoted: boolean): void {
