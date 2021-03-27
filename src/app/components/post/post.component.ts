@@ -105,6 +105,10 @@ export class PostComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this._ratingServe.getRatingByUserAndPostWithSessionStorageRequest(Guid.parse(this.paramId)).subscribe({
       next: (x: object) => {
+        if (!x) {
+          return;
+        }
+
         const isLike: boolean = Object.values(x)[3];
 
         this.changeColorOfVoteButton(isLike, !isLike);
