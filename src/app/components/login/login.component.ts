@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   @ViewChild(ErrorBarComponent) private _errorBar: ErrorBarComponent;
   private _title = 'Login';
   public loginUserFormGroup: FormGroup;
+  public showingPassword = false;
 
   constructor(private _titleService: Title, private _fb: FormBuilder, private _router: Router, private _userService: UserService, private _tokenService: TokenService) {
     this._titleService.setTitle(this._title);
@@ -30,6 +31,10 @@ export class LoginComponent implements OnInit {
         Validators.required
       ])
     });
+  }
+
+  toggleShowPassword(): void {
+    this.showingPassword = !this.showingPassword;
   }
 
   onSubmit(): void {

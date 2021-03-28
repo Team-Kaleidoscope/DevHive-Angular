@@ -458,6 +458,13 @@ input[type=file]::file-selector-button {
   padding-bottom: calc(0.4em - 1px);
 }
 
+.show-password-button {
+  position: absolute;
+  right: 0.2em;
+  bottom: 0.9em;
+  height: 1em;
+}
+
 /* Input errors */
 
 .input-errors {

@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   @ViewChild(ErrorBarComponent) private _errorBar: ErrorBarComponent;
   private _title = 'Register';
   public registerUserFormGroup: FormGroup;
+  public showingPassword = false;
 
   constructor(private _titleService: Title, private _fb: FormBuilder, private _router: Router, private _userService: UserService, private _tokenService: TokenService) {
     this._titleService.setTitle(this._title);
@@ -49,6 +50,10 @@ export class RegisterComponent implements OnInit {
     // this.registerUserFormGroup.valueChanges.subscribe(console.log);
   }
 
+  toggleShowPassword(): void {
+    this.showingPassword = !this.showingPassword;
+  }
+
   onSubmit(): void {
     this._userService.registerUserRequest(this.registerUserFormGroup).subscribe({
         next: (res: object) => {
@@ -60,6 +65,7 @@ export class RegisterComponent implements OnInit {
         }
     });
   }
+
   onRedirectLogin(): void {
     this._router.navigate(['/login']);
   }
