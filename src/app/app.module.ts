@@ -26,6 +26,7 @@ import { CommentComponent } from './components/comment/comment.component';
 import { PostAttachmentComponent } from './components/post-attachment/post-attachment.component';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { CommentPageComponent } from './components/comment-page/comment-page.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     CommentComponent,
     PostAttachmentComponent,
     NavbarComponent,
+    CommentPageComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
