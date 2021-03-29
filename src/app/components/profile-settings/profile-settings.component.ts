@@ -108,24 +108,34 @@ export class ProfileSettingsComponent implements OnInit {
     this._languageService.getFullLanguagesFromIncomplete(this.user.languages).then(
       (result) => {
         this.chosenLanguages = result as Language[];
+        this.loadAvailableLanguages();
       }
     );
 
     this._technologyService.getFullTechnologiesFromIncomplete(this.user.technologies).then(
       (result) => {
         this.chosenTechnologies = result as Technology[];
+        this.loadAvailableTechnologies();
       }
     );
+  }
 
-    // Load avaiable languages and technologies
+  private loadAvailableLanguages(): void {
     this._languageService.getAllLanguagesWithSessionStorageRequest().subscribe({
       next: (result: object) => {
-        this.availableLanguages = result as Language[];
+        const allAvailable = result as Language[];
+        // Remove the chosen languages from all of the avaiable ones
+        this.availableLanguages = allAvailable.filter(a => !this.user.languages.some(l => l.name === a.name));
       }
     });
+  }
+
+  private loadAvailableTechnologies(): void {
     this._technologyService.getAllTechnologiesWithSessionStorageRequest().subscribe({
       next: (result: object) => {
-        this.availableTechnologies = result as Technology[];
+        const allAvailable = result as Technology[];
+        // Remove the chosen technologies from all of the avaiable ones
+        this.availableTechnologies = allAvailable.filter(a => !this.user.technologies.some(t => t.name === a.name));
       }
     });
   }
