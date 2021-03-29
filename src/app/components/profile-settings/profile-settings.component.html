@@ -116,7 +116,7 @@
 				</div>
 			</section>
 		</section>
-		<section class="flex-col margin-top-dot5">
+		<section class="flex-col input-selection">
 			<div class="flex-row">
 				<label class="flexible fg-focus">Current Password</label>
 
@@ -124,7 +124,10 @@
 				<label *ngIf="updateUserFormGroup.get('password')?.errors?.minlength" class="error">*Minimum 3 characters</label>
 				<label *ngIf="updateUserFormGroup.get('password')?.errors?.pattern" class="error">*At least 1 number</label>
 			</div>
-			<input type="password" class="fancy-input border-faded-slim border-bottom-only" formControlName="password" required>
+			<input [type]="showCurrentPassword ? 'text' : 'password'" class="fancy-input border-faded-slim border-bottom-only padding-right-1dot5" formControlName="password" required>
+			<button type="button" class="show-password-button hover-half-opacity click-effect" (click)="toggleShowPassword(0)">
+				<img [src]="showCurrentPassword ? '/assets/icons/tabler-icon-eye-off.svg' : '/assets/icons/tabler-icon-eye.svg'">
+			</button>
 		</section>
 		<section class="margin-top-bot-dot3">
 			<app-success-bar></app-success-bar>

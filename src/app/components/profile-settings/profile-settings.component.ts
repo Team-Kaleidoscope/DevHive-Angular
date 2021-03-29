@@ -38,6 +38,7 @@ export class ProfileSettingsComponent implements OnInit {
   public chosenTechnologies: Technology[];
   public availableLanguages: Language[];
   public availableTechnologies: Technology[];
+  public showCurrentPassword = false;
 
   constructor(private _titleService: Title, private _router: Router, private _userService: UserService, private _languageService: LanguageService, private _technologyService: TechnologyService, private _tokenService: TokenService, private _fb: FormBuilder, private _location: Location) {
     this._titleService.setTitle(this._title);
@@ -345,5 +346,11 @@ export class ProfileSettingsComponent implements OnInit {
     this._router.routeReuseStrategy.shouldReuseRoute = () => false;
     this._router.onSameUrlNavigation = 'reload';
     this._router.navigate([this._router.url]);
+  }
+
+  toggleShowPassword(index: number): void {
+    switch (index) {
+      case 0: this.showCurrentPassword = !this.showCurrentPassword;
+    }
   }
 }
