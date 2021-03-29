@@ -54,16 +54,6 @@
 			</div>
 			<input type="text" class="fancy-input border-faded-slim border-bottom-only" formControlName="email" required>
 		</section>
-		<section class="flex-col">
-			<div class="flex-row">
-				<label class="flexible fg-focus">Password</label>
-
-				<label *ngIf="updateUserFormGroup.get('password')?.errors?.required" class="error">*Required</label>
-				<label *ngIf="updateUserFormGroup.get('password')?.errors?.minlength" class="error">*Minimum 3 characters</label>
-				<label *ngIf="updateUserFormGroup.get('password')?.errors?.pattern" class="error">*At least 1 number</label>
-			</div>
-			<input type="password" class="fancy-input border-faded-slim border-bottom-only" formControlName="password" required>
-		</section>
 		<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-dot4" (click)="toggleLanguages()">
 			▼ Edit Languages ▼
 		</button>
@@ -125,6 +115,16 @@
 					</div>
 				</div>
 			</section>
+		</section>
+		<section class="flex-col margin-top-dot5">
+			<div class="flex-row">
+				<label class="flexible fg-focus">Current Password</label>
+
+				<label *ngIf="updateUserFormGroup.get('password')?.errors?.required" class="error">*Required</label>
+				<label *ngIf="updateUserFormGroup.get('password')?.errors?.minlength" class="error">*Minimum 3 characters</label>
+				<label *ngIf="updateUserFormGroup.get('password')?.errors?.pattern" class="error">*At least 1 number</label>
+			</div>
+			<input type="password" class="fancy-input border-faded-slim border-bottom-only" formControlName="password" required>
 		</section>
 		<section class="margin-top-bot-dot3">
 			<app-success-bar></app-success-bar>
