@@ -286,6 +286,15 @@ export class ProfileSettingsComponent implements OnInit {
     }
   }
 
+  langClick(name: string): void {
+    console.log('Language: ' + name);
+  }
+
+  techClick(name: string): void {
+    console.log('Technology: ' + name);
+  }
+
+
   goToProfile(): void {
     this._router.navigate([this._router.url.substring(0, this._router.url.length - 9)]);
   }
