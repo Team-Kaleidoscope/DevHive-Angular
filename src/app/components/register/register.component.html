@@ -37,7 +37,7 @@
 			</div>
 		</section>
 		<section class="input-selection">
-			<input [type]="showingPassword ? 'text' : 'password'" placeholder="Password" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="password" required>
+			<input [type]="showingPassword ? 'text' : 'password'" placeholder="Password" class="fancy-input width-full border-faded-slim border-bottom-only padding-right-1dot5" formControlName="password" required>
 			<label class="fancy-input-label width-full">Password</label>
 			<button type="button" class="show-password-button hover-half-opacity click-effect" (click)="toggleShowPassword()">
 				<img [src]="showingPassword ? '/assets/icons/tabler-icon-eye-off.svg' : '/assets/icons/tabler-icon-eye.svg'">

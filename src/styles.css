@@ -279,6 +279,10 @@ input[type=file]::file-selector-button {
   padding: 0.1em;
 }
 
+.padding-right-1dot5 {
+  padding-right: 1.5em !important;
+}
+
 .padding-side-font {
   padding-right: 1em;
   padding-left: 1em;
@@ -461,7 +465,7 @@ input[type=file]::file-selector-button {
 .show-password-button {
   position: absolute;
   right: 0.2em;
-  bottom: 0.9em;
+  bottom: 1.1em;
   height: 1em;
 }
 
