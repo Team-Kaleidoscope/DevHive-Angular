@@ -40,8 +40,8 @@
 					<div *ngIf="availableLanguages.length > 0">
 						Available languages:
 					</div>
-					<div class="flex-row margin-top-dot4" *ngFor="let lang of availableLanguages">
-						<div class="sec-info border-radius-dot5r padding-dot2">
+					<div class="flex-row margin-top-dot4">
+						<div class="sec-info border-radius-dot5r padding-dot2" *ngFor="let lang of availableLanguages">
 							{{ lang.name }}
 						</div>
 					</div>
@@ -81,8 +81,8 @@
 					<div *ngIf="availableTechnologies.length > 0">
 						Available technologies:
 					</div>
-					<div class="flex-row margin-top-dot4" *ngFor="let tech of availableTechnologies">
-						<div class="sec-info border-radius-dot5r padding-dot2">
+					<div class="flex-row margin-top-dot4">
+						<div class="sec-info border-radius-dot5r padding-dot2" *ngFor="let tech of availableTechnologies">
 							{{ tech.name }}
 						</div>
 					</div>
