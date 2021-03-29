@@ -29,8 +29,8 @@
 		<div class="none-message" *ngIf="user.languages.length === 0">
 			None
 		</div>
-		<div class="flex-row" *ngFor="let lang of user.languages">
-			<div class="sec-info border-radius-dot5r padding-dot2">
+		<div class="flex-row">
+			<div class="sec-info border-radius-dot5r padding-dot2" *ngFor="let lang of user.languages">
 				{{ lang.name }}
 			</div>
 		</div>
@@ -42,8 +42,8 @@
 		<div class="none-message" *ngIf="user.technologies.length === 0">
 			None
 		</div>
-		<div  class="flex-row" *ngFor="let tech of user.technologies">
-			<div class="sec-info border-radius-dot5r padding-dot2">
+		<div  class="flex-row">
+			<div class="sec-info border-radius-dot5r padding-dot2" *ngFor="let tech of user.technologies">
 				{{ tech.name }}
 			</div>
 		</div>
