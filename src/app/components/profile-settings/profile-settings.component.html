@@ -67,12 +67,12 @@
 		<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-dot4" (click)="toggleLanguages()">
 			▼ Edit Languages ▼
 		</button>
-		<section *ngIf="showLanguages">
-			<section class="margin-top-dot5">
+		<section class="flex-row flexible-children" *ngIf="showLanguages">
+			<section class="margin-top-dot5 padding-right-1">
 				<div class="none-message" *ngIf="chosenLanguages.length === 0">
 					You haven't chosen any languages!
 				</div>
-				<div *ngIf="chosenLanguages.length > 0">
+				<div class="border-faded-slim border-bottom-only" *ngIf="chosenLanguages.length > 0">
 					Chosen languages:
 				</div>
 				<div class="flex-row margin-top-dot4">
@@ -81,11 +81,11 @@
 					</div>
 				</div>
 			</section>
-			<section>
+			<section class="margin-top-dot5">
 				<div class="none-message" *ngIf="availableLanguages.length === 0">
-					No languages available!
+					No other languages available!
 				</div>
-				<div *ngIf="availableLanguages.length > 0">
+				<div class="border-faded-slim border-bottom-only" *ngIf="availableLanguages.length > 0">
 					Available languages:
 				</div>
 				<div class="flex-row margin-top-dot4">
@@ -98,12 +98,12 @@
 		<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-dot4" (click)="toggleTechnologies()">
 			▼ Edit Technologies ▼
 		</button>
-		<section *ngIf="showTechnologies">
-			<section class="margin-top-dot5 border-faded-slim border-bottom-only margin-bot-dot5">
+		<section class="flex-row flexible-children" *ngIf="showTechnologies">
+			<section class="margin-top-dot5 padding-right-1">
 				<div class="none-message" *ngIf="chosenTechnologies.length === 0">
 					You haven't chosen any technologies!
 				</div>
-				<div *ngIf="chosenTechnologies.length > 0">
+				<div class="border-faded-slim border-bottom-only" *ngIf="chosenTechnologies.length > 0">
 					Chosen technologies:
 				</div>
 				<div class="flex-row margin-top-dot4">
@@ -112,11 +112,11 @@
 					</div>
 				</div>
 			</section>
-			<section>
+			<section class="margin-top-dot5">
 				<div class="none-message" *ngIf="availableTechnologies.length === 0">
-					No technologies available!
+					No other technologies available!
 				</div>
-				<div *ngIf="availableTechnologies.length > 0">
+				<div class="border-faded-slim border-bottom-only" *ngIf="availableTechnologies.length > 0">
 					Available technologies:
 				</div>
 				<div class="flex-row margin-top-dot4">
