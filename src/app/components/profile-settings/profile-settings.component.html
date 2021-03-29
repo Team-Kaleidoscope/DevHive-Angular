@@ -68,45 +68,63 @@
 			▼ Edit Languages ▼
 		</button>
 		<section *ngIf="showLanguages">
-			<div class="margin-top-dot5">
-				<label class="error">
-					Type in your desired languages, separated by a space
-				</label>
-				<input class="fancy-input width-full border-faded-slim border-bottom-only" type="text" placeholder="You have no selected languages!" formControlName="languageInput" required>
-			</div>
-			<div class="none-message" *ngIf="availableLanguages.length === 0">
-				No languages available!
-			</div>
-			<div *ngIf="availableLanguages.length > 0">
-				Available languages:
-			</div>
-			<div class="flex-row margin-top-dot4">
-				<div class="sec-info border-radius-dot5r padding-dot2 hover-half-opacity click-effect" *ngFor="let lang of availableLanguages" (click)="langClick(lang.name)">
-					{{ lang.name }}
+			<section class="margin-top-dot5">
+				<div class="none-message" *ngIf="chosenLanguages.length === 0">
+					You haven't chosen any languages!
 				</div>
-			</div>
+				<div *ngIf="chosenLanguages.length > 0">
+					Chosen languages:
+				</div>
+				<div class="flex-row margin-top-dot4">
+					<div class="sec-info border-radius-dot5r padding-dot2 hover-half-opacity click-effect" *ngFor="let lang of chosenLanguages" (click)="langClick(lang.name)">
+						{{ lang.name }}
+					</div>
+				</div>
+			</section>
+			<section>
+				<div class="none-message" *ngIf="availableLanguages.length === 0">
+					No languages available!
+				</div>
+				<div *ngIf="availableLanguages.length > 0">
+					Available languages:
+				</div>
+				<div class="flex-row margin-top-dot4">
+					<div class="sec-info border-radius-dot5r padding-dot2 hover-half-opacity click-effect" *ngFor="let lang of availableLanguages" (click)="langClick(lang.name)">
+						{{ lang.name }}
+					</div>
+				</div>
+			</section>
 		</section>
 		<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-dot4" (click)="toggleTechnologies()">
 			▼ Edit Technologies ▼
 		</button>
 		<section *ngIf="showTechnologies">
-			<div class="margin-top-dot5">
-				<label class="error">
-					Type in your desired technologies, separated by a space
-				</label>
-				<input class="fancy-input width-full border-faded-slim border-bottom-only" type="text" placeholder="You have no selected technologies!" formControlName="technologyInput" required>
-			</div>
-			<div class="none-message" *ngIf="availableTechnologies.length === 0">
-				No technologies available!
-			</div>
-			<div *ngIf="availableTechnologies.length > 0">
-				Available technologies:
-			</div>
-			<div class="flex-row margin-top-dot4">
-				<div class="sec-info border-radius-dot5r padding-dot2 hover-half-opacity click-effect" *ngFor="let tech of availableTechnologies" (click)="techClick(tech.name)">
-					{{ tech.name }}
+			<section class="margin-top-dot5 border-faded-slim border-bottom-only margin-bot-dot5">
+				<div class="none-message" *ngIf="chosenTechnologies.length === 0">
+					You haven't chosen any technologies!
 				</div>
-			</div>
+				<div *ngIf="chosenTechnologies.length > 0">
+					Chosen technologies:
+				</div>
+				<div class="flex-row margin-top-dot4">
+					<div class="sec-info border-radius-dot5r padding-dot2 hover-half-opacity click-effect" *ngFor="let tech of chosenTechnologies" (click)="techClick(tech.name)">
+						{{ tech.name }}
+					</div>
+				</div>
+			</section>
+			<section>
+				<div class="none-message" *ngIf="availableTechnologies.length === 0">
+					No technologies available!
+				</div>
+				<div *ngIf="availableTechnologies.length > 0">
+					Available technologies:
+				</div>
+				<div class="flex-row margin-top-dot4">
+					<div class="sec-info border-radius-dot5r padding-dot2 hover-half-opacity click-effect" *ngFor="let tech of availableTechnologies" (click)="techClick(tech.name)">
+						{{ tech.name }}
+					</div>
+				</div>
+			</section>
 		</section>
 		<section class="margin-top-bot-dot3">
 			<app-success-bar></app-success-bar>

@@ -34,6 +34,8 @@ export class ProfileSettingsComponent implements OnInit {
   public updateProfilePictureFormGroup: FormGroup;
   public newProfilePicture: File;
   public user: User;
+  public chosenLanguages: Language[];
+  public chosenTechnologies: Technology[];
   public availableLanguages: Language[];
   public availableTechnologies: Technology[];
 
@@ -57,15 +59,10 @@ export class ProfileSettingsComponent implements OnInit {
       username: new FormControl(''),
       email: new FormControl(''),
       password: new FormControl(''),
-      languageInput: new FormControl(''),
-      languages: new FormControl(''),
-      technologyInput: new FormControl(''),
-      technologies: new FormControl('')
     });
     this.updateProfilePictureFormGroup = this._fb.group({
       fileUpload: new FormControl('')
     });
-
 
     this._userService.getUserByUsernameRequest(this._urlUsername).subscribe({
       next: (res: object) => {
@@ -77,18 +74,7 @@ export class ProfileSettingsComponent implements OnInit {
         this._router.navigate(['/not-found']);
       }
     });
-
-    this._languageService.getAllLanguagesWithSessionStorageRequest().subscribe({
-      next: (result: object) => {
-        this.availableLanguages = result as Language[];
-      }
-    });
-    this._technologyService.getAllTechnologiesWithSessionStorageRequest().subscribe({
-      next: (result: object) => {
-        this.availableTechnologies = result as Technology[];
-      }
-    });
-  }
+   }
 
   private finishUserLoading(): void {
     if (sessionStorage.getItem('UserCred')) {
@@ -99,6 +85,7 @@ export class ProfileSettingsComponent implements OnInit {
           Object.assign(userFromToken, tokenRes);
 
           if (userFromToken.userName === this._urlUsername) {
+            this.loadUserSecondaryInfo();
             this.initForms();
             this.dataArrived = true;
           }
@@ -114,6 +101,33 @@ export class ProfileSettingsComponent implements OnInit {
     else {
       this.goToProfile();
     }
+  }
+
+  private loadUserSecondaryInfo(): void {
+    // Load languages and tehnologies of user
+    this._languageService.getFullLanguagesFromIncomplete(this.user.languages).then(
+      (result) => {
+        this.chosenLanguages = result as Language[];
+      }
+    );
+
+    this._technologyService.getFullTechnologiesFromIncomplete(this.user.technologies).then(
+      (result) => {
+        this.chosenTechnologies = result as Technology[];
+      }
+    );
+
+    // Load avaiable languages and technologies
+    this._languageService.getAllLanguagesWithSessionStorageRequest().subscribe({
+      next: (result: object) => {
+        this.availableLanguages = result as Language[];
+      }
+    });
+    this._technologyService.getAllTechnologiesWithSessionStorageRequest().subscribe({
+      next: (result: object) => {
+        this.availableTechnologies = result as Technology[];
+      }
+    });
   }
 
   private initForms(): void {
@@ -139,25 +153,6 @@ export class ProfileSettingsComponent implements OnInit {
         Validators.minLength(3),
         Validators.pattern('.*[0-9].*') // Check if password contains atleast one number
       ]),
-
-      // For language we have two different controls,
-      // the first one is used for input, the other one for sending data
-      // because if we edit the control for input,
-      // we're also gonna change the input field in the HTML
-      languageInput: new FormControl(''), // The one for input
-      languages: new FormControl(''), // The one that is sent
-
-      // For technologies it's the same as it is with languages
-      technologyInput: new FormControl(''),
-      technologies: new FormControl('')
-    });
-
-    this.getLanguagesForShowing().then(value => {
-        this.updateUserFormGroup.patchValue({ languageInput : value });
-    });
-
-    this.getTechnologiesForShowing().then(value => {
-      this.updateUserFormGroup.patchValue({ technologyInput : value });
     });
 
     this.updateProfilePictureFormGroup = this._fb.group({
@@ -169,24 +164,6 @@ export class ProfileSettingsComponent implements OnInit {
         this._successBar?.hideMsg();
         this._errorBar?.hideError();
       }
-    });
-  }
-
-  private getLanguagesForShowing(): Promise<string> {
-    return new Promise(resolve => {
-      this._languageService.getFullLanguagesFromIncomplete(this.user.languages).then(value => {
-        this.user.languages = value;
-        resolve(value.map(x => x.name).join(' '));
-      });
-    });
-  }
-
-  private getTechnologiesForShowing(): Promise<string> {
-    return new Promise(resolve => {
-      this._technologyService.getFullTechnologiesFromIncomplete(this.user.technologies).then(value => {
-        this.user.technologies = value;
-        resolve(value.map(x => x.name).join(' '));
-      });
     });
   }
 
