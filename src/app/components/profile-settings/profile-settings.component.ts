@@ -274,13 +274,34 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   langClick(name: string): void {
-    console.log('Language: ' + name);
+    if (this.chosenLanguages.some(c => c.name === name)) {
+      const index = this.chosenLanguages.findIndex(t => t.name === name);
+
+      this.availableLanguages.push(this.chosenLanguages[index]);
+      this.chosenLanguages.splice(index, 1);
+    }
+    else {
+      const index = this.availableLanguages.findIndex(t => t.name === name);
+
+      this.chosenLanguages.push(this.availableLanguages[index]);
+      this.availableLanguages.splice(index, 1);
+    }
   }
 
   techClick(name: string): void {
-    console.log('Technology: ' + name);
-  }
+    if (this.chosenTechnologies.some(c => c.name === name)) {
+      const index = this.chosenTechnologies.findIndex(t => t.name === name);
 
+      this.availableTechnologies.push(this.chosenTechnologies[index]);
+      this.chosenTechnologies.splice(index, 1);
+    }
+    else {
+      const index = this.availableTechnologies.findIndex(t => t.name === name);
+
+      this.chosenTechnologies.push(this.availableTechnologies[index]);
+      this.availableTechnologies.splice(index, 1);
+    }
+  }
 
   goToProfile(): void {
     this._router.navigate([this._router.url.substring(0, this._router.url.length - 9)]);
