@@ -14,6 +14,7 @@ import { Technology } from 'src/models/technology.model';
 import { TokenService } from 'src/app/services/token.service';
 import { Title } from '@angular/platform-browser';
 import { AppConstants } from 'src/app/app-constants.module';
+import { ProfilePictureService } from 'src/app/services/profile-picture.service';
 
 @Component({
   selector: 'app-profile-settings',
@@ -40,7 +41,7 @@ export class ProfileSettingsComponent implements OnInit {
   public availableTechnologies: Technology[];
   public showCurrentPassword = false;
 
-  constructor(private _titleService: Title, private _router: Router, private _userService: UserService, private _languageService: LanguageService, private _technologyService: TechnologyService, private _tokenService: TokenService, private _fb: FormBuilder, private _location: Location) {
+  constructor(private _titleService: Title, private _router: Router, private _userService: UserService, private _profilePictureService: ProfilePictureService, private _languageService: LanguageService, private _technologyService: TechnologyService, private _tokenService: TokenService, private _fb: FormBuilder, private _location: Location) {
     this._titleService.setTitle(this._title);
   }
 
@@ -187,7 +188,7 @@ export class ProfileSettingsComponent implements OnInit {
       return;
     }
 
-    this._userService.putProfilePictureFromSessionStorageRequest(this.newProfilePicture).subscribe({
+    this._profilePictureService.putPictureWithSessionStorageRequest(this.newProfilePicture).subscribe({
       next: () => {
         this.reloadPage();
       }
