@@ -10,8 +10,7 @@ import { Post } from 'src/models/post.model';
 import { FeedService } from 'src/app/services/feed.service';
 import { TokenService } from 'src/app/services/token.service';
 import { Title } from '@angular/platform-browser';
-import { Friend } from 'src/models/identity/friend.model';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FriendService } from 'src/app/services/friend.service';
 
 @Component({
   selector: 'app-profile',
@@ -28,12 +27,10 @@ export class ProfileComponent implements OnInit {
   public isAdminUser = false;
   public dataArrived = false;
   public friendOfUser = false;
-  public updatingFriendship = false;
   public user: User;
   public userPosts: Post[];
-  public updateFrienship: FormGroup;
 
-  constructor(private _titleService: Title, private _fb: FormBuilder, private _router: Router, private _userService: UserService, private _languageService: LanguageService, private _technologyService: TechnologyService, private _feedService: FeedService, private _location: Location, private _tokenService: TokenService) {
+  constructor(private _titleService: Title, private _fb: FormBuilder, private _router: Router, private _userService: UserService, private _friendService: FriendService, private _languageService: LanguageService, private _technologyService: TechnologyService, private _feedService: FeedService, private _location: Location, private _tokenService: TokenService) {
     this._titleService.setTitle(this._title);
   }
 
@@ -47,10 +44,6 @@ export class ProfileComponent implements OnInit {
 
     this.user = this._userService.getDefaultUser();
     this.userPosts = [];
-
-    this.updateFrienship = this._fb.group({
-      password: new FormControl('')
-    });
 
     this._userService.getUserByUsernameRequest(this._urlUsername).subscribe({
       next: (res: object) => {
@@ -141,31 +134,28 @@ export class ProfileComponent implements OnInit {
   }
 
   modifyFriend(): void {
-    if (this.updatingFriendship) {
-      this.dataArrived = false;
-
-      this._userService.getUserFromSessionStorageRequest().subscribe({
-        next: (result: object) => {
-          const loggedInUser: User = result as User;
-
-          if (this.friendOfUser) {
-            loggedInUser.friends = loggedInUser.friends.filter(x => x.userName !== this.user.userName);
-          }
-          else {
-            const newFriend = new Friend();
-            newFriend.userName = this.user.userName;
-            loggedInUser.friends.push(newFriend);
-          }
-
-          this.updateUserWithNewFriends(loggedInUser);
-        }
-      });
+    this.dataArrived = false;
+    if (this.friendOfUser) {
+      this.removeFriendFromLoggedInUser();
     }
-    this.updatingFriendship = !this.updatingFriendship;
+    else {
+      this.addFriendToLoggedInUser();
+    }
   }
 
-  private updateUserWithNewFriends(loggedInUser: User): void {
-    this._userService.putBareUserFromSessionStorageRequest(loggedInUser, this.updateFrienship.get('password')?.value).subscribe({
+  private addFriendToLoggedInUser(): void {
+    this._friendService.postFriendWithSessionStorageRequest(this.user.userName).subscribe({
+      next: () => {
+        this.reloadPage();
+      },
+      error: () => {
+        this._router.navigate(['/']);
+      }
+    });
+  }
+
+  private removeFriendFromLoggedInUser(): void {
+    this._friendService.deleteFriendWithSessionStorageRequest(this.user.userName).subscribe({
       next: () => {
         this.reloadPage();
       },
