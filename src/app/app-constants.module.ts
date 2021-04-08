@@ -3,6 +3,7 @@ export class AppConstants {
 
   public static API_USER_URL = AppConstants.BASE_API_URL + '/User';
   public static API_PROFILE_PICTURE_URL = AppConstants.BASE_API_URL + '/ProfilePicture';
+  public static API_FRIENDS_URL = AppConstants.BASE_API_URL + '/Friends';
   public static API_USER_LOGIN_URL = AppConstants.API_USER_URL + '/login';
   public static API_USER_REGISTER_URL = AppConstants.API_USER_URL + '/register';
 
