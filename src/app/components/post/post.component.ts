@@ -176,7 +176,12 @@ export class PostComponent implements OnInit, AfterViewInit {
 
     this._ratingServe.getRatingByUserAndPostWithSessionStorageRequest(Guid.parse(this.paramId)).subscribe({
       next: (x: object) => {
-        if (Object.values(x)[3] === isLike) {
+        if (x == null) { // checks if result is null or undefined
+          this.createRating(isLike);
+
+          this.changeColorOfVoteButton(isLike, !isLike);
+        }
+        else if (Object.values(x)[3] === isLike) {
           this.deleteRating(Object.values(x)[0], isLike);
 
           this.changeColorOfVoteButton(false, false);
@@ -186,11 +191,6 @@ export class PostComponent implements OnInit, AfterViewInit {
 
           this.changeColorOfVoteButton(isLike, !isLike);
         }
-      },
-      error: () => {
-        this.createRating(isLike);
-
-        this.changeColorOfVoteButton(isLike, !isLike);
       }
     });
   }
