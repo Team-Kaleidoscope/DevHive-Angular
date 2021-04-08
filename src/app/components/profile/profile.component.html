@@ -14,7 +14,7 @@
 			<div>
 				@{{ user.userName }}
 			</div>
-			<button id="add-friend" class="border-faded-slim padding-dot1 lighter-hover click-effect border-radius-dot3 width-full" (click)="modifyFriend()" *ngIf="!isTheLoggedInUser && isUserLoggedIn">
+			<button id="add-friend" class="border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3 font-size-dot8 margin-top-dot4" (click)="modifyFriend()" *ngIf="!isTheLoggedInUser && isUserLoggedIn">
 				{{ friendOfUser ? 'Unfriend' : 'Add friend' }}
 			</button>
 		</div>
