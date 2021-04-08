@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
   public user: User;
   public userPosts: Post[];
 
-  constructor(private _titleService: Title, private _fb: FormBuilder, private _router: Router, private _userService: UserService, private _friendService: FriendService, private _languageService: LanguageService, private _technologyService: TechnologyService, private _feedService: FeedService, private _location: Location, private _tokenService: TokenService) {
+  constructor(private _titleService: Title, private _router: Router, private _userService: UserService, private _friendService: FriendService, private _languageService: LanguageService, private _technologyService: TechnologyService, private _feedService: FeedService, private _location: Location, private _tokenService: TokenService) {
     this._titleService.setTitle(this._title);
   }
 
