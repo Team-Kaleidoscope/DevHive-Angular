@@ -41,7 +41,7 @@ export class FeedComponent implements OnInit {
     this.files = [];
 
     const now = new Date();
-    now.setHours(now.getHours() + 2); // accounting for eastern european timezone
+    now.setHours(now.getHours() + 3); // accounting for eastern european timezone
     this._timeLoaded = now.toISOString();
 
     this.createPostFormGroup = this._fb.group({

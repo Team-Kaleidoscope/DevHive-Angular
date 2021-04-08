@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit {
     this._urlUsername = this._router.url.substring(9);
 
     const now = new Date();
-    now.setHours(now.getHours() + 2); // accounting for eastern europe timezone
+    now.setHours(now.getHours() + 3); // accounting for eastern europe timezone
     this._timeLoaded = now.toISOString();
     this._currentPage = 1;
 
