@@ -4,6 +4,8 @@ DevHive is the social network solution for programmers. In it you can make posts
 
 This is the back-end portion of the project, built with [`Angular`](https://angular.io/). For the back-end, refer to [DevHive](https://github.com/Team-Kaleidoscope/DevHive).
 
+In the `docs` folder you can find relevenat information and documentation about this project. You can also find our Privacy Policy.
+
 ## Contents:
 - [Setting up locally](#setting-up-locally)
   - [Prerequisites](#prerequisites)
