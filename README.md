@@ -37,3 +37,16 @@ If you host your API on a specific link that isn't the standard `http://localhos
 You can change on what port the front-end is ran, by issuing the serve command with the `--port` parameter: `ng serve --port 5001`. But, **don't run it with the `--ssl` parameter!** SSL isn't supported yet and you'll have issues trying to use it! If you really need ssl, using a [reverse proxy](https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy/) might be a viable alternative.
 
 ## Screenshots
+
+![](./screenshots/login-desktop.png)
+![](./screenshots/login-mobile.png)
+![](./screenshots/register-desktop.png)
+![](./screenshots/register-with-data-desktop.png)
+![](./screenshots/feed-desktop.png)
+![](./screenshots/feed-mobile.png)
+![](./screenshots/post-page-desktop.png)
+![](./screenshots/comment-page-desktop.png)
+![](./screenshots/editing-comment-desktop.png)
+![](./screenshots/profile-page-desktop.png)
+![](./screenshots/editing-post-desktop.png)
+![](./screenshots/settings-page-desktop.png)
