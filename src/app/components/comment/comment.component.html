@@ -1,23 +1,46 @@
 <app-loading *ngIf="!loaded"></app-loading>
 
-<div class="comment rounded-border" *ngIf="loaded">
-	<div class="content">
-		<div class="author" (click)="goToAuthorProfile()">
-			<img class="round-image" [src]="user.profilePictureURL">
-			<div class="author-info">
-				<div class="name">
-					{{ user.firstName }} {{ user.lastName }}
-				</div>
-				<div class="handle">
-					@{{ user.userName }}
-				</div>
-			</div>
-		</div>
-		<div class="message" (click)="goToCommentPage()">
+<section class="card flex-row" [hidden]="loaded" (mouseleave)="resetShareBtn()">
+	<aside class="left-pane">
+		<img class="author-picture round-image hover-half-opacity" [src]="user.profilePictureURL" (click)="goToAuthorProfile()">
+	</aside>
+	<main class="content flexible">
+		<summary class="font-size-dot8 text-vertical-middle hover-half-opacity" (click)="goToAuthorProfile()">
+			<span>
+				{{ user.firstName }} {{ user.lastName }}
+			</span>
+			<span class="fg-faded">
+				@{{ user.userName }}
+			</span>
+		</summary>
+		<form [formGroup]="editCommentFormGroup" *ngIf="editingComment" (ngSubmit)="editComment()">
+			<textarea class="textarea-new-msg width-full border-faded-slim border-bottom-only padding-dot2 margin-bot-dot5" rows="1" formControlName="newCommentMessage" placeholder="What's on your mind?"></textarea>
+			<button type="submit" class="border-faded-slim width-full padding-dot2 lighter-hover click-effect border-radius-dot3 margin-bot-dot5">
+				Update Comment
+			</button>
+		</form>
+		<article class="message margin-top-bot-dot2" *ngIf="!editingComment">
 			{{ comment.message }}
-		</div>
-		<div class="timestamp" (click)="goToCommentPage()">
-			{{ timeCreated }}
-		</div>
-	</div>
-</div>
+		</article>
+		<section class="comment-details flex-row flex-justify-end font-size-dot7 border-faded-slim border-bottom-only">
+			<time class="flex-row flex-center-align-items">
+				<img class="height-font" src="/assets/icons/tabler-icon-calendar-time.svg">&nbsp;
+				<span>
+					{{ timeCreated }}
+				</span>
+			</time>
+		</section>
+		<section class="flex-row justify-children-center align-children-center">
+			<button class="padding-dot2 lighter-hover click-effect border-radius-dot3" *ngIf="loggedInAuthor" (click)="toggleEditing()">
+				<img src="/assets/icons/tabler-icon-edit.svg">
+			</button>
+			<button #share ngxClipboard [cbContent]="getPostLink()" class="flexible padding-dot2 lighter-hover click-effect border-radius-dot3" (click)="showCopiedMessage()">
+				<img src="/assets/icons/tabler-icon-link.svg">
+				&nbsp;Share
+			</button>
+			<button class="padding-dot2 lighter-hover click-effect border-radius-dot3" *ngIf="loggedInAuthor" (click)="deleteComment()">
+				<img src="/assets/icons/tabler-icon-trash.svg">
+			</button>
+		</section>
+	</main>
+</section>

@@ -1,85 +1,118 @@
-<!-- <app&#45;loading *ngIf="!dataArrived"></app&#45;loading> -->
+<app-navbar></app-navbar>
 
-<div id="content" *ngIf="!dataArrived">
-	<nav id="navigation">
-		<button class="submit-btn" (click)="backToProfile()">ᐊ Back to profile</button>
-		<button class="submit-btn" (click)="backToFeed()">ᐊ Back to feed</button>
-		<button class="submit-btn" (click)="logout()">Logout</button>
-	</nav>
-	<hr>
-	<div class="scroll-standalone">
-		<app-success-bar></app-success-bar>
-		<app-error-bar></app-error-bar>
+<app-loading *ngIf="!dataArrived"></app-loading>
 
-		<button type="button" class="submit-btn edit-btn" (click)="toggleLanguages()">▼ Edit Languages ▼</button>
-		<form [formGroup]="languageForm" (ngSubmit)="submitLanguages()" *ngIf="showLanguages">
-			<div class="input-selection">
-				<label>Create language:</label>
-				<input type="text" class="input-field" formControlName="languageCreate" placeholder="New language name">
-			</div>
-			<label>Update language:</label>
-			<div class="flexbox input-selection">
-				<input type="text" class="input-field" formControlName="updateLanguageOldName" placeholder="Old language name">
-				<input type="text" class="input-field" formControlName="updateLanguageNewName" placeholder="New language name">
-			</div>
-			<label>Delete language:</label>
-			<div class="flexbox input-selection">
-				<input type="text" class="input-field" formControlName="deleteLanguageName" placeholder="Language name">
-			</div>
-			<button class="submit-btn" type="submit">Modify languages</button>
-			<hr>
-			Available languages:
-			<div id="all-languages">
-				<div class="user-language" *ngFor="let lang of availableLanguages">
-					{{ lang.name }}
+<main class="scroll-standalone under-navbar centered-content flex-col" *ngIf="dataArrived">
+	<app-success-bar></app-success-bar>
+	<app-error-bar></app-error-bar>
+
+	<div class="card width-full">
+		<section>
+			<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect" (click)="toggleLanguages()">
+				▼ Edit Languages ▼
+			</button>
+			<form class="flex-col margin-top-bot-dot3" [formGroup]="languageForm" (ngSubmit)="submitLanguages()" *ngIf="showLanguages">
+				<label class="fg-focus">
+					Create language:
+				</label>
+				<input type="text" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="languageCreate" placeholder="New language name">
+
+				<label class="fg-focus">
+					Update language:
+				</label>
+				<div class="flex-row flexible-children">
+					<input type="text" class="fancy-input border-faded-slim border-bottom-only margin-right-dot2" formControlName="updateLanguageOldName" placeholder="Old language name">
+					<input type="text" class="fancy-input border-faded-slim border-bottom-only" formControlName="updateLanguageNewName" placeholder="New language name">
 				</div>
-			</div>
-			<hr>
-		</form>
 
-		<button type="button" class="submit-btn edit-btn" (click)="toggleTechnologies()">▼ Edit Technologies ▼</button>
-		<form [formGroup]="technologyForm" (ngSubmit)="submitTechnologies()" *ngIf="showTechnologies">
-			<div class="input-selection">
-				<label>Create technology:</label>
-				<input type="text" class="input-field" formControlName="technologyCreate" placeholder="New technology name">
-			</div>
-			<label>Update technology:</label>
-			<div class="flexbox input-selection">
-				<input type="text" class="input-field" formControlName="updateTechnologyOldName" placeholder="Old technology name">
-				<input type="text" class="input-field" formControlName="updateTechnologyNewName" placeholder="New technology name">
-			</div>
-			<label>Delete technology:</label>
-			<div class="flexbox input-selection">
-				<input type="text" class="input-field" formControlName="deleteTechnologyName" placeholder="Technology name">
-			</div>
-			<button class="submit-btn" type="submit">Modify technologies</button>
-			<hr>
-			Available technologies:
-			<div id="all-technologies">
-				<div class="user-technology" *ngFor="let tech of availableTechnologies">
-					{{ tech.name }}
+				<label class="fg-focus">
+					Delete language:
+				</label>
+				<input type="text" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="deleteLanguageName" placeholder="Language name">
+
+				<button class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3" type="submit">
+					Modify languages
+				</button>
+				<section class="border-faded-slim padding-dot4 margin-top-dot4">
+					<div class="none-message" *ngIf="availableLanguages.length === 0">
+						No languages in database!
+					</div>
+					<div *ngIf="availableLanguages.length > 0">
+						Available languages:
+					</div>
+					<div class="flex-row margin-top-dot4">
+						<div class="sec-info border-radius-dot5r padding-dot2" *ngFor="let lang of availableLanguages">
+							{{ lang.name }}
+						</div>
+					</div>
+				</section>
+			</form>
+		</section>
+		<section>
+			<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-dot4" (click)="toggleTechnologies()">
+				▼ Edit Technologies ▼
+			</button>
+			<form class="flex-col margin-top-bot-dot3" [formGroup]="technologyForm" (ngSubmit)="submitTechnologies()" *ngIf="showTechnologies">
+				<label class="fg-focus">
+					Create technology:
+				</label>
+				<input type="text" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="technologyCreate" placeholder="New technology name">
+
+				<label class="fg-focus">
+					Update technology:
+				</label>
+				<div class="flex-row flexible-children">
+					<input type="text" class="fancy-input border-faded-slim border-bottom-only margin-right-dot2" formControlName="updateTechnologyOldName" placeholder="Old technology name">
+					<input type="text" class="fancy-input border-faded-slim border-bottom-only" formControlName="updateTechnologyNewName" placeholder="New technology name">
 				</div>
-			</div>
-			<hr>
-		</form>
 
-		<button type="button" class="submit-btn delete-btn" (click)="toggleDeletions()">▼ Deletions ▼</button>
-		<form [formGroup]="deleteForm" (ngSubmit)="submitDelete()" *ngIf="showDeletions">
-			<div class="input-selection">
-				<label>Delete user by Id:</label>
-				<input type="text" class="input-field" formControlName="deleteUser" placeholder="User Id">
-			</div>
+				<label class="fg-focus">
+					Delete technology:
+				</label>
+				<input type="text" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="deleteTechnologyName" placeholder="Technology name">
 
-			<div class="input-selection">
-				<label>Delete post by Id:</label>
-				<input type="text" class="input-field" formControlName="deletePost" placeholder="Post Id">
-			</div>
-			<div class="input-selection">
-				<label>Delete comment by Id:</label>
-				<input type="text" class="input-field" formControlName="deleteComment" placeholder="Comment Id">
-			</div>
-			<button class="submit-btn" type="submit">Delete</button>
-			<hr>
-		</form>
+				<button class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3" type="submit">
+					Modify technology
+				</button>
+				<section class="border-faded-slim padding-dot4 margin-top-dot4">
+					<div class="none-message" *ngIf="availableTechnologies.length === 0">
+						No technologies in database!
+					</div>
+					<div *ngIf="availableTechnologies.length > 0">
+						Available technologies:
+					</div>
+					<div class="flex-row margin-top-dot4">
+						<div class="sec-info border-radius-dot5r padding-dot2" *ngFor="let tech of availableTechnologies">
+							{{ tech.name }}
+						</div>
+					</div>
+				</section>
+			</form>
+		</section>
+		<section>
+			<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-dot4" (click)="toggleDeletions()">
+				▼ Deletions ▼
+			</button>
+			<form class="flex-col margin-top-bot-dot3" [formGroup]="deleteForm" (ngSubmit)="submitDelete()" *ngIf="showDeletions">
+				<label class="fg-focus">
+					Delete user by Id:
+				</label>
+				<input type="text" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="deleteUser" placeholder="User Id">
+
+				<label class="fg-focus">
+					Delete post by Id:
+				</label>
+				<input type="text" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="deletePost" placeholder="Post Id">
+
+				<label class="fg-focus">
+					Delete comment by Id:
+				</label>
+				<input type="text" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="deleteComment" placeholder="Comment Id">
+
+				<button class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3" type="submit">
+					Delete
+				</button>
+			</form>
+		</section>
 	</div>
-</div>
+</main>

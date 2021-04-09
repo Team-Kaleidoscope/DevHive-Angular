@@ -7,8 +7,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileSettingsComponent } from './components/profile-settings/profile-settings.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PostPageComponent } from './components/post-page/post-page.component';
-import {AdminPanelPageComponent} from './components/admin-panel-page/admin-panel-page.component';
-import {CommentPageComponent} from './components/comment-page/comment-page.component';
+import { AdminPanelPageComponent } from './components/admin-panel-page/admin-panel-page.component';
+import { CommentPageComponent } from './components/comment-page/comment-page.component';
 
 const routes: Routes = [
   { path: '', component: FeedComponent },

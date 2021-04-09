@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Guid } from 'guid-typescript';
-import { User } from '../../models/identity/user';
+import { User } from '../../models/identity/user.model';
 import { FormGroup } from '@angular/forms';
 import { AppConstants } from 'src/app/app-constants.module';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Role } from 'src/models/identity/role';
-import { Friend } from 'src/models/identity/friend';
+import { Role } from 'src/models/identity/role.model';
+import { Friend } from 'src/models/identity/friend.model';
 import { TokenService } from './token.service';
+import { Language } from 'src/models/language.model';
+import { Technology } from 'src/models/technology.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,7 @@ export class UserService {
   { }
 
   getDefaultUser(): User {
-    return new User(Guid.createEmpty(), 'gosho_trapov', 'Gosho', 'Trapov', 'gotra@bg.com', AppConstants.FALLBACK_PROFILE_ICON, [], [], [], []);
+    return new User(Guid.createEmpty(), '', '', '', '', AppConstants.FALLBACK_PROFILE_ICON, [], [], [], []);
   }
 
   /* Requests from session storage */
@@ -36,25 +38,11 @@ export class UserService {
     return this.addFriendToUserRequest(userUserName, token, newFriendUserName);
   }
 
-  putUserFromSessionStorageRequest(updateUserFormGroup: FormGroup, userRoles: Role[], userFriends: Friend[]): Observable<object> {
+  putUserFromSessionStorageRequest(updateUserFormGroup: FormGroup, languages: Language[], technologies: Technology[], userRoles: Role[], userFriends: Friend[]): Observable<object> {
     const userId = this._tokenService.getUserIdFromSessionStorageToken();
     const token = this._tokenService.getTokenFromSessionStorage();
 
-    return this.putUserRequest(userId, token, updateUserFormGroup, userRoles, userFriends);
-  }
-
-  putProfilePictureFromSessionStorageRequest(newPicture: File): Observable<object> {
-    const userId = this._tokenService.getUserIdFromSessionStorageToken();
-    const token = this._tokenService.getTokenFromSessionStorage();
-
-    return this.putProfilePictureRequest(userId, token, newPicture);
-  }
-
-  putBareUserFromSessionStorageRequest(user: User, password: string): Observable<object> {
-    const userId = this._tokenService.getUserIdFromSessionStorageToken();
-    const token = this._tokenService.getTokenFromSessionStorage();
-
-    return this.putBareUserRequest(userId, token, user, password);
+    return this.putUserRequest(userId, token, updateUserFormGroup, languages, technologies, userRoles, userFriends);
   }
 
   deleteUserFromSessionStorageRequest(): Observable<object> {
@@ -119,7 +107,7 @@ export class UserService {
     return this._http.get(AppConstants.API_USER_URL + '/GetUser', options);
   }
 
-  putUserRequest(userId: Guid, authToken: string, updateUserFormGroup: FormGroup, userRoles: Role[], userFriends: Friend[]): Observable<object> {
+  putUserRequest(userId: Guid, authToken: string, updateUserFormGroup: FormGroup, languages: Language[], technologies: Technology[], userRoles: Role[], userFriends: Friend[]): Observable<object> {
     const body = {
       UserName: updateUserFormGroup.get('username')?.value,
       Email: updateUserFormGroup.get('email')?.value,
@@ -128,34 +116,14 @@ export class UserService {
       Password: updateUserFormGroup.get('password')?.value,
       Roles: userRoles,
       Friends: userFriends,
-      Languages: updateUserFormGroup.get('languages')?.value,
-      Technologies: updateUserFormGroup.get('technologies')?.value
+      Languages: languages,
+      Technologies: technologies
     };
     const options = {
       params: new HttpParams().set('Id', userId.toString()),
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + authToken)
     };
     return this._http.put(AppConstants.API_USER_URL, body, options);
-  }
-
-  putBareUserRequest(userId: Guid, authToken: string, user: User, password: string): Observable<object> {
-    const body: object = user;
-    Object.assign(body, { password: password });
-    const options = {
-      params: new HttpParams().set('Id', userId.toString()),
-      headers: new HttpHeaders().set('Authorization', 'Bearer ' + authToken)
-    };
-    return this._http.put(AppConstants.API_USER_URL, body, options);
-  }
-
-  putProfilePictureRequest(userId: Guid, authToken: string, newPicture: File): Observable<object> {
-    const form = new FormData();
-    form.append('picture', newPicture);
-    const options = {
-      params: new HttpParams().set('UserId', userId.toString()),
-      headers: new HttpHeaders().set('Authorization', 'Bearer ' + authToken)
-    };
-    return this._http.put(AppConstants.API_USER_URL + '/ProfilePicture', form, options);
   }
 
   deleteUserRequest(userId: Guid, authToken: string): Observable<object> {

@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "Source",
+			"path": "./src"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.vscode": true,
+			"**/bin": true,
+			"**/obj": true,
+			".gitignore": true
+		},
+		"prettier.useEditorConfig": true
+	}
+}

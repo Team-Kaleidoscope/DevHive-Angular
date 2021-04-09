@@ -2,44 +2,62 @@
 @import "./reset.css";
 
 :root {
-  --bg-color: white;
-  --focus-color: forestgreen;
-  --card-bg: white;
-  --success: forestgreen;
+  --max-width: 40rem;
+  --bg-color: #18191a;
+  --fg-color: #ffeede;
+  --focus-color: #669908;
+  --card-bg: #303030;
+  --card-padding: 0.5em;
+  --success: #669908;
   --failure: indianred;
+  --faded-color: #696969;
+  --navbar-height: 2.6em;
+  --upvote-highlight: #999908;
+  --downvote-highlight: #c35b5b;
 }
 
-html, body {
-	height: 100%;
-	margin: 0;
+html,
+body {
+  height: 100%;
+  margin: 0;
 }
 body {
   font: 21px sans-serif !important;
+  color: var(--fg-color);
   background-color: var(--bg-color);
 }
 
-input:focus, button:focus {
+button, textarea, input {
+  color: inherit;
+  background: inherit;
+  background-color: inherit;
+  font: inherit;
+  padding: 0;
+  border: none;
+}
+
+input:focus,
+button:focus,
+textarea:focus {
   outline: 0;
 }
 
-#content { /* Used for the login and register pages */
-  height: 100%;
-  max-width: 20em;
-  box-sizing: border-box;
-  border: .5em solid var(--bg-color);
-
-  margin: 0 auto;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  /* We can't do ...::-webkit-file-upload-button, ...::file-selector-button {...}
+   * for some reason, so they have to be separated (some browsers break)
+   */
+input[type=file]::-webkit-file-upload-button {
+  visibility: hidden;
 }
+
+input[type=file]::file-selector-button {
+  visibility: hidden;
+}
+
 
 .rounded-border {
   border: 2px solid black;
-  border-radius: .6em;
-  padding: .4em;
+  border-radius: 0.6em;
+  padding: 0.4em;
 }
 
 .round-image {
@@ -50,6 +68,7 @@ input:focus, button:focus {
 .title {
   font-size: 2em;
   font-weight: bold;
+  text-align: center;
 }
 
 .error {
@@ -60,101 +79,405 @@ input:focus, button:focus {
   width: 100%;
   max-height: 100%;
   overflow-y: auto;
+  flex-wrap: nowrap !important;
 }
 
-  /* Hide scrollbar for Chrome, Safari and Opera */
+/* Hide scrollbar for Chrome, Safari and Opera */
 .scroll-standalone::-webkit-scrollbar {
   display: none;
 }
 
-  /* Hide scrollbar for IE, Edge and Firefox */
+/* Hide scrollbar for IE, Edge and Firefox */
 .scroll-standalone {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
-.user-language, .user-technology {
-  border-radius: .4em;
+.user-language,
+.user-technology {
+  border-radius: 0.4em;
   background-color: lightgrey;
-  padding: .26em;
-  margin: .1em .2em;
+  padding: 0.26em;
+  margin: 0.1em 0.2em;
   width: fit-content;
+}
+
+/* Cards */
+
+.card {
+  margin: 0.5em auto;
+  box-sizing: border-box;
+  padding: var(--card-padding);
+  background-color: var(--card-bg);
+  position: relative;
+}
+
+@media screen and (max-width: 30rem) {
+  .card {
+    font-size: 0.8em;
+  }
+
+  .card button {
+    font-size: 0.9em;
+  }
+
+  .title {
+    font-size: 1.5em;
+  }
+
+  .input-selection:first-child {
+    margin-top: 1.2em !important;
+  }
+
+  :not(card) button {
+    font-size: 0.7em;
+  }
+}
+
+.card-hr {
+  width: calc(100% - 1em);
+  border: 1px solid var(--fg-color);
+  background-color: var(--fg-color);
+}
+
+/* General flex */
+
+.flex-row, .flex-col {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-no-wrap {
+  flex-wrap: nowrap;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flexible, .flexible-children > * {
+  flex: 1;
+}
+
+.flex-center-align-items {
+  align-items: center;
+}
+
+.flex-justify-start {
+  justify-content: flex-start;
+}
+
+.flex-justify-end {
+  justify-content: flex-end;
+}
+
+.flex-justify-center {
+  justify-content: center;
+}
+
+.align-children-center > * {
+  display: flex;
+  align-items: center;
+}
+
+.justify-children-center > * {
+  display: flex;
+  justify-content: center;
+}
+
+/* General font sizes */
+
+.font-size-dot9 {
+  font-size: 0.9em;
+}
+
+.font-size-dot8 {
+  font-size: 0.8em;
+}
+
+.font-size-dot7 {
+  font-size: 0.7em;
+}
+
+/* General text */
+
+.text-centered {
+  text-align: center;
+}
+
+.text-vertical-middle {
+  vertical-align: middle;
+}
+
+/* General border */
+
+.border-faded-slim {
+  border: 1px solid var(--faded-color);
+}
+
+.border-radius-dot5r, .card {
+  border-radius: 0.5rem;
+}
+
+.border-radius-dot3 {
+  border-radius: 0.3em;
+}
+
+.border-radius-dot2 {
+  border-radius: 0.2em;
+}
+
+.border-bottom-only {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+/* General colors */
+
+.fg-faded {
+  color: var(--faded-color);
+}
+
+.fg-focus {
+  color: var(--focus-color);
+  border-color: var(--focus-color);
+}
+
+.fg-error {
+  color: var(--failure);
+  border-color: var(--failure);
+}
+
+/* General padding */
+
+.padding-dot6 {
+  padding: 0.6em;
+}
+
+.padding-dot5 {
+  padding: 0.5em;
+}
+
+.padding-dot4 {
+  padding: 0.4em;
+}
+
+.padding-dot3 {
+  padding: 0.3em;
+}
+
+.padding-dot2 {
+  padding: 0.2em;
+}
+
+.padding-dot1 {
+  padding: 0.1em;
+}
+
+.padding-right-1 {
+  padding-right: 1em !important;
+}
+
+.padding-right-1dot5 {
+  padding-right: 1.5em !important;
+}
+
+.padding-side-font {
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+.padding-side-dot3 {
+  padding-right: 0.3em;
+  padding-left: 0.3em;
+}
+
+.padding-bot-dot5 {
+  padding-bottom: 0.5em;
+}
+
+.padding-top-bot-dot5 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.padding-top-bot-dot2 {
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+}
+
+/* Margin */
+
+.margin-0 {
+  margin: 0;
+}
+
+.margin-top-0 {
+  margin-top: 0;
+}
+
+.margin-top-dot4 {
+  margin-top: 0.4em;
+}
+
+.margin-top-dot5 {
+  margin-top: 0.5em;
+}
+
+.margin-bot-dot5 {
+  margin-bottom: 0.5em;
+}
+
+.margin-top-bot-dot7 {
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+}
+
+.margin-top-bot-dot3 {
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}
+
+.margin-top-bot-dot2 {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+
+.margin-right-dot2 {
+  margin-right: 0.2em;
+}
+
+/* Effects */
+
+.lighter-hover:hover, .light-hover:hover, .hover-half-opacity:hover {
+  cursor: pointer;
+}
+
+.lighter-hover:hover {
+  background: #424242;
+}
+
+.light-hover:hover {
+  background: #696969;
+}
+
+.hover-half-opacity:hover {
+  opacity: 0.5;
+}
+
+.click-effect:active {
+  transform: scale(0.9);
+}
+
+/* Size */
+
+.height-full {
+  height: 100%;
+}
+
+.width-full {
+  width: 100%;
+}
+
+.height-font {
+  height: 1em;
+}
+
+/* Misc */
+
+.centered-content {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.under-navbar {
+  height: calc(100% - var(--navbar-height)) !important;
 }
 
 /* Inputs, the type found in login and register */
 
-.input-selection {
-  position: relative;
-  margin-top: .7em;
-}
-
-  /* Don't show the placeholder when the label is on top
-   */
-.input-selection .input-field::-webkit-input-placeholder {
-  opacity: 0;
-}
-
-.input-field {
-  width: 100%;
-  background-color: var(--bg-color);
-
-  border: 0;
-  border-bottom: 1px solid grey;
+.textarea-new-msg {
+  min-height: 2em;
+  resize: vertical;
   box-sizing: border-box;
-
-  margin-bottom: .5em;
-  padding: .4em;
-  padding-left: 0;
-
-  font-size: inherit;
 }
 
-.input-field-label {
+.fancy-input {
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+  padding: 0.4em;
+  padding-left: 0;
+}
+
+.fancy-input-label {
   width: inherit;
   height: inherit;
   position: absolute;
   left: 0;
 
-  margin-top: .4em;
+  margin-top: 0.4em;
+  transition: 0.2s;
+  scale: 1em;
+}
+
+.input-selection {
+  position: relative;
+  margin-top: 0.5em;
+}
+
+.input-selection input::placeholder {
+  /* Don't show the placeholder when the label is on top */
+  opacity: 0;
   color: grey;
 }
 
+.input-selection:hover > input::placeholder,
+.input-selection > input:focus::placeholder {
+  /* When hovering on the input, or when having clicked on it,
+   * show the placeholder
+   */
+  opacity: 1;
+}
+
+.input-selection:hover > label,
+.input-selection > input:not(:placeholder-shown) + label,
+.input-selection > input:focus + label {
   /* When hovering, typing or having typed something in an input,
    * make the label smaller, color it and then move it up
    */
-.input-selection:hover > .input-field-label ,
-.input-selection > input:not(:placeholder-shown) + .input-field-label ,
-.input-selection > input:focus + .input-field-label {
-  font-size: .7em;
+  font-size: 0.7em;
   color: var(--focus-color);
   transform: translate(0, -1.2em);
 }
 
-  /* Show the placeholder, when you've hovered or
-   * focused (typing in) on the input-field
-   */
-.input-selection:hover > .input-field::-webkit-input-placeholder,
-.input-selection > .input-field:focus::-webkit-input-placeholder {
-  opacity: 1;
-}
-
-  /* Make the underline thicker and change it's and the cursors's
-   * color when hovered or focused (typing in) on the input-field
-   */
-.input-selection:hover > .input-field,
-.input-field:focus {
+.input-selection:hover > input,
+.input-selection > input:focus {
+  /* When hovering or clicked on it, make it the focus color */
   border-color: var(--focus-color) !important;
   caret-color: var(--focus-color);
-  border-width: 2px !important;
-  margin-top: -1px !important;
+  /* When hovering or clicked on it, make the bottom border wider (taller) */
+  border-width: 2px;
+  padding-bottom: calc(0.4em - 1px);
 }
 
+.show-password-button {
+  position: absolute;
+  right: 0.2em;
+  bottom: 1.1em;
+  height: 1em;
+}
 
 /* Input errors */
 
 .input-errors {
-  margin-top: -.8em;
-  font-size: .7em;
+  margin-top: -0.8em;
+  font-size: 0.7em;
 
   position: absolute;
   right: 0;
@@ -175,7 +498,7 @@ input:focus, button:focus {
 }
 
 .input-errors > .error {
-  margin-left: .3em;
+  margin-left: 0.3em;
 }
 
 .input-field:focus ~ .input-errors > .error {
@@ -186,77 +509,8 @@ input:focus, button:focus {
   opacity: 0;
 }
 
-/* Submit button */
-
-.submit-btn {
-  width: 100%;
-  color: white;
-  background-color: black;
-
-  border: 2px solid black;
-  border-radius: .4em;
-  box-sizing: border-box;
-
-  font-size: .8em;
-  text-align: center;
-
-  margin-top: .5em;
-  padding: .3em;
-}
-
-.submit-btn:hover {
-  cursor: pointer;
-  color: var(--focus-color);
-  background-color: white;
-  border-color: var(--focus-color) !important;
-}
-
-.submit-btn:active {
-  transition: 0s;
-  transform: scale(.9);
-}
-
-.delete-btn:hover {
-  color: indianred;
-  border-color: indianred !important;
-}
-
 /* Form attachments (the ones that are shown while creating and editing a post) */
 
-.form-attachments {
-  display: flex;
-  flex-wrap: wrap;
-  color: gray;
-  font-size: .75em;
-  margin: 0 .3em;
-}
-
 .form-attachment {
-  border: 2px solid black;
-  border-radius: .6em;
-  margin-top: .2em;
-  margin-right: .2em;
-  padding: .2em;
-  display: flex;
-  align-items: center;
+  background-color: #424242;
 }
-
-.form-attachment:last-child {
-  margin-right: 0;
-}
-
-.remove-form-attachment {
-  font-size: .9em;
-  color: var(--failure);
-  background-color: white;
-  border-radius: .2em;
-  margin: 0 .2em;
-  padding: .2em;
-}
-
-.remove-form-attachment:hover {
-  color: white;
-  background-color: var(--failure);
-  cursor: pointer;
-}
-

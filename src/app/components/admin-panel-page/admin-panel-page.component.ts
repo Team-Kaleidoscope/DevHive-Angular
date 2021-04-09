@@ -11,9 +11,9 @@ import { PostService } from 'src/app/services/post.service';
 import { TechnologyService } from 'src/app/services/technology.service';
 import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/models/identity/user';
-import { Language } from 'src/models/language';
-import { Technology } from 'src/models/technology';
+import { User } from 'src/models/identity/user.model';
+import { Language } from 'src/models/language.model';
+import { Technology } from 'src/models/technology.model';
 import { ErrorBarComponent } from '../error-bar/error-bar.component';
 import { SuccessBarComponent } from '../success-bar/success-bar.component';
 
@@ -46,17 +46,17 @@ export class AdminPanelPageComponent implements OnInit {
       return;
     }
 
-    this._userService.getUserFromSessionStorageRequest().subscribe(
-      (result: object) => {
+    this._userService.getUserFromSessionStorageRequest().subscribe({
+      next: (result: object) => {
         const user = result as User;
         if (!user.roles.map(x => x.name).includes(AppConstants.ADMIN_ROLE_NAME)) {
           this._router.navigate(['/login']);
         }
       },
-      (err: HttpErrorResponse) => {
+      error: () => {
         this._router.navigate(['/login']);
       }
-    );
+    });
 
     this.languageForm = this._fb.group({
       languageCreate: new FormControl(''),
@@ -65,9 +65,11 @@ export class AdminPanelPageComponent implements OnInit {
       deleteLanguageName: new FormControl('')
     });
 
-    this.languageForm.valueChanges.subscribe(() => {
-      this._successBar?.hideMsg();
-      this._errorBar?.hideError();
+    this.languageForm.valueChanges.subscribe({
+      next: () => {
+        this._successBar?.hideMsg();
+        this._errorBar?.hideError();
+      }
     });
 
     this.technologyForm = this._fb.group({
@@ -77,9 +79,11 @@ export class AdminPanelPageComponent implements OnInit {
       deleteTechnologyName: new FormControl('')
     });
 
-    this.technologyForm.valueChanges.subscribe(() => {
-      this._successBar?.hideMsg();
-      this._errorBar?.hideError();
+    this.technologyForm.valueChanges.subscribe({
+      next: () => {
+        this._successBar?.hideMsg();
+        this._errorBar?.hideError();
+      }
     });
 
     this.deleteForm = this._fb.group({
@@ -88,13 +92,33 @@ export class AdminPanelPageComponent implements OnInit {
       deleteComment: new FormControl('')
     });
 
-    this.deleteForm.valueChanges.subscribe(() => {
-      this._successBar?.hideMsg();
-      this._errorBar?.hideError();
+    this.deleteForm.valueChanges.subscribe({
+      next: () => {
+        this._successBar?.hideMsg();
+        this._errorBar?.hideError();
+      }
     });
 
     this.loadAvailableLanguages();
     this.loadAvailableTechnologies();
+  }
+
+  private loadAvailableLanguages(): void {
+    this._languageService.getAllLanguagesWithSessionStorageRequest().subscribe({
+      next: (result: object) => {
+        this.availableLanguages = result as Language[];
+        this.dataArrived = true;
+      }
+    });
+  }
+
+  private loadAvailableTechnologies(): void {
+     this._technologyService.getAllTechnologiesWithSessionStorageRequest().subscribe({
+      next: (result: object) => {
+        this.availableTechnologies = result as Technology[];
+        this.dataArrived = true;
+      }
+     });
   }
 
   // Navigation
@@ -128,14 +152,14 @@ export class AdminPanelPageComponent implements OnInit {
     const languageCreate: string = this.languageForm.get('languageCreate')?.value;
 
     if (languageCreate !== '' && languageCreate !== null) {
-      this._languageService.createLanguageWithSessionStorageRequest(languageCreate.trim()).subscribe(
-        (result: object) => {
+      this._languageService.createLanguageWithSessionStorageRequest(languageCreate.trim()).subscribe({
+        next: () => {
           this.languageModifiedSuccess('Successfully updated languages!');
         },
-        (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           this._errorBar.showError(err);
         }
-      );
+      });
     }
   }
 
@@ -146,14 +170,14 @@ export class AdminPanelPageComponent implements OnInit {
     if (updateLanguageOldName !== '' && updateLanguageOldName !== null && updateLanguageNewName !== '' && updateLanguageNewName !== null) {
       const langId = this.availableLanguages.filter(x => x.name === updateLanguageOldName.trim())[0].id;
 
-      this._languageService.putLanguageWithSessionStorageRequest(langId, updateLanguageNewName.trim()).subscribe(
-        (result: object) => {
+      this._languageService.putLanguageWithSessionStorageRequest(langId, updateLanguageNewName.trim()).subscribe({
+        next: () => {
           this.languageModifiedSuccess('Successfully updated languages!');
         },
-        (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           this._errorBar.showError(err);
         }
-      );
+      });
     }
   }
 
@@ -163,14 +187,14 @@ export class AdminPanelPageComponent implements OnInit {
     if (deleteLanguageName !== '' && deleteLanguageName !== null) {
       const langId = this.availableLanguages.filter(x => x.name === deleteLanguageName.trim())[0].id;
 
-      this._languageService.deleteLanguageWithSessionStorageRequest(langId).subscribe(
-        (result: object) => {
+      this._languageService.deleteLanguageWithSessionStorageRequest(langId).subscribe({
+        next: () => {
           this.languageModifiedSuccess('Successfully deleted language!');
         },
-        (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           this._errorBar.showError(err);
         }
-      );
+      });
     }
   }
 
@@ -180,13 +204,6 @@ export class AdminPanelPageComponent implements OnInit {
     this.loadAvailableLanguages();
   }
 
-  private loadAvailableLanguages(): void {
-    this._languageService.getAllLanguagesWithSessionStorageRequest().subscribe(
-      (result: object) => {
-        this.availableLanguages = result as Language[];
-      }
-    );
-  }
 
   // Technology modifying
 
@@ -204,14 +221,14 @@ export class AdminPanelPageComponent implements OnInit {
     const technologyCreate: string = this.technologyForm.get('technologyCreate')?.value;
 
     if (technologyCreate !== '' && technologyCreate !== null) {
-      this._technologyService.createTechnologyWithSessionStorageRequest(technologyCreate.trim()).subscribe(
-        (result: object) => {
+      this._technologyService.createTechnologyWithSessionStorageRequest(technologyCreate.trim()).subscribe({
+        next: () => {
           this.technologyModifiedSuccess('Successfully updated technologies!');
         },
-        (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           this._errorBar.showError(err);
         }
-      );
+      });
     }
   }
 
@@ -222,14 +239,14 @@ export class AdminPanelPageComponent implements OnInit {
     if (updateTechnologyOldName !== '' && updateTechnologyOldName !== null && updateTechnologyNewName !== '' && updateTechnologyNewName !== null) {
       const techId = this.availableTechnologies.filter(x => x.name === updateTechnologyOldName.trim())[0].id;
 
-      this._technologyService.putTechnologyWithSessionStorageRequest(techId, updateTechnologyNewName.trim()).subscribe(
-        (result: object) => {
+      this._technologyService.putTechnologyWithSessionStorageRequest(techId, updateTechnologyNewName.trim()).subscribe({
+        next: () => {
           this.technologyModifiedSuccess('Successfully updated technologies!');
         },
-        (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           this._errorBar.showError(err);
         }
-      );
+      });
     }
   }
 
@@ -239,14 +256,14 @@ export class AdminPanelPageComponent implements OnInit {
     if (deleteTechnologyName !== '' && deleteTechnologyName !== null) {
       const techId = this.availableTechnologies.filter(x => x.name === deleteTechnologyName.trim())[0].id;
 
-      this._technologyService.deleteTechnologyWithSessionStorageRequest(techId).subscribe(
-        (result: object) => {
+      this._technologyService.deleteTechnologyWithSessionStorageRequest(techId).subscribe({
+        next: () => {
           this.technologyModifiedSuccess('Successfully deleted technology!');
         },
-        (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           this._errorBar.showError(err);
         }
-      );
+      });
     }
   }
 
@@ -254,14 +271,6 @@ export class AdminPanelPageComponent implements OnInit {
     this.technologyForm.reset();
     this._successBar.showMsg(successMsg);
     this.loadAvailableTechnologies();
-  }
-
-  private loadAvailableTechnologies(): void {
-     this._technologyService.getAllTechnologiesWithSessionStorageRequest().subscribe(
-      (result: object) => {
-        this.availableTechnologies = result as Technology[];
-      }
-    );
   }
 
   // Deletions
@@ -282,14 +291,14 @@ export class AdminPanelPageComponent implements OnInit {
     if (deleteUser !== '' && deleteUser !== null) {
       const userId: Guid = Guid.parse(deleteUser);
 
-      this._userService.deleteUserRequest(userId, this._tokenService.getTokenFromSessionStorage()).subscribe(
-        (result: object) => {
+      this._userService.deleteUserRequest(userId, this._tokenService.getTokenFromSessionStorage()).subscribe({
+        next: () => {
           this.deletionSuccess('Successfully deleted user!');
         },
-        (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           this._errorBar.showError(err);
         }
-      );
+      });
     }
   }
 
@@ -299,14 +308,14 @@ export class AdminPanelPageComponent implements OnInit {
     if (deletePost !== '' && deletePost !== null) {
       const postId: Guid = Guid.parse(deletePost);
 
-      this._postService.deletePostRequest(postId, this._tokenService.getTokenFromSessionStorage()).subscribe(
-        (result: object) => {
+      this._postService.deletePostRequest(postId, this._tokenService.getTokenFromSessionStorage()).subscribe({
+        next: () => {
           this.deletionSuccess('Successfully deleted user!');
         },
-        (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           this._errorBar.showError(err);
         }
-      );
+      });
     }
   }
 
@@ -316,14 +325,14 @@ export class AdminPanelPageComponent implements OnInit {
     if (deleteComment !== '' && deleteComment !== null) {
       const commentId: Guid = Guid.parse(deleteComment);
 
-      this._commentService.deleteCommentWithSessionStorage(commentId).subscribe(
-        (result: object) => {
+      this._commentService.deleteCommentWithSessionStorage(commentId).subscribe({
+        next: () => {
           this.deletionSuccess('Successfully deleted comment!');
         },
-        (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           this._errorBar.showError(err);
         }
-      );
+      });
     }
   }
 

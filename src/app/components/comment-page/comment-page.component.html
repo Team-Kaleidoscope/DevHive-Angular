@@ -1,14 +1,18 @@
-<app-loading *ngIf="!loaded"></app-loading>
+<app-navbar></app-navbar>
 
-<div id="content" *ngIf="loaded">
-	<button class="submit-btn" type="submit" (click)="toPost()">ᐊ Back to post</button>
-	<app-comment [paramId]="commentId.toString()"></app-comment>
-	<div class="many-buttons" *ngIf="editable">
-		<button class="submit-btn" (click)="editComment()">Edit comment</button>
-		<button class="submit-btn delete-btn" (click)="deleteComment()">Delete comment</button>
+<app-loading *ngIf="!dataArrived"></app-loading>
+
+<main class="centered-content scroll-standalone under-navbar flex-col" *ngIf="dataArrived">
+	<app-post [paramId]="postId.toString()"></app-post>
+	<hr class="card-hr">
+	<section class="card flex-col width-full margin-0-top">
+		<button class="fg-focus border-faded-slim padding-dot2 lighter-hover click-effect border-radius-dot3" (click)="goToPostPage()">
+			Show all comments
+		</button>
+	</section>
+	<div class="text-centered">
+		...
 	</div>
-	<form  [formGroup]="editCommentFormGroup" (ngSubmit)="editComment()">
-		<input type="text" *ngIf="editingComment" placeholder="New comment message" class="input-field" formControlName="newCommentMessage">
-		<input type="submit" style="display: none" />
-	</form>
-<div>
+
+	<app-comment [paramId]="commentId.toString()"></app-comment>
+</main>

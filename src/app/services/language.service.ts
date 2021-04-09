@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { Observable } from 'rxjs';
-import { Language } from 'src/models/language';
+import { Language } from 'src/models/language.model';
 import { AppConstants } from '../app-constants.module';
 import { TokenService } from './token.service';
 
@@ -105,7 +105,7 @@ export class LanguageService {
 
   deleteLanguageRequest(authToken: string, langId: Guid): Observable<object> {
     const options = {
-      params: new HttpParams().set('Id', langId.toString()),
+      params: new HttpParams().set('LanguageId', langId.toString()),
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + authToken)
     };
     return this._http.delete(AppConstants.API_LANGUAGE_URL, options);

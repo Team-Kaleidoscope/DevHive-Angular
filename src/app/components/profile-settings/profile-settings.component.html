@@ -1,116 +1,149 @@
+<app-navbar></app-navbar>
+
 <app-loading *ngIf="!dataArrived"></app-loading>
 
-<div id="content" *ngIf="dataArrived">
-	<nav id="navigation">
-		<button class="submit-btn" (click)="goToProfile()">ᐊ Back</button>
-		<button class="submit-btn" (click)="navigateToAdminPanel()" *ngIf="isAdminUser">Panel</button>
-		<button class="submit-btn" (click)="logout()">Logout</button>
-	</nav>
-	<hr>
-	<div class="scroll-standalone">
-		<form id="update-profile-picture" [formGroup]="updateProfilePictureFormGroup" (ngSubmit)="updateProfilePicture()">
-			<img id="profile-picture" class="round-image" [src]="user.profilePictureURL">
-			<div id="submit-file">
-				<div id="upload-file" class="submit-btn">
-					<input type="file" accept="image/*" formControlName="fileUpload" (change)="onFileUpload($event)">
-				</div>
-				<button class="submit-btn" type="submit">Update profile picture</button>
+<main class="scroll-standalone under-navbar centered-content flex-col">
+	<section class="card width-full" *ngIf="this.isAdminUser">
+		<button class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3" (click)="goToAdminPanel()">
+			Go to admin panel
+		</button>
+	</section>
+	<form class="flex-row card width-full font-size-dot9 margin-top-bot-dot7" [formGroup]="updateProfilePictureFormGroup" (ngSubmit)="updateProfilePicture()">
+		<img id="profile-picture" class="round-image" [src]="user.profilePictureURL">
+		<section class="flexible flex-col flex-center-align-items flex-justify-center padding-side-font">
+			<input class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3" type="file" accept="image/*" formControlName="fileUpload" (change)="onFileUpload($event)">
+			<button class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3 margin-top-dot4" type="submit" *ngIf="newProfilePicture.size > 0">
+				Update profile picture
+			</button>
+		</section>
+	</form>
+	<form class="flex-col card width-full padding-dot6" [formGroup]="updateUserFormGroup" (ngSubmit)="onSubmit()">
+		<section class="flex-col">
+			<div class="flex-row">
+				<label class="flexible fg-focus">First Name</label>
+
+				<label *ngIf="updateUserFormGroup.get('firstName')?.errors?.required" class="error">*Required</label>
+				<label *ngIf="updateUserFormGroup.get('firstName')?.errors?.minlength" class="error">*Minimum 3 characters</label>
 			</div>
-		</form>
-		<hr>
-		<form id="update-user" [formGroup]="updateUserFormGroup" (ngSubmit)="onSubmit()">
-			<div class="input-selection">
-				<input type="text" class="input-field" formControlName="firstName" required>
-				<label class="input-field-label">First Name</label>
+			<input type="text" class="fancy-input border-faded-slim border-bottom-only" formControlName="firstName" required>
+		</section>
+		<section class="flex-col">
+			<div class="flex-row">
+				<label class="flexible fg-focus">Last Name</label>
 
-				<div class="input-errors">
-					<label *ngIf="updateUserFormGroup.get('firstName')?.errors?.required" class="error">*Required</label>
-					<label *ngIf="updateUserFormGroup.get('firstName')?.errors?.minlength" class="error">*Minimum 3 characters</label>
-				</div>
+				<label *ngIf="updateUserFormGroup.get('lastName')?.errors?.required" class="error">*Required</label>
+				<label *ngIf="updateUserFormGroup.get('lastName')?.errors?.minlength" class="error">*Minimum 3 characters</label>
 			</div>
+			<input type="text" class="fancy-input border-faded-slim border-bottom-only" formControlName="lastName" required>
+		</section>
+		<section class="flex-col">
+			<div class="flex-row">
+				<label class="flexible fg-focus">Username</label>
 
-			<div class="input-selection">
-				<input type="text" class="input-field" formControlName="lastName" required>
-				<label class="input-field-label">Last Name</label>
-
-				<div class="input-errors">
-					<label *ngIf="updateUserFormGroup.get('lastName')?.errors?.required" class="error">*Required</label>
-					<label *ngIf="updateUserFormGroup.get('lastName')?.errors?.minlength" class="error">*Minimum 3 characters</label>
-				</div>
+				<label *ngIf="updateUserFormGroup.get('username')?.errors?.required" class="error">*Required</label>
+				<label *ngIf="updateUserFormGroup.get('username')?.errors?.minlength" class="error">*Minimum 3 characters</label>
 			</div>
+			<input type="text" class="fancy-input border-faded-slim border-bottom-only" formControlName="username" required>
+		</section>
+		<section class="flex-col">
+			<div class="flex-row">
+				<label class="flexible fg-focus">Email</label>
 
-			<div class="input-selection">
-				<input type="text" class="input-field" formControlName="username" required>
-				<label class="input-field-label">Username</label>
-
-				<div class="input-errors">
-					<label *ngIf="updateUserFormGroup.get('username')?.errors?.required" class="error">*Required</label>
-					<label *ngIf="updateUserFormGroup.get('username')?.errors?.minlength" class="error">*Minimum 3 characters</label>
-				</div>
+				<label *ngIf="updateUserFormGroup.get('email')?.errors?.required" class="error">*Required</label>
+				<label *ngIf="updateUserFormGroup.get('email')?.errors?.email" class="error">*Invalid email</label>
 			</div>
-
-			<div class="input-selection">
-				<input type="text" class="input-field" formControlName="email" required>
-				<label class="input-field-label">Email</label>
-
-				<div class="input-errors">
-					<label *ngIf="updateUserFormGroup.get('email')?.errors?.required" class="error">*Required</label>
-					<label *ngIf="updateUserFormGroup.get('email')?.errors?.email" class="error">*Invalid email</label>
+			<input type="text" class="fancy-input border-faded-slim border-bottom-only" formControlName="email" required>
+		</section>
+		<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-dot4" (click)="toggleLanguages()">
+			▼ Edit Languages ▼
+		</button>
+		<section class="flex-row flexible-children border-faded-slim padding-dot3 margin-top-dot5" *ngIf="showLanguages">
+			<section class="padding-right-1">
+				<div class="none-message" *ngIf="chosenLanguages.length === 0">
+					You haven't chosen any languages!
 				</div>
-			</div>
-
-			<div class="input-selection">
-				<input type="password" class="input-field" formControlName="password" required>
-				<label class="input-field-label">Password</label>
-
-				<div class="input-errors">
-					<label *ngIf="updateUserFormGroup.get('password')?.errors?.required" class="error">*Required</label>
-					<label *ngIf="updateUserFormGroup.get('password')?.errors?.minlength" class="error">*Minimum 3 characters</label>
-					<label *ngIf="updateUserFormGroup.get('password')?.errors?.pattern" class="error">*At least 1 number</label>
+				<div class="border-faded-slim border-bottom-only" *ngIf="chosenLanguages.length > 0">
+					Chosen languages:
 				</div>
-			</div>
-			<button type="button" class="submit-btn edit-btn" (click)="toggleLanguages()">▼ Edit Languages ▼</button>
-			<div *ngIf="showLanguages">
-				<div class="input-selection">
-					<input type="text" class="input-field" formControlName="languageInput" required>
-
-					<div class="input-errors">
-						<label class="error">Type in your desired languages, separated by a space</label>
-					</div>
-				</div>
-				Available languages:
-				<div id="all-languages">
-					<div class="user-language" *ngFor="let lang of availableLanguages">
+				<div class="flex-row margin-top-dot4">
+					<div class="sec-info border-radius-dot5r padding-dot2 hover-half-opacity click-effect" *ngFor="let lang of chosenLanguages" (click)="langClick(lang.name)">
 						{{ lang.name }}
 					</div>
 				</div>
-			</div>
-
-			<button type="button" class="submit-btn edit-btn" (click)="toggleTechnologies()">▼ Edit Technologies ▼</button>
-			<div *ngIf="showTechnologies">
-				<div class="input-selection">
-					<input type="text" class="input-field" formControlName="technologyInput" required>
-
-					<div class="input-errors">
-						<label class="error">Type in your desired technologies, separated by a space</label>
+			</section>
+			<section>
+				<div class="none-message" *ngIf="availableLanguages.length === 0">
+					No other languages available!
+				</div>
+				<div class="border-faded-slim border-bottom-only" *ngIf="availableLanguages.length > 0">
+					Available languages:
+				</div>
+				<div class="flex-row margin-top-dot4">
+					<div class="sec-info border-radius-dot5r padding-dot2 hover-half-opacity click-effect" *ngFor="let lang of availableLanguages" (click)="langClick(lang.name)">
+						{{ lang.name }}
 					</div>
 				</div>
-				Available technologies:
-				<div id="all-technologies">
-					<div class="user-technology" *ngFor="let tech of availableTechnologies">
+			</section>
+		</section>
+		<button type="button" class="fg-focus width-full border-faded-slim padding-dot3 lighter-hover click-effect margin-top-dot4" (click)="toggleTechnologies()">
+			▼ Edit Technologies ▼
+		</button>
+		<section class="flex-row flexible-children border-faded-slim padding-dot3 margin-top-dot5" *ngIf="showTechnologies">
+			<section class="padding-right-1">
+				<div class="none-message" *ngIf="chosenTechnologies.length === 0">
+					You haven't chosen any technologies!
+				</div>
+				<div class="border-faded-slim border-bottom-only" *ngIf="chosenTechnologies.length > 0">
+					Chosen technologies:
+				</div>
+				<div class="flex-row margin-top-dot4">
+					<div class="sec-info border-radius-dot5r padding-dot2 hover-half-opacity click-effect" *ngFor="let tech of chosenTechnologies" (click)="techClick(tech.name)">
 						{{ tech.name }}
 					</div>
 				</div>
-			</div>
+			</section>
+			<section>
+				<div class="none-message" *ngIf="availableTechnologies.length === 0">
+					No other technologies available!
+				</div>
+				<div class="border-faded-slim border-bottom-only" *ngIf="availableTechnologies.length > 0">
+					Available technologies:
+				</div>
+				<div class="flex-row margin-top-dot4">
+					<div class="sec-info border-radius-dot5r padding-dot2 hover-half-opacity click-effect" *ngFor="let tech of availableTechnologies" (click)="techClick(tech.name)">
+						{{ tech.name }}
+					</div>
+				</div>
+			</section>
+		</section>
+		<section class="flex-col input-selection">
+			<div class="flex-row">
+				<label class="flexible fg-focus">Current Password</label>
 
-			<button id="update-profile-btn" class="submit-btn" type="submit">Update profile</button>
+				<label *ngIf="updateUserFormGroup.get('password')?.errors?.required" class="error">*Required</label>
+				<label *ngIf="updateUserFormGroup.get('password')?.errors?.minlength" class="error">*Minimum 3 characters</label>
+				<label *ngIf="updateUserFormGroup.get('password')?.errors?.pattern" class="error">*At least 1 number</label>
+			</div>
+			<input [type]="showCurrentPassword ? 'text' : 'password'" class="fancy-input border-faded-slim border-bottom-only padding-right-1dot5" formControlName="password" required>
+			<button type="button" class="show-password-button hover-half-opacity click-effect" (click)="toggleShowPassword(0)">
+				<img [src]="showCurrentPassword ? '/assets/icons/tabler-icon-eye-off.svg' : '/assets/icons/tabler-icon-eye.svg'">
+			</button>
+		</section>
+		<section class="margin-top-bot-dot3">
 			<app-success-bar></app-success-bar>
 			<app-error-bar></app-error-bar>
-		</form>
-		<hr>
-		<div id="confirm-delete" *ngIf="deleteAccountConfirm">
+		</section>
+		<button class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3" type="submit">
+			Update profile
+		</button>
+	</form>
+	<section class="card width-full">
+		<div class="margin-bot-dot5 text-centered fg-error" *ngIf="deleteAccountConfirm">
 			Are you sure you want to delete your account?<br>This is permanent!
 		</div>
-		<button class="submit-btn delete-btn" (click)="deleteAccount()">Delete account</button>
-	</div>
-</div>
+		<button class="width-full border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3 fg-error" (click)="deleteAccount()">
+			Delete account
+		</button>
+	</section>
+	</main>
+

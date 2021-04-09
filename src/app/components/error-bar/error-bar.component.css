@@ -5,6 +5,8 @@
   color: white;
   padding: .2em;
   text-align: center;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 #error-bar:empty {

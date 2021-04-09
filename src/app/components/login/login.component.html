@@ -1,30 +1,28 @@
-<div id="content">
-	<div class="title">Login</div>
+<main class="centered-content scroll-standalone flex-col flex-center-align-items flex-justify-center height-full">
+	<summary class="title card width-full margin-0 padding-dot2">Login</summary>
 
-	<form [formGroup]="loginUserFormGroup" (ngSubmit)="onSubmit()">
-		<hr>
+	<app-error-bar class="width-full margin-top-dot4"></app-error-bar>
 
-		<div class="input-selection">
-			<input type="text" placeholder="Username" class="input-field" formControlName="username" required>
-			<label class="input-field-label">Username</label>
-
+	<form class="width-full card padding-dot6" [formGroup]="loginUserFormGroup" (ngSubmit)="onSubmit()">
+		<section class="input-selection width-full">
+			<input type="text" placeholder="Username" class="fancy-input width-full border-faded-slim border-bottom-only" formControlName="username" required>
+			<label class="fancy-input-label width-full">Username</label>
 			<div class="input-errors">
 				<label *ngIf="loginUserFormGroup.get('username')?.errors?.required" class="error">*Required</label>
 			</div>
-		</div>
-
-		<div class="input-selection">
-			<input type="password" placeholder="Password" class="input-field" formControlName="password" required>
-			<label class="input-field-label">Password</label>
-
+		</section>
+		<section class="input-selection">
+			<input [type]="showingPassword ? 'text' : 'password'" placeholder="Password" class="fancy-input width-full border-faded-slim border-bottom-only padding-right-1dot5" formControlName="password" required>
+			<label class="fancy-input-label width-full">Password</label>
+			<button type="button" class="show-password-button hover-half-opacity click-effect" (click)="toggleShowPassword()">
+				<img [src]="showingPassword ? '/assets/icons/tabler-icon-eye-off.svg' : '/assets/icons/tabler-icon-eye.svg'">
+			</button>
 			<div class="input-errors">
 				<label *ngIf="loginUserFormGroup.get('password')?.errors?.required" class="error">*Required</label>
 			</div>
-		</div>
+		</section>
 
-		<hr>
-		<button class="submit-btn" type="submit">Submit</button>
-		<app-error-bar></app-error-bar>
+		<button class="border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3 width-full" type="submit">Submit</button>
 	</form>
-	<button class="submit-btn redirect-to-register" (click)="onRedirectRegister()">New to DevHive? Register instead</button>
-</div>
+	<button class="fg-focus border-faded-slim padding-dot3 lighter-hover click-effect border-radius-dot3 width-full margin-top-dot4" (click)="onRedirectRegister()">New to DevHive? Register instead</button>
+</main>

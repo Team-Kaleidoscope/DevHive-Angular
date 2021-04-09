@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { Observable } from 'rxjs';
-import { Comment } from 'src/models/comment';
+import { Comment } from 'src/models/comment.model';
 import { AppConstants } from '../app-constants.module';
 import { TokenService } from './token.service';
 
@@ -14,7 +14,7 @@ export class CommentService {
   { }
 
   getDefaultComment(): Comment {
-    return new Comment(Guid.createEmpty(), Guid.createEmpty(), 'Gosho', 'Trapov', 'gosho_trapov', 'Your opinion on my idea?', new Date());
+    return new Comment(Guid.createEmpty(), Guid.createEmpty(), '', '', '', '', new Date());
   }
 
   /* Requests from session storage */
@@ -55,7 +55,7 @@ export class CommentService {
 
   getCommentRequest(id: Guid): Observable<object> {
     const options = {
-      params: new HttpParams().set('Id', id.toString())
+      params: new HttpParams().set('CommentId', id.toString())
     };
     return this._http.get(AppConstants.API_COMMENT_URL, options);
   }
@@ -75,7 +75,7 @@ export class CommentService {
 
   deleteCommentRequest(commentId: Guid, authToken: string): Observable<object> {
     const options = {
-      params: new HttpParams().set('Id', commentId.toString()),
+      params: new HttpParams().set('CommentId', commentId.toString()),
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + authToken)
     };
     return this._http.delete(AppConstants.API_COMMENT_URL, options);

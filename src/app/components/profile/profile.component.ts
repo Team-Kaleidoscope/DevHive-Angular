@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/models/identity/user';
+import { User } from 'src/models/identity/user.model';
 import { AppConstants } from 'src/app/app-constants.module';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { LanguageService } from 'src/app/services/language.service';
 import { TechnologyService } from 'src/app/services/technology.service';
-import { Post } from 'src/models/post';
+import { Post } from 'src/models/post.model';
 import { FeedService } from 'src/app/services/feed.service';
 import { TokenService } from 'src/app/services/token.service';
 import { Title } from '@angular/platform-browser';
-import { Friend } from 'src/models/identity/friend';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FriendService } from 'src/app/services/friend.service';
 
 @Component({
   selector: 'app-profile',
@@ -29,44 +27,34 @@ export class ProfileComponent implements OnInit {
   public isAdminUser = false;
   public dataArrived = false;
   public friendOfUser = false;
-  public updatingFriendship = false;
   public user: User;
   public userPosts: Post[];
-  public updateFrienship: FormGroup;
 
-  constructor(private _titleService: Title, private _fb: FormBuilder, private _router: Router, private _userService: UserService, private _languageService: LanguageService, private _technologyService: TechnologyService, private _feedService: FeedService, private _location: Location, private _tokenService: TokenService) {
+  constructor(private _titleService: Title, private _router: Router, private _userService: UserService, private _friendService: FriendService, private _languageService: LanguageService, private _technologyService: TechnologyService, private _feedService: FeedService, private _location: Location, private _tokenService: TokenService) {
     this._titleService.setTitle(this._title);
-  }
-
-  private setDefaultUser(): void {
-    this.user = this._userService.getDefaultUser();
   }
 
   ngOnInit(): void {
     this._urlUsername = this._router.url.substring(9);
 
     const now = new Date();
-    now.setHours(now.getHours() + 2); // accounting for eastern europe timezone
+    now.setHours(now.getHours() + 3); // accounting for eastern europe timezone
     this._timeLoaded = now.toISOString();
     this._currentPage = 1;
 
     this.user = this._userService.getDefaultUser();
     this.userPosts = [];
 
-    this.updateFrienship = this._fb.group({
-      password: new FormControl('')
-    });
-
-    this._userService.getUserByUsernameRequest(this._urlUsername).subscribe(
-      (res: object) => {
+    this._userService.getUserByUsernameRequest(this._urlUsername).subscribe({
+      next: (res: object) => {
         Object.assign(this.user, res);
         this.isAdminUser = this.user.roles.map(x => x.name).includes(AppConstants.ADMIN_ROLE_NAME);
         this.loadLanguages();
       },
-      (err: HttpErrorResponse) => {
+      error: () => {
         this._router.navigate(['/not-found']);
       }
-    );
+    });
   }
 
   private loadLanguages(): void {
@@ -96,17 +84,17 @@ export class ProfileComponent implements OnInit {
   }
 
   private loadPosts(): void {
-    this._feedService.getUserPostsRequest(this.user.userName, this._currentPage++, this._timeLoaded, AppConstants.PAGE_SIZE).subscribe(
-      (result: object) => {
+    this._feedService.getUserPostsRequest(this.user.userName, this._currentPage++, this._timeLoaded, AppConstants.PAGE_SIZE).subscribe({
+      next: (result: object) => {
         const resultArr: Post[] = Object.values(result)[0];
         this.userPosts.push(...resultArr);
         this.finishUserLoading();
       },
-      (err: HttpErrorResponse) => {
+      error: () => {
         this._currentPage = -1;
         this.finishUserLoading();
       }
-    );
+    });
   }
 
   private finishUserLoading(): void {
@@ -114,8 +102,8 @@ export class ProfileComponent implements OnInit {
       this.isUserLoggedIn = true;
       const userFromToken: User = this._userService.getDefaultUser();
 
-      this._userService.getUserFromSessionStorageRequest().subscribe(
-        (tokenRes: object) => {
+      this._userService.getUserFromSessionStorageRequest().subscribe({
+        next: (tokenRes: object) => {
           Object.assign(userFromToken, tokenRes);
 
           if (userFromToken.friends.map(x => x.userName).includes(this._urlUsername)) {
@@ -126,26 +114,14 @@ export class ProfileComponent implements OnInit {
           }
           this.dataArrived = true;
         },
-        (err: HttpErrorResponse) => {
+        error: () => {
           this.logout();
         }
-      );
+      });
     }
     else {
       this.dataArrived = true;
     }
-  }
-
-  goBack(): void {
-    this._router.navigate(['/']);
-  }
-
-  navigateToAdminPanel(): void {
-    this._router.navigate(['/admin-panel']);
-  }
-
-  navigateToSettings(): void {
-    this._router.navigate([this._router.url + '/settings']);
   }
 
   logout(): void {
@@ -158,34 +134,35 @@ export class ProfileComponent implements OnInit {
   }
 
   modifyFriend(): void {
-    if (this.updatingFriendship) {
-      this.dataArrived = false;
-
-      this._userService.getUserFromSessionStorageRequest().subscribe(
-        (result: object) => {
-          const loggedInUser: User = result as User;
-
-          if (this.friendOfUser) {
-            loggedInUser.friends = loggedInUser.friends.filter(x => x.userName !== this.user.userName);
-          }
-          else {
-            const newFriend = new Friend();
-            newFriend.userName = this.user.userName;
-            loggedInUser.friends.push(newFriend);
-          }
-
-          this._userService.putBareUserFromSessionStorageRequest(loggedInUser, this.updateFrienship.get('password')?.value).subscribe(
-            (resultUpdate: object) => {
-              this.reloadPage();
-            },
-            (err: HttpErrorResponse) => {
-              this._router.navigate(['/']);
-            }
-          );
-        }
-      );
+    this.dataArrived = false;
+    if (this.friendOfUser) {
+      this.removeFriendFromLoggedInUser();
     }
-    this.updatingFriendship = !this.updatingFriendship;
+    else {
+      this.addFriendToLoggedInUser();
+    }
+  }
+
+  private addFriendToLoggedInUser(): void {
+    this._friendService.postFriendWithSessionStorageRequest(this.user.userName).subscribe({
+      next: () => {
+        this.reloadPage();
+      },
+      error: () => {
+        this._router.navigate(['/']);
+      }
+    });
+  }
+
+  private removeFriendFromLoggedInUser(): void {
+    this._friendService.deleteFriendWithSessionStorageRequest(this.user.userName).subscribe({
+      next: () => {
+        this.reloadPage();
+      },
+      error: () => {
+        this._router.navigate(['/']);
+      }
+    });
   }
 
   onScroll(event: any): void {

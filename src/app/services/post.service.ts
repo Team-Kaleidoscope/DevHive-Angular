@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import * as FormData from 'form-data';
 import { Guid } from 'guid-typescript';
 import { Observable } from 'rxjs';
-import { Post } from 'src/models/post';
+import { Post } from 'src/models/post.model';
 import { AppConstants } from '../app-constants.module';
 import { TokenService } from './token.service';
 
@@ -15,7 +15,7 @@ export class PostService {
   { }
 
   getDefaultPost(): Post {
-    return new Post(Guid.createEmpty(), 'Gosho', 'Trapov', 'gosho_trapov', 'Your opinion on my idea?', new Date(), [], []);
+    return new Post(Guid.createEmpty(), '', '', '', '', new Date(), [], [], 0);
   }
 
   /* Requests from session storage */
@@ -78,7 +78,7 @@ export class PostService {
 
   deletePostRequest(postId: Guid, authToken: string): Observable<object> {
     const options = {
-      params: new HttpParams().set('Id', postId.toString()),
+      params: new HttpParams().set('PostId', postId.toString()),
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + authToken)
     };
     return this._http.delete(AppConstants.API_POST_URL, options);
